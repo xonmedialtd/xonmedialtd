@@ -1,0 +1,13 @@
+{
+  "name": "xonmedialtd",
+  "version": "1.0.0",
+  "description": "Static carbon copy of xonmedia.ltd for Cloudflare Pages",
+  "private": true,
+  "scripts": {
+    "dev": "wrangler pages dev public",
+    "deploy": "wrangler pages deploy public --project-name=xonmedia"
+  },
+  "devDependencies": {
+    "wrangler": "^4.135.0"
+  }
+}

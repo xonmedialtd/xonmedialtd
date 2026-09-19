@@ -1,0 +1,20 @@
+﻿# XON MEDIA LTD
+
+> Digital agency specializing in paid advertising, social media management, web analytics, content creation, web development, and digital consultancy. Contact: info@xonmedia.ltd
+
+This file follows the [llms.txt](https://llmstxt.org/) proposal so agents can discover clean markdown versions of site content. Prefer these files over scraping HTML.
+
+Important notes:
+
+- Marketing site for XON MEDIA LTD (not a product app or dashboard)
+- Primary pages: homepage (anchored sections) and Contact
+
+## Pages
+
+- [Home](/index.md): Full homepage copy — hero, services, why us, about, footer
+- [Contact](/contact/index.md): Contact route and details
+
+## Optional
+
+- [Live site](https://www.xonmedia.ltd/): Production URL
+- [Cloudflare Pages preview](https://xonmedia.pages.dev/): Static hosting preview

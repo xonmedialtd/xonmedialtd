@@ -1,0 +1,41 @@
+/* XON Media brand fonts — see design.md */
+
+@font-face {
+  font-family: Hacked;
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("./hacked/HACKED.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: Karla;
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("./karla/Karla-Regular.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: Karla;
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("./karla/Karla-Bold.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: Rubik;
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("./rubik/Rubik-Regular.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: Rubik;
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("./rubik/Rubik-Bold.ttf") format("truetype");
+}

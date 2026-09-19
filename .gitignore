@@ -1,0 +1,10 @@
+node_modules/
+.wrangler/
+.dev.vars
+.DS_Store
+Thumbs.db
+*.log
+.env
+.env.*
+!.env.example
+HACKED.zip
