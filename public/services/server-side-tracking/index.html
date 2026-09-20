@@ -1,0 +1,1091 @@
+<!DOCTYPE html>
+<html class="dark scroll-smooth" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>XON MEDIA // Server-Side Tracking Architecture</title>
+<link href="/fonts/fonts.css" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Karla:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&amp;family=Rubik:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400&amp;family=Space+Mono:ital,wght@0,400;0,700;1,400&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+@layer base {
+  html, body {
+    margin: 0;
+    padding: 0;
+    background-color: #07080b;
+  }
+}
+.font-mono-tech {
+  font-family: 'Space Mono', monospace;
+}
+.matrix-grid {
+  background-size: 40px 40px;
+  background-image:
+    linear-gradient(to right, rgba(0, 172, 255, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0, 172, 255, 0.04) 1px, transparent 1px);
+}
+/* Option E: Hacked display — weight 400, open tracking */
+.font-hacked {
+  font-family: Hacked, sans-serif;
+  font-weight: 400;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  line-height: 1.15;
+}
+@keyframes horizontal-slice-1 {
+  0% {
+    clip-path: polygon(0 2%, 100% 2%, 100% 12%, 0 12%);
+    transform: translate(-5px, 0);
+  }
+  15% {
+    clip-path: polygon(0 25%, 100% 25%, 100% 35%, 0 35%);
+    transform: translate(6px, 0);
+  }
+  30% {
+    clip-path: polygon(0 50%, 100% 50%, 100% 58%, 0 58%);
+    transform: translate(-4px, 0);
+  }
+  45% {
+    clip-path: polygon(0 70%, 100% 70%, 100% 80%, 0 80%);
+    transform: translate(5px, 0);
+  }
+  60% {
+    clip-path: polygon(0 85%, 100% 85%, 100% 95%, 0 95%);
+    transform: translate(-7px, 0);
+  }
+  75% {
+    clip-path: polygon(0 15%, 100% 15%, 100% 22%, 0 22%);
+    transform: translate(4px, 0);
+  }
+  100% {
+    clip-path: polygon(0 40%, 100% 40%, 100% 48%, 0 48%);
+    transform: translate(-3px, 0);
+  }
+}
+@keyframes horizontal-slice-2 {
+  0% {
+    clip-path: polygon(0 18%, 100% 18%, 100% 28%, 0 28%);
+    transform: translate(6px, 0);
+  }
+  20% {
+    clip-path: polygon(0 42%, 100% 42%, 100% 52%, 0 52%);
+    transform: translate(-6px, 0);
+  }
+  40% {
+    clip-path: polygon(0 62%, 100% 62%, 100% 70%, 0 70%);
+    transform: translate(4px, 0);
+  }
+  60% {
+    clip-path: polygon(0 80%, 100% 80%, 100% 92%, 0 92%);
+    transform: translate(-5px, 0);
+  }
+  80% {
+    clip-path: polygon(0 5%, 100% 5%, 100% 14%, 0 14%);
+    transform: translate(5px, 0);
+  }
+  100% {
+    clip-path: polygon(0 60%, 100% 60%, 100% 68%, 0 68%);
+    transform: translate(3px, 0);
+  }
+}
+.glitch-slice-title {
+  position: relative;
+  display: inline-block;
+}
+.glitch-slice-title::before,
+.glitch-slice-title::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #07080b;
+  opacity: 0;
+  pointer-events: none;
+  visibility: hidden;
+  font-family: inherit;
+  font-weight: inherit;
+  letter-spacing: inherit;
+  text-transform: inherit;
+  line-height: inherit;
+}
+.glitch-slice-title::before {
+  left: 3px;
+  color: #00acff;
+  text-shadow: -2px 0 #91cdff;
+}
+.glitch-slice-title::after {
+  left: -3px;
+  color: #ffffff;
+  text-shadow: 2px 0 #00acff;
+}
+.glitch-slice-title.is-glitching::before {
+  visibility: visible;
+  opacity: 0.9;
+  animation: horizontal-slice-1 0.55s steps(2, start) 1;
+}
+.glitch-slice-title.is-glitching::after {
+  visibility: visible;
+  opacity: 0.8;
+  animation: horizontal-slice-2 0.45s steps(2, start) 1;
+}
+.xon-glitch-hover {
+  transition: all 0.2s ease;
+}
+.xon-glitch-hover:hover {
+  text-shadow: 2px 0 rgba(0, 172, 255, 0.8), -2px 0 rgba(255, 255, 255, 0.7);
+  transform: translateX(1px);
+}
+.card-glitch-frame:hover {
+  box-shadow: 0 0 25px rgba(0, 172, 255, 0.18), inset 0 0 15px rgba(0, 172, 255, 0.05);
+}
+@media (prefers-reduced-motion: reduce) {
+  .glitch-slice-title.is-glitching::before,
+  .glitch-slice-title.is-glitching::after,
+  .animate-marquee {
+    animation: none !important;
+  }
+  .glitch-slice-title::before,
+  .glitch-slice-title::after {
+    display: none !important;
+  }
+}
+@keyframes ticker {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+.animate-marquee {
+  display: flex;
+  width: max-content;
+  animation: ticker 32s linear infinite;
+}
+.animate-marquee:hover {
+  animation-play-state: paused;
+}
+/* Mobile nav */
+#mobile-menu {
+  display: none;
+}
+#mobile-menu.is-open {
+  display: block;
+}
+.burger-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border: 1px solid rgba(0, 172, 255, 0.4);
+  background: #101218;
+  color: #00acff;
+  cursor: pointer;
+}
+.burger-btn .material-symbols-outlined {
+  font-size: 22px;
+}
+@media (min-width: 768px) {
+  .burger-btn {
+    display: none;
+  }
+  #mobile-menu {
+    display: none !important;
+  }
+}
+</style>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+tailwind.config = {
+  darkMode: "class",
+  theme: {
+    extend: {
+      colors: {
+        "surface-tint": "#91cdff",
+        "on-tertiary": "#002979",
+        "text-muted": "#8d96a5",
+        "surface-canvas": "#07080b",
+        "surface-container": "#1d1f26",
+        "surface-dim": "#111319",
+        "surface-container-lowest": "#0c0e14",
+        "text-primary": "#f6f7f8",
+        "primary": "#91cdff",
+        "primary-container": "#00acff",
+        "primary-cyan": "#00acff",
+        "surface-container-high": "#282a30",
+        "tertiary-container": "#809fff",
+        "secondary": "#c1c2fb",
+        "tertiary": "#b4c5ff",
+        "background": "#111319",
+        "matrix-cyan-glow": "#00acff33",
+        "outline-variant": "#3e4851",
+        "outline-bright": "#4b4f58",
+        "outline-dim": "#222733",
+        "surface-elevated": "#171a23",
+        "surface-dark": "#101218"
+      },
+      fontFamily: {
+        headline: ["Rubik", "sans-serif"],
+        display: ["Hacked", "sans-serif"],
+        body: ["Karla", "sans-serif"],
+        mono: ["Space Mono", "monospace"]
+      }
+    }
+  }
+};
+</script>
+
+</head>
+<body class="bg-[#07080b] text-[#f6f7f8] font-body antialiased selection:bg-[#00acff] selection:text-black matrix-grid relative selection:font-medium crt-scanlines-off">
+<canvas class="fixed inset-0 pointer-events-none z-0 opacity-40" id="matrix-canvas"></canvas>
+<div class="fixed inset-0 pointer-events-none z-0"><div class="absolute -top-48 left-1/2 -translate-x-1/2 w-[850px] h-[550px] bg-[#00acff]/[0.08] blur-[150px] rounded-full"></div><div class="absolute bottom-1/4 right-0 w-[500px] h-[500px] bg-[#010033]/60 blur-[130px] rounded-full"></div></div>
+<header class="fixed top-0 left-0 w-full z-50 bg-[#07080b]/90 backdrop-blur-xl border-b border-[#00acff]/20">
+  <div class="max-w-[1280px] mx-auto h-20 px-6 sm:px-8 flex items-center justify-between gap-6">
+    <div class="flex items-center gap-6 min-w-0">
+      <a class="flex items-center group focus:outline-none shrink-0" href="/">
+        <img alt="XON MEDIA LTD" class="h-6 sm:h-7 w-auto object-contain transition-transform duration-300 group-hover:scale-[1.02] filter drop-shadow-[0_0_10px_rgba(0,172,255,0.5)]" src="/assets/xon-logo-white.svg"/>
+      </a>
+      <div class="hidden xl:flex items-center gap-2 px-3 py-1 rounded-sm bg-[#101218] border border-[#00acff]/30 shadow-[0_0_10px_rgba(0,172,255,0.15)]">
+        <span class="w-1.5 h-1.5 rounded-full bg-[#00acff] animate-ping"></span>
+        <span class="font-mono text-[10px] tracking-widest text-[#00acff] font-bold uppercase xon-glitch-hover">ARCH // MATRIX_CORE_v2.5</span>
+      </div>
+    </div>
+    <nav class="hidden md:flex items-center gap-8 font-mono text-xs uppercase tracking-widest text-[#8d96a5]">
+      <a class="hover:text-[#00acff] transition-colors" href="/">Home</a>
+      <a class="hover:text-[#00acff] transition-colors" href="/#services">What We Do</a>
+      <a class="hover:text-[#00acff] transition-colors" href="/#telemetry">Data Pipeline</a>
+      <a class="hover:text-[#00acff] transition-colors" href="/#whyus">About Us</a>
+      <a class="hover:text-[#00acff] transition-colors" href="/contact/">Contact</a>
+    </nav>
+    <div class="flex items-center gap-3">
+      <a class="hidden md:inline-flex relative items-center justify-center px-5 py-2.5 rounded-sm font-mono text-xs font-bold uppercase tracking-widest bg-transparent text-[#00acff] border border-[#00acff] hover:bg-[#00acff] hover:text-black shadow-[0_0_15px_rgba(0,172,255,0.2)] hover:shadow-[0_0_24px_rgba(0,172,255,0.6)] transition-all duration-300 group" href="/contact/">
+        <span class="group-hover:tracking-wider transition-all">Contact Us //</span>
+        <span class="material-symbols-outlined text-[16px] ml-1.5 group-hover:translate-x-1 transition-transform">arrow_forward</span>
+      </a>
+      <button type="button" class="burger-btn" id="burger-btn" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
+        <span class="material-symbols-outlined" id="burger-icon" aria-hidden="true">menu</span>
+      </button>
+    </div>
+  </div>
+  <div id="mobile-menu" class="md:hidden border-t border-[#00acff]/20 bg-[#07080b]/98 backdrop-blur-xl" hidden>
+    <nav class="px-6 py-6 flex flex-col gap-1 font-mono text-sm uppercase tracking-widest text-[#8d96a5]">
+      <a class="py-3 border-b border-[#00acff]/10 hover:text-[#00acff] transition-colors" href="/">Home</a>
+      <a class="py-3 border-b border-[#00acff]/10 hover:text-[#00acff] transition-colors" href="/#services">What We Do</a>
+      <a class="py-3 border-b border-[#00acff]/10 hover:text-[#00acff] transition-colors" href="/#telemetry">Data Pipeline</a>
+      <a class="py-3 border-b border-[#00acff]/10 hover:text-[#00acff] transition-colors" href="/#whyus">About Us</a>
+      <a class="py-3 border-b border-[#00acff]/10 hover:text-[#00acff] transition-colors" href="/contact/">Contact</a>
+      <a class="mt-4 inline-flex items-center justify-center gap-2 px-5 py-3 font-mono text-xs font-bold uppercase tracking-widest text-black bg-[#00acff] hover:bg-white transition-colors" href="/contact/">
+        <span>Contact Us //</span>
+        <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+      </a>
+    </nav>
+  </div>
+</header>
+
+<main class="relative z-10 w-full pt-20">
+
+<!-- Hero -->
+<section class="relative w-full overflow-hidden pt-10 pb-16 border-b border-[#00acff]/15">
+  <div class="absolute -top-32 left-1/4 w-96 h-96 rounded-full bg-[#00acff]/10 blur-[120px] pointer-events-none"></div>
+  <div class="absolute top-1/2 -right-24 w-80 h-80 rounded-full bg-[#809fff]/10 blur-[100px] pointer-events-none"></div>
+  <div class="max-w-[1280px] mx-auto px-6 sm:px-8 relative z-10">
+    <div class="flex flex-wrap items-center justify-between gap-3 mb-6">
+      <div class="inline-flex items-center gap-2 px-3 py-1 bg-[#101218] border border-[#00acff]/20 font-mono text-[10px] uppercase tracking-widest text-[#8d96a5]">
+        <span class="text-[#00acff]">// ARCHITECTURE SPEC</span>
+        <span class="text-[#3e4851]">/</span>
+        <span class="text-white">01.B DATA INFRASTRUCTURE</span>
+        <span class="text-[#3e4851]">/</span>
+        <span class="text-[#00acff] font-bold">NODE_01.07</span>
+      </div>
+      <div class="flex items-center gap-2 font-mono text-[10px] uppercase tracking-widest text-[#8d96a5]">
+        <span class="w-2 h-2 rounded-full bg-[#00acff] animate-ping"></span>
+        <span>SYS_VER: 2026.4 // CLOUD-RUN CERTIFIED</span>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
+      <div class="lg:col-span-8 flex flex-col gap-5">
+        <div class="inline-block w-fit px-2 py-0.5 bg-[#171a23] font-mono text-[10px] tracking-widest uppercase text-[#00acff]">
+          [ CAPABILITY_PROFILE // SERVICE 01.07 ]
+        </div>
+        <h1 class="font-hacked text-4xl sm:text-5xl lg:text-6xl text-white">
+          <span class="glitch-slice-title" data-text="SERVER-SIDE TRACKING">Server-Side Tracking</span><br/>
+          <span class="glitch-slice-title text-[#00acff]" data-text="ARCHITECTURE">Architecture</span>
+        </h1>
+        <p class="font-body text-lg text-[#8d96a5] max-w-2xl leading-relaxed">
+          Bypass ad blockers, defeat iOS Safari ITP cookie degradation, and reclaim 100% data transmission fidelity with enterprise-grade Server-Side Google Tag Manager (SGTM) built on low-latency sovereign cloud nodes.
+        </p>
+        <div class="flex flex-wrap items-center gap-4 pt-2">
+          <a class="inline-flex items-center gap-2 px-8 py-4 bg-[#00acff] text-black font-mono text-xs font-bold uppercase tracking-widest hover:bg-white transition-all shadow-[0_0_24px_rgba(0,172,255,0.3)]" href="#intake-terminal">
+            <span>Deploy Architecture</span>
+            <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+          </a>
+          <a class="inline-flex items-center gap-2 px-6 py-4 border border-[#00acff]/30 bg-[#101218]/80 font-mono text-xs font-bold uppercase tracking-widest text-[#8d96a5] hover:text-white hover:border-[#00acff] transition-colors" href="/contact/">
+            <span class="material-symbols-outlined text-[16px] text-[#00acff]">terminal</span>
+            <span>Book Technical Audit</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="lg:col-span-4 bg-[#101218] border border-[#00acff]/20 p-6 flex flex-col gap-4 relative overflow-hidden card-glitch-frame">
+        <div class="flex items-center justify-between pb-2 border-b border-[#00acff]/15">
+          <div class="flex items-center gap-2">
+            <span class="material-symbols-outlined text-[#00acff] text-[18px]">cloud_sync</span>
+            <span class="font-mono text-[10px] uppercase tracking-widest text-white">Node Telemetry Status</span>
+          </div>
+          <span class="font-mono text-[10px] text-[#00acff] tracking-widest">LIVE_ONLINE</span>
+        </div>
+        <div class="py-3 px-3 bg-[#07080b] border border-[#00acff]/10 space-y-2">
+          <div class="flex justify-between items-center font-mono text-[10px]">
+            <span class="text-[#8d96a5]">SIGNAL LOSS RECOVERED</span>
+            <span class="text-[#00acff] font-bold">+34.8%</span>
+          </div>
+          <div class="w-full bg-[#1d1f26] h-1.5 overflow-hidden">
+            <div class="bg-[#00acff] h-full w-[94%] shadow-[0_0_8px_rgba(0,172,255,0.6)]"></div>
+          </div>
+          <div class="flex justify-between font-mono text-[10px] text-[#8d96a5] pt-1">
+            <span>Client Drop: -38%</span>
+            <span class="text-[#00acff]">S2S Fidelity: 99.98%</span>
+          </div>
+        </div>
+        <div class="space-y-2 font-mono text-[11px] text-[#8d96a5]">
+          <div class="flex justify-between gap-2"><span>Edge Provisioning:</span><span class="text-white text-right">GCP Cloud Run (us-east1)</span></div>
+          <div class="flex justify-between gap-2"><span>Subdomain Auth:</span><span class="text-white text-right">sgtm.yourdomain.com</span></div>
+          <div class="flex justify-between gap-2"><span>Avg Ingestion Latency:</span><span class="text-[#00acff] font-bold">14.2ms</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-12 grid grid-cols-2 md:grid-cols-4 gap-px bg-[#00acff]/20 border border-[#00acff]/20">
+      <div class="bg-[#101218] p-5 flex flex-col gap-1">
+        <span class="font-mono text-[10px] uppercase tracking-widest text-[#8d96a5]">Deployment Stack</span>
+        <span class="font-headline text-base font-semibold text-white mt-1">GCP / AWS / Stape</span>
+        <span class="font-mono text-[10px] text-[#8d96a5]">Docker Containerised SGTM</span>
+      </div>
+      <div class="bg-[#101218] p-5 flex flex-col gap-1">
+        <span class="font-mono text-[10px] uppercase tracking-widest text-[#8d96a5]">Routing Protocol</span>
+        <span class="font-headline text-base font-semibold text-[#00acff] mt-1">1st-Party Domain</span>
+        <span class="font-mono text-[10px] text-[#8d96a5]">DNS CNAME / Reverse Proxy</span>
+      </div>
+      <div class="bg-[#101218] p-5 flex flex-col gap-1">
+        <span class="font-mono text-[10px] uppercase tracking-widest text-[#8d96a5]">Cookie Longevity</span>
+        <span class="font-headline text-base font-semibold text-white mt-1">365–730 Days</span>
+        <span class="font-mono text-[10px] text-[#8d96a5]">Bypasses Safari 1-7d Caps</span>
+      </div>
+      <div class="bg-[#101218] p-5 flex flex-col gap-1">
+        <span class="font-mono text-[10px] uppercase tracking-widest text-[#8d96a5]">SLA Recovery</span>
+        <span class="font-headline text-base font-semibold text-[#00acff] mt-1">99.98% Fidelity</span>
+        <span class="font-mono text-[10px] text-[#8d96a5]">Near-zero lost conversions</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Topology -->
+<section class="w-full py-20 sm:py-28 bg-[#171a23]/80 border-b border-[#00acff]/15">
+  <div class="max-w-[1280px] mx-auto px-6 sm:px-8">
+    <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
+      <div>
+        <div class="font-mono text-xs uppercase tracking-[0.3em] text-[#00acff] font-bold">// Topology Comparison</div>
+        <h2 class="font-hacked text-3xl sm:text-4xl lg:text-5xl text-white mt-2 glitch-slice-title" data-text="DATA FLOW PARADIGM RECONSTRUCTION">Data Flow Paradigm Reconstruction</h2>
+      </div>
+      <p class="font-body text-sm text-[#8d96a5] max-w-md">
+        Contrast legacy browser-side telemetry degradation against the hardened sovereign pipeline orchestrated by XON Media.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+      <div class="lg:col-span-5 bg-[#07080b] border border-[#00acff]/20 p-6 sm:p-8 flex flex-col justify-between card-glitch-frame">
+        <div>
+          <div class="flex items-center justify-between mb-6 gap-3">
+            <div class="flex items-center gap-2">
+              <span class="material-symbols-outlined text-red-400 text-[18px]">block</span>
+              <span class="font-mono text-[11px] uppercase tracking-widest text-red-400">Legacy Client-Side (Vulnerable)</span>
+            </div>
+            <span class="px-2 py-0.5 border border-red-400/40 font-mono text-[10px] text-red-400">-30% to -40% LOSS</span>
+          </div>
+          <div class="space-y-4 font-body text-sm">
+            <div class="p-4 border border-[#00acff]/15 bg-[#101218] flex items-center justify-between gap-3">
+              <div class="flex items-center gap-2 text-white"><span class="material-symbols-outlined text-[#8d96a5]">devices</span> User Browser</div>
+              <span class="font-mono text-[10px] text-[#8d96a5]">HIT INITIATED</span>
+            </div>
+            <div class="p-4 border border-red-400/20 bg-[#101218]">
+              <div class="flex items-center justify-between mb-2">
+                <span class="font-mono text-[10px] text-red-400 flex items-center gap-1"><span class="material-symbols-outlined text-sm">warning</span> AdBlock &amp; Safari ITP Cap</span>
+                <span class="font-mono text-[10px] text-[#8d96a5]">INTERCEPTION</span>
+              </div>
+              <p class="text-[#8d96a5] text-xs leading-relaxed">DNS heuristics block gtm.js. Safari trims tracking cookies after 24 hrs. Brave strips script payloads entirely.</p>
+            </div>
+            <div class="flex justify-center"><span class="material-symbols-outlined text-red-400 animate-pulse">arrow_downward</span></div>
+            <div class="p-4 border border-[#00acff]/10 bg-[#101218] opacity-70">
+              <span class="font-mono text-[10px] text-[#8d96a5] uppercase">Corrupted Ad Algorithms</span>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 mt-3 text-xs text-[#8d96a5]">
+                <div class="p-2 bg-[#07080b]">Meta Pixel: Under-reporting -35%</div>
+                <div class="p-2 bg-[#07080b]">GA4: Lost attribution chains</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="mt-6 p-3 border border-[#00acff]/10 text-center font-mono text-[10px] text-[#8d96a5] uppercase tracking-wider">
+          Result: Inflated CPA // Erroneous ROAS Reporting
+        </div>
+      </div>
+
+      <div class="lg:col-span-2 flex lg:flex-col items-center justify-center gap-4 py-4">
+        <div class="h-px lg:h-16 w-full lg:w-px bg-[#00acff]/25"></div>
+        <div class="w-10 h-10 bg-[#00acff] text-black font-mono text-xs font-bold flex items-center justify-center shadow-[0_0_16px_rgba(0,172,255,0.4)]">VS</div>
+        <div class="h-px lg:h-16 w-full lg:w-px bg-[#00acff]/25"></div>
+      </div>
+
+      <div class="lg:col-span-5 bg-[#101218] border border-[#00acff]/30 p-6 sm:p-8 relative overflow-hidden flex flex-col justify-between card-glitch-frame">
+        <div class="absolute -top-12 -right-12 w-48 h-48 rounded-full bg-[#00acff]/10 blur-[80px]"></div>
+        <div class="relative z-10">
+          <div class="flex items-center justify-between mb-6 gap-3">
+            <div class="flex items-center gap-2">
+              <span class="material-symbols-outlined text-[#00acff] text-[18px]">security</span>
+              <span class="font-mono text-[11px] uppercase tracking-widest text-[#00acff]">XON SGTM Architecture (Fortified)</span>
+            </div>
+            <span class="px-2 py-0.5 border border-[#00acff]/40 font-mono text-[10px] text-[#00acff]">100% FIDELITY</span>
+          </div>
+          <div class="space-y-4 font-body text-sm">
+            <div class="p-4 border border-[#00acff]/20 bg-[#07080b] flex items-center justify-between gap-3">
+              <div class="flex items-center gap-2 text-white"><span class="material-symbols-outlined text-[#00acff]">verified_user</span> 1st-Party Domain Request</div>
+              <span class="font-mono text-[10px] text-[#00acff]">NO BLOCKERS</span>
+            </div>
+            <div class="p-4 border border-[#00acff]/20 bg-[#171a23]">
+              <div class="flex items-center justify-between mb-2 gap-2">
+                <span class="font-mono text-[10px] text-[#00acff] font-bold flex items-center gap-1"><span class="material-symbols-outlined text-sm">memory</span> Sovereign Cloud Container</span>
+                <span class="font-mono text-[10px] text-[#8d96a5]">Cloud Run / AWS</span>
+              </div>
+              <p class="text-[#8d96a5] text-xs leading-relaxed">PII Scrubbing, DataLayer Enrichment, HTTP-Only Cookie Generation, 730-day Cookie persistence.</p>
+            </div>
+            <div class="flex justify-center"><span class="material-symbols-outlined text-[#00acff]">sync_alt</span></div>
+            <div class="p-4 border border-[#00acff]/20 bg-[#07080b]">
+              <span class="font-mono text-[10px] text-white uppercase tracking-wider">Direct S2S API Fanout (0ms Client Burden)</span>
+              <div class="grid grid-cols-2 gap-2 mt-3 text-[11px] font-mono text-[#00acff]">
+                <div class="p-2 bg-[#101218] flex items-center justify-between"><span>Meta CAPI</span><span class="material-symbols-outlined text-xs">check</span></div>
+                <div class="p-2 bg-[#101218] flex items-center justify-between"><span>GA4 Direct</span><span class="material-symbols-outlined text-xs">check</span></div>
+                <div class="p-2 bg-[#101218] flex items-center justify-between"><span>TikTok S2S</span><span class="material-symbols-outlined text-xs">check</span></div>
+                <div class="p-2 bg-[#101218] flex items-center justify-between"><span>BigQuery</span><span class="material-symbols-outlined text-xs">check</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="relative z-10 mt-6 p-3 border border-[#00acff]/20 flex items-center justify-between font-mono text-[10px]">
+          <span class="text-[#8d96a5]">BENCHMARK EVENT MATCH QUALITY:</span>
+          <span class="text-[#00acff] font-bold">9.4 / 10.0</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-10 grid grid-cols-2 md:grid-cols-4 gap-4">
+      <div class="bg-[#07080b] border border-[#00acff]/15 p-6 text-center">
+        <div class="font-hacked text-3xl text-[#00acff]">+22.4%</div>
+        <div class="font-mono text-[10px] text-[#8d96a5] mt-2 uppercase tracking-wider">Attributed Purchase Events</div>
+      </div>
+      <div class="bg-[#07080b] border border-[#00acff]/15 p-6 text-center">
+        <div class="font-hacked text-3xl text-[#00acff]">&lt; 18ms</div>
+        <div class="font-mono text-[10px] text-[#8d96a5] mt-2 uppercase tracking-wider">Server Execution Window</div>
+      </div>
+      <div class="bg-[#07080b] border border-[#00acff]/15 p-6 text-center">
+        <div class="font-hacked text-3xl text-[#00acff]">100%</div>
+        <div class="font-mono text-[10px] text-[#8d96a5] mt-2 uppercase tracking-wider">Deduplication Integrity</div>
+      </div>
+      <div class="bg-[#07080b] border border-[#00acff]/15 p-6 text-center">
+        <div class="font-hacked text-3xl text-[#00acff]">-420ms</div>
+        <div class="font-mono text-[10px] text-[#8d96a5] mt-2 uppercase tracking-wider">Client Webpage Load Time</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Specs -->
+<section class="w-full py-20 sm:py-28 border-b border-[#00acff]/15">
+  <div class="max-w-[1280px] mx-auto px-6 sm:px-8">
+    <div class="mb-12">
+      <div class="font-mono text-xs uppercase tracking-[0.3em] text-[#00acff] font-bold">// Specifications &amp; Capabilities</div>
+      <h2 class="font-hacked text-3xl sm:text-4xl lg:text-5xl text-white mt-2 glitch-slice-title" data-text="HARDENED TELEMETRY PROTOCOLS">Hardened Telemetry Protocols</h2>
+      <p class="font-body text-base text-[#8d96a5] max-w-xl mt-4">Engineered for extreme reliability, maximum attribution lifespan, and impenetrable privacy compliance across all paid user acquisition funnels.</p>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-[#00acff]/20 border border-[#00acff]/20">
+      <div class="bg-[#101218] p-8 flex flex-col justify-between gap-8 group hover:bg-[#07080b] transition-colors card-glitch-frame">
+        <div class="space-y-4">
+          <div class="flex items-center justify-between font-mono text-[10px] text-[#8d96a5]"><span>// MODULE 01</span><span class="material-symbols-outlined text-[#00acff] text-[20px]">timer</span></div>
+          <h3 class="font-hacked text-xl text-white group-hover:text-[#00acff] transition-colors">First-Party Cookie Fortification</h3>
+          <p class="font-body text-sm text-[#8d96a5] leading-relaxed">Apple’s Safari ITP caps client-stored cookies to 24 hours or 7 days. By issuing Set-Cookie headers from your server subdomain (<code class="text-[#00acff] font-mono text-xs">data.brand.com</code>), user IDs endure for up to 730 days.</p>
+        </div>
+        <div class="pt-4 border-t border-[#00acff]/15 font-mono text-[10px] text-[#00acff] uppercase tracking-widest">Resists Safari ITP 2.4 &amp; 3.0</div>
+      </div>
+      <div class="bg-[#101218] p-8 flex flex-col justify-between gap-8 group hover:bg-[#07080b] transition-colors card-glitch-frame">
+        <div class="space-y-4">
+          <div class="flex items-center justify-between font-mono text-[10px] text-[#8d96a5]"><span>// MODULE 02</span><span class="material-symbols-outlined text-[#00acff] text-[20px]">shield</span></div>
+          <h3 class="font-hacked text-xl text-white group-hover:text-[#00acff] transition-colors">Ad-Blocker &amp; Heuristic Bypass</h3>
+          <p class="font-body text-sm text-[#8d96a5] leading-relaxed">uBlock Origin, Brave Shields, and Firefox ETP monitor third-party endpoints. Proxying the GTM loader and conversion events through an obscure internal endpoint lets telemetry traverse without friction.</p>
+        </div>
+        <div class="pt-4 border-t border-[#00acff]/15 font-mono text-[10px] text-[#00acff] uppercase tracking-widest">DNS-Based Filter Evasion</div>
+      </div>
+      <div class="bg-[#101218] p-8 flex flex-col justify-between gap-8 group hover:bg-[#07080b] transition-colors card-glitch-frame">
+        <div class="space-y-4">
+          <div class="flex items-center justify-between font-mono text-[10px] text-[#8d96a5]"><span>// MODULE 03</span><span class="material-symbols-outlined text-[#00acff] text-[20px]">sanitizer</span></div>
+          <h3 class="font-hacked text-xl text-white group-hover:text-[#00acff] transition-colors">Payload Scrubbing &amp; PII Hash</h3>
+          <p class="font-body text-sm text-[#8d96a5] leading-relaxed">Total compliance control before data leaves your perimeter. Transform emails, phones, and addresses into SHA-256 hashes server-side for GDPR and CCPA alignment.</p>
+        </div>
+        <div class="pt-4 border-t border-[#00acff]/15 font-mono text-[10px] text-[#00acff] uppercase tracking-widest">Cryptographic SHA-256 Mapping</div>
+      </div>
+      <div class="bg-[#101218] p-8 flex flex-col justify-between gap-8 group hover:bg-[#07080b] transition-colors card-glitch-frame">
+        <div class="space-y-4">
+          <div class="flex items-center justify-between font-mono text-[10px] text-[#8d96a5]"><span>// MODULE 04</span><span class="material-symbols-outlined text-[#00acff] text-[20px]">alt_route</span></div>
+          <h3 class="font-hacked text-xl text-white group-hover:text-[#00acff] transition-colors">Multi-Destination S2S Fanout</h3>
+          <p class="font-body text-sm text-[#8d96a5] leading-relaxed">One lightweight stream from the browser to your SGTM server, then async distribution to Meta CAPI, Google Ads, TikTok S2S, GA4, and BigQuery.</p>
+        </div>
+        <div class="pt-4 border-t border-[#00acff]/15 font-mono text-[10px] text-[#00acff] uppercase tracking-widest">Zero Client Performance Penalty</div>
+      </div>
+      <div class="md:col-span-2 bg-[#101218] p-8 flex flex-col justify-between gap-8 group hover:bg-[#07080b] transition-colors card-glitch-frame">
+        <div class="space-y-4">
+          <div class="flex items-center justify-between font-mono text-[10px] text-[#8d96a5]"><span>// MODULE 05</span><span class="material-symbols-outlined text-[#00acff] text-[20px]">hub</span></div>
+          <h3 class="font-hacked text-xl text-white group-hover:text-[#00acff] transition-colors">Event Deduplication &amp; EQM 9.0+ Optimization</h3>
+          <p class="font-body text-sm text-[#8d96a5] leading-relaxed">Hybrid browser + server tracking needs exact sync. We build deterministic <code class="text-[#00acff] font-mono text-xs">event_id</code> and <code class="text-[#00acff] font-mono text-xs">fbp/fbc</code> handshakes so platforms discard duplicates while maximizing Event Quality Match.</p>
+        </div>
+        <div class="pt-4 border-t border-[#00acff]/15 flex flex-wrap items-center justify-between gap-3">
+          <span class="font-mono text-[10px] text-[#00acff] uppercase tracking-widest">Redundancy Protection Guaranteed</span>
+          <div class="flex gap-2 font-mono text-[10px] text-[#8d96a5]">
+            <span class="px-2 py-0.5 border border-[#00acff]/20">fbp</span>
+            <span class="px-2 py-0.5 border border-[#00acff]/20">fbc</span>
+            <span class="px-2 py-0.5 border border-[#00acff]/20">event_id</span>
+            <span class="px-2 py-0.5 border border-[#00acff]/40 text-[#00acff]">external_id</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Cloud orchestration -->
+<section class="w-full py-20 sm:py-28 bg-[#171a23]/80 border-b border-[#00acff]/15">
+  <div class="max-w-[1280px] mx-auto px-6 sm:px-8">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+      <div class="lg:col-span-5 flex flex-col gap-5">
+        <div class="font-mono text-xs uppercase tracking-[0.3em] text-[#00acff] font-bold">// Cloud Orchestration</div>
+        <h2 class="font-hacked text-3xl sm:text-4xl text-white glitch-slice-title" data-text="ENGINEERED FOR SCALE, PRIVACY, AND SPEED">Engineered for Scale, Privacy, and Speed</h2>
+        <p class="font-body text-base text-[#8d96a5] leading-relaxed">Whether you run on Google Cloud Platform, AWS, or Stape, we architect autoscaling server nodes that process high event volumes with geographic load balancing.</p>
+        <ul class="space-y-3 font-body text-sm text-[#8d96a5]">
+          <li class="flex items-start gap-2"><span class="material-symbols-outlined text-[#00acff] text-[18px]">check_circle</span><span>Fully managed GCP Cloud Run autoscaling (0 to 1,000+ instances)</span></li>
+          <li class="flex items-start gap-2"><span class="material-symbols-outlined text-[#00acff] text-[18px]">check_circle</span><span>Multi-region latency under 20ms worldwide</span></li>
+          <li class="flex items-start gap-2"><span class="material-symbols-outlined text-[#00acff] text-[18px]">check_circle</span><span>Granular monthly operational costs from $20/mo</span></li>
+        </ul>
+        <a class="inline-flex items-center gap-2 font-mono text-xs uppercase tracking-widest text-[#00acff] hover:text-white transition-colors pt-2" href="#intake-terminal">
+          <span>Explore Deployment Matrix</span>
+          <span class="material-symbols-outlined text-[14px]">north_east</span>
+        </a>
+      </div>
+      <div class="lg:col-span-7">
+        <div class="bg-[#07080b] border border-[#00acff]/20 p-6 space-y-4 card-glitch-frame">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-2">
+              <span class="w-3 h-3 rounded-full bg-red-400"></span>
+              <span class="w-3 h-3 rounded-full bg-amber-400"></span>
+              <span class="w-3 h-3 rounded-full bg-[#00acff]"></span>
+              <span class="ml-2 font-mono text-[10px] text-[#8d96a5]">container-proxy-terminal.sh</span>
+            </div>
+            <span class="font-mono text-[10px] text-[#00acff]">STATUS: CONNECTED</span>
+          </div>
+          <div class="bg-[#101218] border border-[#00acff]/10 p-5 font-mono text-[11px] text-[#8d96a5] space-y-1.5 overflow-x-auto">
+            <p class="text-[#3e4851]">// 1. Initialize Server-Side Ingestion Node</p>
+            <p><span class="text-[#00acff]">curl</span> -X POST "https://sgtm.brand.com/g/collect" \</p>
+            <p class="pl-4">-H <span class="text-[#c1c2fb]">"X-First-Party-Token: matrix_auth_9841"</span> \</p>
+            <p class="pl-4">-d <span class="text-white">'{"event":"purchase","value":340.00,"currency":"USD","event_id":"tx_881923"}'</span></p>
+            <p class="text-[#3e4851] pt-2">// 2. Execution Log Output</p>
+            <p class="text-[#00acff]">[200 OK] Received 1st-party event stream: tx_881923</p>
+            <p>[TRANSFORM] Hashed user email to: <span class="text-[#00acff]">e3b0c44298fc1c149afbf4c8996fb92427ae41e...</span></p>
+            <p>[DISPATCH] Meta CAPI Payload Sent (Status: 200 / EQM: 9.8)</p>
+            <p>[DISPATCH] Google Ads Conversion Payload Sent (Status: 200)</p>
+            <p>[DISPATCH] BigQuery Ingest Partitioned: dataset.conversions_2026</p>
+            <p class="text-[#00acff] font-bold">[TERMINAL] Round-trip latency: 14.8ms | Dropped Packets: 0%</p>
+          </div>
+          <div class="flex items-center justify-between font-mono text-[10px] text-[#8d96a5]">
+            <span>ACTIVE CLOUD: GCP US-EAST1</span>
+            <span>CONTAINER CPU: 0.12% LOAD</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Roadmap -->
+<section class="w-full py-20 sm:py-28 border-b border-[#00acff]/15">
+  <div class="max-w-[1280px] mx-auto px-6 sm:px-8">
+    <div class="mb-12">
+      <div class="font-mono text-xs uppercase tracking-[0.3em] text-[#00acff] font-bold">// Execution Lifecycle</div>
+      <h2 class="font-hacked text-3xl sm:text-4xl lg:text-5xl text-white mt-2 glitch-slice-title" data-text="4-PHASE PROTOCOL INTEGRATION">4-Phase Protocol Integration</h2>
+      <p class="font-body text-base text-[#8d96a5] max-w-lg mt-4">Engineered for continuous production uptime with zero tracking interruption or lost historical signals.</p>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-px bg-[#00acff]/20 border border-[#00acff]/20">
+      <div class="bg-[#101218] p-6 flex flex-col justify-between gap-6 card-glitch-frame">
+        <div class="space-y-3">
+          <div class="flex items-center justify-between"><span class="font-hacked text-3xl text-[#00acff]">01</span><span class="font-mono text-[10px] text-[#8d96a5]">DAYS 1-3</span></div>
+          <h4 class="font-headline text-lg font-semibold text-white">Cloud Setup &amp; DNS</h4>
+          <p class="font-body text-sm text-[#8d96a5] leading-relaxed">Provisioning isolated GCP Cloud Run, AWS, or Stape instances. DNS delegation of <code class="text-[#00acff] font-mono text-xs">sgtm.yourdomain.com</code> with SSL validation.</p>
+        </div>
+        <div class="pt-4 border-t border-[#00acff]/15 font-mono text-[10px] text-[#8d96a5] uppercase tracking-wider">Deliverable: Running Container</div>
+      </div>
+      <div class="bg-[#101218] p-6 flex flex-col justify-between gap-6 card-glitch-frame">
+        <div class="space-y-3">
+          <div class="flex items-center justify-between"><span class="font-hacked text-3xl text-[#00acff]">02</span><span class="font-mono text-[10px] text-[#8d96a5]">DAYS 4-7</span></div>
+          <h4 class="font-headline text-lg font-semibold text-white">DataLayer Standard</h4>
+          <p class="font-body text-sm text-[#8d96a5] leading-relaxed">Auditing web data layer schema. Normalizing events and injecting deterministic <code class="text-[#00acff] font-mono text-xs">event_id</code> generators.</p>
+        </div>
+        <div class="pt-4 border-t border-[#00acff]/15 font-mono text-[10px] text-[#8d96a5] uppercase tracking-wider">Deliverable: Client GTM Tags</div>
+      </div>
+      <div class="bg-[#101218] p-6 flex flex-col justify-between gap-6 card-glitch-frame">
+        <div class="space-y-3">
+          <div class="flex items-center justify-between"><span class="font-hacked text-3xl text-[#00acff]">03</span><span class="font-mono text-[10px] text-[#8d96a5]">DAYS 8-11</span></div>
+          <h4 class="font-headline text-lg font-semibold text-white">Server Fanout &amp; CAPI</h4>
+          <p class="font-body text-sm text-[#8d96a5] leading-relaxed">Configuring server-side clients, SHA-256 enrichment, and outbound connectors for Meta CAPI, GA4, TikTok, and warehouse dumps.</p>
+        </div>
+        <div class="pt-4 border-t border-[#00acff]/15 font-mono text-[10px] text-[#8d96a5] uppercase tracking-wider">Deliverable: Live API Streams</div>
+      </div>
+      <div class="bg-[#101218] p-6 flex flex-col justify-between gap-6 card-glitch-frame">
+        <div class="space-y-3">
+          <div class="flex items-center justify-between"><span class="font-hacked text-3xl text-[#00acff]">04</span><span class="font-mono text-[10px] text-[#8d96a5]">DAYS 12-14</span></div>
+          <h4 class="font-headline text-lg font-semibold text-white">EQM QA &amp; Cutover</h4>
+          <p class="font-body text-sm text-[#8d96a5] leading-relaxed">Live packet debugging, Meta EQM validation (targeting &gt; 9.0), duplicate verification, and production handoff.</p>
+        </div>
+        <div class="pt-4 border-t border-[#00acff]/15 font-mono text-[10px] text-[#00acff] uppercase tracking-wider">Deliverable: SLA Acceptance</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Intake CTA -->
+<section class="w-full py-20 sm:py-28 bg-[#171a23]/80 border-b border-[#00acff]/15 relative overflow-hidden" id="intake-terminal">
+  <div class="absolute -top-24 left-1/3 w-80 h-80 rounded-full bg-[#00acff]/10 blur-[100px] pointer-events-none"></div>
+  <div class="max-w-[1280px] mx-auto px-6 sm:px-8 relative z-10">
+    <div class="bg-[#07080b] border border-[#00acff]/20 p-8 sm:p-12 lg:p-16">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-10">
+        <div class="lg:col-span-5 flex flex-col justify-between gap-8">
+          <div class="space-y-4">
+            <div class="inline-flex items-center gap-2 px-3 py-1 bg-[#101218] border border-[#00acff]/20 font-mono text-[10px] text-[#00acff]">
+              <span class="w-2 h-2 rounded-full bg-[#00acff]"></span>
+              <span>SECURE INTAKE // NODE 01.07</span>
+            </div>
+            <h2 class="font-hacked text-3xl sm:text-4xl text-white glitch-slice-title" data-text="INITIALIZE YOUR SERVER-SIDE CONTAINER">Initialize Your Server-Side Container</h2>
+            <p class="font-body text-base text-[#8d96a5] leading-relaxed">Transmit your current stack telemetry. Our tracking architects analyze your loss vector and configure your dedicated server cluster within 48 hours.</p>
+          </div>
+          <div class="space-y-2 font-mono text-xs text-[#8d96a5]">
+            <div class="flex items-center gap-2"><span class="material-symbols-outlined text-[#00acff] text-[16px]">lock</span><span>End-to-end encrypted technical specification</span></div>
+            <div class="flex items-center gap-2"><span class="material-symbols-outlined text-[#00acff] text-[16px]">verified</span><span>ISO/IEC 27001 and GDPR-compliant container deployment</span></div>
+          </div>
+        </div>
+        <div class="lg:col-span-7 bg-[#101218] border border-[#00acff]/20 p-6 sm:p-8">
+          <form class="space-y-5" id="sgtm-deploy-form">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div class="space-y-1">
+                <label class="font-mono text-[10px] uppercase tracking-widest text-[#8d96a5]">Target Domain URL</label>
+                <input class="w-full h-12 bg-[#07080b] border border-[#00acff]/20 px-4 text-white placeholder:text-[#8d96a5] text-sm focus:outline-none focus:border-[#00acff]" placeholder="brand.com" required type="text" name="domain"/>
+              </div>
+              <div class="space-y-1">
+                <label class="font-mono text-[10px] uppercase tracking-widest text-[#8d96a5]">Monthly Traffic Volume</label>
+                <select class="w-full h-12 bg-[#07080b] border border-[#00acff]/20 px-4 text-white text-sm focus:outline-none focus:border-[#00acff]" name="volume">
+                  <option>&lt; 100K Sessions / Mo</option>
+                  <option>100K – 1M Sessions / Mo</option>
+                  <option>1M – 10M Sessions / Mo</option>
+                  <option>10M+ Enterprise Scale</option>
+                </select>
+              </div>
+            </div>
+            <div class="space-y-2">
+              <label class="font-mono text-[10px] uppercase tracking-widest text-[#8d96a5]">Preferred Cloud Infrastructure</label>
+              <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
+                <label class="flex items-center gap-2 p-3 bg-[#07080b] border border-[#00acff]/20 cursor-pointer hover:border-[#00acff]/50">
+                  <input checked class="accent-[#00acff]" name="cloud_provider" type="radio" value="gcp"/>
+                  <span class="font-mono text-[10px] text-white">GCP Cloud Run</span>
+                </label>
+                <label class="flex items-center gap-2 p-3 bg-[#07080b] border border-[#00acff]/20 cursor-pointer hover:border-[#00acff]/50">
+                  <input class="accent-[#00acff]" name="cloud_provider" type="radio" value="aws"/>
+                  <span class="font-mono text-[10px] text-white">AWS Fargate</span>
+                </label>
+                <label class="flex items-center gap-2 p-3 bg-[#07080b] border border-[#00acff]/20 cursor-pointer hover:border-[#00acff]/50">
+                  <input class="accent-[#00acff]" name="cloud_provider" type="radio" value="stape"/>
+                  <span class="font-mono text-[10px] text-white">Stape.io</span>
+                </label>
+              </div>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div class="space-y-1">
+                <label class="font-mono text-[10px] uppercase tracking-widest text-[#8d96a5]">Primary Channel Priority</label>
+                <select class="w-full h-12 bg-[#07080b] border border-[#00acff]/20 px-4 text-white text-sm focus:outline-none focus:border-[#00acff]" name="channel">
+                  <option>Meta Ads (Facebook/Instagram CAPI)</option>
+                  <option>Google Ads (Enhanced Offline Conversions)</option>
+                  <option>TikTok S2S Events API</option>
+                  <option>Omnichannel Ad-Tech Matrix (All)</option>
+                </select>
+              </div>
+              <div class="space-y-1">
+                <label class="font-mono text-[10px] uppercase tracking-widest text-[#8d96a5]">Lead Engineer / Executive Email</label>
+                <input class="w-full h-12 bg-[#07080b] border border-[#00acff]/20 px-4 text-white placeholder:text-[#8d96a5] text-sm focus:outline-none focus:border-[#00acff]" placeholder="lead@company.com" required type="email" name="email"/>
+              </div>
+            </div>
+            <button class="w-full h-12 bg-[#00acff] text-black font-mono text-xs font-bold uppercase tracking-widest hover:bg-white transition-all flex items-center justify-center gap-2" type="submit">
+              <span>Dispatch Architectural Request</span>
+              <span class="material-symbols-outlined text-[16px]">send</span>
+            </button>
+            <div class="hidden p-3 bg-[#07080b] border border-[#00acff]/20 text-xs font-mono text-[#00acff] items-center gap-2" id="form-status">
+              <span class="material-symbols-outlined text-[16px]">task_alt</span>
+              <span>PACKET DISPATCHED: Container sizing report queued. An engineer will respond within 4.2 hours.</span>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Related -->
+<section class="w-full py-20 sm:py-28">
+  <div class="max-w-[1280px] mx-auto px-6 sm:px-8">
+    <div class="flex flex-col sm:flex-row sm:items-end justify-between mb-8 gap-3">
+      <div>
+        <div class="font-mono text-xs uppercase tracking-[0.3em] text-[#00acff] font-bold">// Matrix Ecosystem</div>
+        <h2 class="font-hacked text-2xl sm:text-3xl text-white mt-2 glitch-slice-title" data-text="EXPLORE RELATED CAPABILITIES">Explore Related Capabilities</h2>
+      </div>
+      <a class="font-mono text-[11px] uppercase tracking-widest text-[#8d96a5] hover:text-[#00acff] transition-colors flex items-center gap-1" href="/#telemetry">
+        <span>View Full Service Index</span>
+        <span class="material-symbols-outlined text-xs">arrow_forward</span>
+      </a>
+    </div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-px bg-[#00acff]/20 border border-[#00acff]/20">
+      <a class="p-5 bg-[#101218] hover:bg-[#07080b] transition-colors group flex flex-col justify-between gap-4" href="/#telemetry">
+        <div>
+          <span class="font-mono text-[10px] text-[#8d96a5]">// 01.08</span>
+          <h4 class="font-hacked text-base text-white group-hover:text-[#00acff] transition-colors mt-2">Web Google Tag Manager</h4>
+          <p class="font-body text-xs text-[#8d96a5] mt-2 leading-relaxed">Precision client-side tag architecture, custom triggers, and DataLayer instrumentation.</p>
+        </div>
+        <span class="font-mono text-[10px] text-[#00acff] flex items-center gap-1">INSPECT <span class="material-symbols-outlined text-xs">arrow_forward</span></span>
+      </a>
+      <a class="p-5 bg-[#101218] hover:bg-[#07080b] transition-colors group flex flex-col justify-between gap-4" href="/#telemetry">
+        <div>
+          <span class="font-mono text-[10px] text-[#8d96a5]">// 01.09</span>
+          <h4 class="font-hacked text-base text-white group-hover:text-[#00acff] transition-colors mt-2">Google Analytics 4 (GA4)</h4>
+          <p class="font-body text-xs text-[#8d96a5] mt-2 leading-relaxed">Raw event schema design, cross-domain attribution, and user journey mapping.</p>
+        </div>
+        <span class="font-mono text-[10px] text-[#00acff] flex items-center gap-1">INSPECT <span class="material-symbols-outlined text-xs">arrow_forward</span></span>
+      </a>
+      <a class="p-5 bg-[#101218] hover:bg-[#07080b] transition-colors group flex flex-col justify-between gap-4" href="/#telemetry">
+        <div>
+          <span class="font-mono text-[10px] text-[#8d96a5]">// 01.10</span>
+          <h4 class="font-hacked text-base text-white group-hover:text-[#00acff] transition-colors mt-2">Meta Conversions API</h4>
+          <p class="font-body text-xs text-[#8d96a5] mt-2 leading-relaxed">Direct graph API link, high Event Quality Match optimization, and offline purchase relays.</p>
+        </div>
+        <span class="font-mono text-[10px] text-[#00acff] flex items-center gap-1">INSPECT <span class="material-symbols-outlined text-xs">arrow_forward</span></span>
+      </a>
+      <a class="p-5 bg-[#101218] hover:bg-[#07080b] transition-colors group flex flex-col justify-between gap-4" href="/#telemetry">
+        <div>
+          <span class="font-mono text-[10px] text-[#8d96a5]">// 01.11</span>
+          <h4 class="font-hacked text-base text-white group-hover:text-[#00acff] transition-colors mt-2">BigQuery Telemetry</h4>
+          <p class="font-body text-xs text-[#8d96a5] mt-2 leading-relaxed">Serverless SQL warehousing, multi-touch attribution modeling, and raw data export.</p>
+        </div>
+        <span class="font-mono text-[10px] text-[#00acff] flex items-center gap-1">INSPECT <span class="material-symbols-outlined text-xs">arrow_forward</span></span>
+      </a>
+      <a class="p-5 bg-[#101218] hover:bg-[#07080b] transition-colors group flex flex-col justify-between gap-4" href="/#telemetry">
+        <div>
+          <span class="font-mono text-[10px] text-[#8d96a5]">// 01.12</span>
+          <h4 class="font-hacked text-base text-white group-hover:text-[#00acff] transition-colors mt-2">Looker Studio Pro</h4>
+          <p class="font-body text-xs text-[#8d96a5] mt-2 leading-relaxed">Real-time executive dashboards and multi-channel acquisition command centers.</p>
+        </div>
+        <span class="font-mono text-[10px] text-[#00acff] flex items-center gap-1">INSPECT <span class="material-symbols-outlined text-xs">arrow_forward</span></span>
+      </a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="w-full bg-[#07080b] pt-20 pb-12 border-t border-[#00acff]/20 relative z-10">
+  <div class="max-w-[1280px] mx-auto px-6 sm:px-8 flex flex-col gap-16">
+    <div class="grid grid-cols-1 md:grid-cols-12 gap-12 items-start">
+      <div class="md:col-span-6 flex flex-col gap-6">
+        <a class="inline-block focus:outline-none" href="/">
+          <img alt="XON MEDIA LTD" class="h-7 w-auto object-contain filter drop-shadow-[0_0_8px_rgba(0,172,255,0.4)]" src="/assets/xon-logo-white.svg"/>
+        </a>
+        <p class="font-body text-base text-[#8d96a5] max-w-md">Providing digital solutions, server-side data telemetry, and acquisition engines for your business.</p>
+        <div class="font-hacked text-3xl sm:text-4xl text-white glitch-slice-title" data-text="LET'S TALK">Let's talk</div>
+        <div class="flex items-center gap-3">
+          <a class="font-mono text-sm text-[#00acff] hover:underline tracking-wider" href="mailto:info@xonmedia.ltd">info@xonmedia.ltd</a>
+          <span class="text-[#3e4851]">/</span>
+          <a class="font-mono text-xs uppercase tracking-widest text-[#8d96a5] hover:text-white" href="/contact/">Contact Us</a>
+        </div>
+      </div>
+      <div class="md:col-span-6 grid grid-cols-2 sm:grid-cols-3 gap-8 font-mono text-xs">
+        <div class="flex flex-col gap-4">
+          <span class="text-[#00acff] uppercase tracking-widest font-bold">// CAPABILITIES</span>
+          <div class="flex flex-col gap-2 text-[#8d96a5]">
+            <a class="hover:text-white transition-colors" href="/#services">Paid Advertising</a>
+            <a class="hover:text-white transition-colors" href="/#services">Social Media</a>
+            <a class="hover:text-white transition-colors" href="/#services">Web Development</a>
+            <a class="hover:text-white transition-colors" href="/#services">Content Creation</a>
+            <a class="hover:text-white transition-colors" href="/#services">Digital Consultancy</a>
+          </div>
+        </div>
+        <div class="flex flex-col gap-4">
+          <span class="text-white uppercase tracking-widest font-bold">// DATA &amp; ANALYTICS</span>
+          <div class="flex flex-col gap-2 text-[#8d96a5]">
+            <a class="hover:text-white transition-colors" href="/services/server-side-tracking/">Server-Side Tracking</a>
+            <a class="hover:text-white transition-colors" href="/#telemetry">Google Tag Manager</a>
+            <a class="hover:text-white transition-colors" href="/#telemetry">Google Analytics 4</a>
+            <a class="hover:text-white transition-colors" href="/#telemetry">Meta CAPI Gateway</a>
+            <a class="hover:text-white transition-colors" href="/#telemetry">BigQuery Pipelines</a>
+            <a class="hover:text-white transition-colors" href="/#telemetry">Looker Studio BI</a>
+          </div>
+        </div>
+        <div class="flex flex-col gap-4">
+          <span class="text-[#00acff] uppercase tracking-widest font-bold">// DIRECT</span>
+          <div class="flex flex-col gap-2 text-[#8d96a5]">
+            <a class="hover:text-white transition-colors" href="/">Home</a>
+            <a class="hover:text-white transition-colors" href="/#services">What We Do</a>
+            <a class="hover:text-white transition-colors" href="/#whyus">Why Us</a>
+            <a class="hover:text-white transition-colors" href="/#aboutus">About Us</a>
+            <a class="hover:text-white transition-colors" href="/contact/">Contact Form</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="pt-8 border-t border-[#00acff]/15 flex flex-col sm:flex-row items-center justify-between gap-4 font-mono text-[11px] text-[#8d96a5] uppercase tracking-wider">
+      <div>Copyright © 2026 XON MEDIA LTD</div>
+      <div class="flex items-center gap-6">
+        <span class="text-[#00acff]">MATRIX PROTOCOL: ONLINE</span>
+        <span class="text-[#91cdff]">HIGH-CONTRAST MONOLITH v2.5</span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function() {
+  const form = document.getElementById('sgtm-deploy-form');
+  const status = document.getElementById('form-status');
+  if (!form || !status) return;
+  form.addEventListener('submit', function(e) {
+    e.preventDefault();
+    status.classList.remove('hidden');
+    status.classList.add('flex');
+  });
+})();
+</script>
+
+<script>
+(function() {
+  const btn = document.getElementById('burger-btn');
+  const menu = document.getElementById('mobile-menu');
+  const icon = document.getElementById('burger-icon');
+  if (!btn || !menu || !icon) return;
+
+  function setOpen(open) {
+    menu.classList.toggle('is-open', open);
+    menu.hidden = !open;
+    btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    btn.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+    icon.textContent = open ? 'close' : 'menu';
+    document.body.style.overflow = open ? 'hidden' : '';
+  }
+
+  btn.addEventListener('click', function() {
+    setOpen(!menu.classList.contains('is-open'));
+  });
+
+  menu.querySelectorAll('a').forEach(function(link) {
+    link.addEventListener('click', function() { setOpen(false); });
+  });
+
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') setOpen(false);
+  });
+
+  window.addEventListener('resize', function() {
+    if (window.matchMedia('(min-width: 768px)').matches) setOpen(false);
+  });
+})();
+</script>
+<script>
+(function() {
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduceMotion) return;
+  const titles = document.querySelectorAll('.glitch-slice-title');
+  const timers = new WeakMap();
+
+  function randomDelay() {
+    return 10000 + Math.random() * 18000; // 10–28s between bursts
+  }
+
+  function fireGlitch(el) {
+    el.classList.remove('is-glitching');
+    void el.offsetWidth;
+    el.classList.add('is-glitching');
+    window.setTimeout(function() {
+      el.classList.remove('is-glitching');
+    }, 600);
+  }
+
+  function scheduleNext(el) {
+    const existing = timers.get(el);
+    if (existing) window.clearTimeout(existing);
+    const id = window.setTimeout(function() {
+      if (!el.isConnected) return;
+      const rect = el.getBoundingClientRect();
+      const inView = rect.bottom > 0 && rect.top < window.innerHeight;
+      if (inView) fireGlitch(el);
+      scheduleNext(el);
+    }, randomDelay());
+    timers.set(el, id);
+  }
+
+  function stopSchedule(el) {
+    const existing = timers.get(el);
+    if (existing) {
+      window.clearTimeout(existing);
+      timers.delete(el);
+    }
+    el.classList.remove('is-glitching');
+  }
+
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) scheduleNext(entry.target);
+        else stopSchedule(entry.target);
+      });
+    }, { threshold: 0.15 });
+    titles.forEach(function(el) { io.observe(el); });
+  } else {
+    titles.forEach(scheduleNext);
+  }
+})();
+</script>
+<script>
+(function() {
+  const canvas = document.getElementById('matrix-canvas');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  const serviceKeywords = [
+    "PAID ADVERTISING",
+    "SOCIAL MEDIA MANAGEMENT",
+    "WEB ANALYTICS",
+    "CONTENT CREATION",
+    "WEB DEVELOPMENT",
+    "DIGITAL CONSULTANCY",
+    "SERVER-SIDE TRACKING",
+    "GOOGLE TAG MANAGER",
+    "GOOGLE ANALYTICS 4",
+    "META CONVERSIONS API",
+    "BIGQUERY SETUP & ANALYTICS",
+    "LOOKER STUDIO DASHBOARD"
+  ];
+  const rawChars = '01XYZ0123456789ABCDEF01XON_MEDIA_CORE_NET_><[]#:=';
+  const fontSize = 14;
+  let columns = 0;
+  let drops = [];
+  let colServiceWord = [];
+  let colWordIndex = 0;
+  function resizeCanvas() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    columns = Math.floor(canvas.width / fontSize);
+    drops = [];
+    colServiceWord = [];
+    for (let i = 0; i < columns; i++) {
+      drops[i] = Math.random() * -120;
+      if (i % 5 === 2) {
+        const word = serviceKeywords[colWordIndex % serviceKeywords.length];
+        colWordIndex++;
+        colServiceWord[i] = {
+          text: word,
+          startRow: Math.floor(Math.random() * 18) + 4,
+          locked: true,
+          glowDuration: 120
+        };
+      } else {
+        colServiceWord[i] = null;
+      }
+    }
+  }
+  resizeCanvas();
+  window.addEventListener('resize', resizeCanvas);
+  function drawMatrix() {
+    ctx.fillStyle = 'rgba(7, 8, 11, 0.11)';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.font = 'bold ' + fontSize + 'px "Space Mono", monospace';
+    for (let i = 0; i < columns; i++) {
+      let charToDraw = '';
+      let isServiceChar = false;
+      const currentRow = Math.floor(drops[i]);
+      const spec = colServiceWord[i];
+      if (spec) {
+        const textLen = spec.text.length;
+        if (currentRow >= spec.startRow && currentRow < spec.startRow + textLen + 15) {
+          const charIndex = currentRow - spec.startRow;
+          if (charIndex >= 0 && charIndex < textLen) {
+            charToDraw = spec.text.charAt(charIndex);
+            isServiceChar = true;
+          }
+        }
+      }
+      if (!charToDraw) {
+        charToDraw = rawChars.charAt(Math.floor(Math.random() * rawChars.length));
+      }
+      const x = i * fontSize;
+      const y = drops[i] * fontSize;
+      if (isServiceChar) {
+        ctx.save();
+        ctx.shadowColor = '#00acff';
+        ctx.shadowBlur = 12;
+        ctx.fillStyle = '#ffffff';
+        ctx.fillText(charToDraw, x, y);
+        ctx.fillStyle = '#00acff';
+        ctx.fillText(charToDraw, x, y);
+        ctx.restore();
+      } else {
+        const rand = Math.random();
+        if (rand > 0.94) {
+          ctx.fillStyle = '#ffffff';
+          ctx.shadowColor = '#91cdff';
+          ctx.shadowBlur = 6;
+        } else if (rand > 0.50) {
+          ctx.fillStyle = '#00acff';
+          ctx.shadowColor = 'transparent';
+          ctx.shadowBlur = 0;
+        } else if (rand > 0.25) {
+          ctx.fillStyle = 'rgba(145, 205, 255, 0.7)';
+          ctx.shadowColor = 'transparent';
+          ctx.shadowBlur = 0;
+        } else {
+          ctx.fillStyle = 'rgba(0, 85, 130, 0.45)';
+          ctx.shadowColor = 'transparent';
+          ctx.shadowBlur = 0;
+        }
+        ctx.fillText(charToDraw, x, y);
+      }
+      if (drops[i] * fontSize > canvas.height && Math.random() > 0.972) {
+        drops[i] = 0;
+        if (Math.random() > 0.65) {
+          const nextWord = serviceKeywords[Math.floor(Math.random() * serviceKeywords.length)];
+          colServiceWord[i] = {
+            text: nextWord,
+            startRow: Math.floor(Math.random() * 16) + 4,
+            locked: true,
+            glowDuration: 120
+          };
+        }
+      }
+      drops[i]++;
+    }
+  }
+  let animationInterval = setInterval(drawMatrix, 45);
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    clearInterval(animationInterval);
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+  }
+})();
+</script>
+</body>
+</html>

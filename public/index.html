@@ -1,656 +1,922 @@
 <!DOCTYPE html>
-<html lang="en-US">
+<html class="dark scroll-smooth" lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="profile" href="https://gmpg.org/xfn/11"> 
-	<title>XON MEDIA LTD</title>
-<meta name='robots' content='max-image-preview:large' />
-<style id="wp-img-auto-sizes-contain-inline-css">
-img:is([sizes=auto i],[sizes^="auto," i]){contain-intrinsic-size:3000px 1500px}
-/*# sourceURL=wp-img-auto-sizes-contain-inline-css */
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>XON MEDIA // Media &amp; Advertising Matrix</title>
+<link href="/fonts/fonts.css" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Karla:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&amp;family=Rubik:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400&amp;family=Space+Mono:ital,wght@0,400;0,700;1,400&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+@layer base {
+  html, body {
+    margin: 0;
+    padding: 0;
+    background-color: #07080b;
+  }
+}
+.font-mono-tech {
+  font-family: 'Space Mono', monospace;
+}
+.matrix-grid {
+  background-size: 40px 40px;
+  background-image:
+    linear-gradient(to right, rgba(0, 172, 255, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0, 172, 255, 0.04) 1px, transparent 1px);
+}
+/* Option E: Hacked display — weight 400, open tracking */
+.font-hacked {
+  font-family: Hacked, sans-serif;
+  font-weight: 400;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  line-height: 1.15;
+}
+@keyframes horizontal-slice-1 {
+  0% {
+    clip-path: polygon(0 2%, 100% 2%, 100% 12%, 0 12%);
+    transform: translate(-5px, 0);
+  }
+  15% {
+    clip-path: polygon(0 25%, 100% 25%, 100% 35%, 0 35%);
+    transform: translate(6px, 0);
+  }
+  30% {
+    clip-path: polygon(0 50%, 100% 50%, 100% 58%, 0 58%);
+    transform: translate(-4px, 0);
+  }
+  45% {
+    clip-path: polygon(0 70%, 100% 70%, 100% 80%, 0 80%);
+    transform: translate(5px, 0);
+  }
+  60% {
+    clip-path: polygon(0 85%, 100% 85%, 100% 95%, 0 95%);
+    transform: translate(-7px, 0);
+  }
+  75% {
+    clip-path: polygon(0 15%, 100% 15%, 100% 22%, 0 22%);
+    transform: translate(4px, 0);
+  }
+  100% {
+    clip-path: polygon(0 40%, 100% 40%, 100% 48%, 0 48%);
+    transform: translate(-3px, 0);
+  }
+}
+@keyframes horizontal-slice-2 {
+  0% {
+    clip-path: polygon(0 18%, 100% 18%, 100% 28%, 0 28%);
+    transform: translate(6px, 0);
+  }
+  20% {
+    clip-path: polygon(0 42%, 100% 42%, 100% 52%, 0 52%);
+    transform: translate(-6px, 0);
+  }
+  40% {
+    clip-path: polygon(0 62%, 100% 62%, 100% 70%, 0 70%);
+    transform: translate(4px, 0);
+  }
+  60% {
+    clip-path: polygon(0 80%, 100% 80%, 100% 92%, 0 92%);
+    transform: translate(-5px, 0);
+  }
+  80% {
+    clip-path: polygon(0 5%, 100% 5%, 100% 14%, 0 14%);
+    transform: translate(5px, 0);
+  }
+  100% {
+    clip-path: polygon(0 60%, 100% 60%, 100% 68%, 0 68%);
+    transform: translate(3px, 0);
+  }
+}
+.glitch-slice-title {
+  position: relative;
+  display: inline-block;
+}
+.glitch-slice-title::before,
+.glitch-slice-title::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #07080b;
+  opacity: 0;
+  pointer-events: none;
+  visibility: hidden;
+  font-family: inherit;
+  font-weight: inherit;
+  letter-spacing: inherit;
+  text-transform: inherit;
+  line-height: inherit;
+}
+.glitch-slice-title::before {
+  left: 3px;
+  color: #00acff;
+  text-shadow: -2px 0 #91cdff;
+}
+.glitch-slice-title::after {
+  left: -3px;
+  color: #ffffff;
+  text-shadow: 2px 0 #00acff;
+}
+.glitch-slice-title.is-glitching::before {
+  visibility: visible;
+  opacity: 0.9;
+  animation: horizontal-slice-1 0.55s steps(2, start) 1;
+}
+.glitch-slice-title.is-glitching::after {
+  visibility: visible;
+  opacity: 0.8;
+  animation: horizontal-slice-2 0.45s steps(2, start) 1;
+}
+.xon-glitch-hover {
+  transition: all 0.2s ease;
+}
+.xon-glitch-hover:hover {
+  text-shadow: 2px 0 rgba(0, 172, 255, 0.8), -2px 0 rgba(255, 255, 255, 0.7);
+  transform: translateX(1px);
+}
+.card-glitch-frame:hover {
+  box-shadow: 0 0 25px rgba(0, 172, 255, 0.18), inset 0 0 15px rgba(0, 172, 255, 0.05);
+}
+@media (prefers-reduced-motion: reduce) {
+  .glitch-slice-title.is-glitching::before,
+  .glitch-slice-title.is-glitching::after,
+  .animate-marquee {
+    animation: none !important;
+  }
+  .glitch-slice-title::before,
+  .glitch-slice-title::after {
+    display: none !important;
+  }
+}
+@keyframes ticker {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+.animate-marquee {
+  display: flex;
+  width: max-content;
+  animation: ticker 32s linear infinite;
+}
+.animate-marquee:hover {
+  animation-play-state: paused;
+}
+/* Mobile nav */
+#mobile-menu {
+  display: none;
+}
+#mobile-menu.is-open {
+  display: block;
+}
+.burger-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border: 1px solid rgba(0, 172, 255, 0.4);
+  background: #101218;
+  color: #00acff;
+  cursor: pointer;
+}
+.burger-btn .material-symbols-outlined {
+  font-size: 22px;
+}
+@media (min-width: 768px) {
+  .burger-btn {
+    display: none;
+  }
+  #mobile-menu {
+    display: none !important;
+  }
+}
 </style>
-
-<link rel='stylesheet' id='astra-theme-css-css' href='wp-content/themes/astra/assets/css/minified/main.min.css@ver=4.13.6.css' media='all' />
-<style id="astra-theme-css-inline-css">
-:root{--ast-post-nav-space:0;--ast-container-default-xlg-padding:6.67em;--ast-container-default-lg-padding:5.67em;--ast-container-default-slg-padding:4.34em;--ast-container-default-md-padding:3.34em;--ast-container-default-sm-padding:6.67em;--ast-container-default-xs-padding:2.4em;--ast-container-default-xxs-padding:1.4em;--ast-code-block-background:#EEEEEE;--ast-comment-inputs-background:#FAFAFA;--ast-normal-container-width:1140px;--ast-narrow-container-width:750px;--ast-blog-title-font-weight:normal;--ast-blog-meta-weight:inherit;--ast-global-color-primary:var(--ast-global-color-5);--ast-global-color-secondary:var(--ast-global-color-4);--ast-global-color-alternate-background:var(--ast-global-color-7);--ast-global-color-subtle-background:var(--ast-global-color-6);--ast-bg-style-guide:var( --ast-global-color-secondary,var(--ast-global-color-5) );--ast-shadow-style-guide:0px 0px 4px 0 #00000057;--ast-global-dark-bg-style:#fff;--ast-global-dark-lfs:#fbfbfb;--ast-widget-bg-color:#fafafa;--ast-wc-container-head-bg-color:#fbfbfb;--ast-title-layout-bg:#eeeeee;--ast-search-border-color:#e7e7e7;--ast-lifter-hover-bg:#e6e6e6;--ast-gallery-block-color:#000;--srfm-color-input-label:var(--ast-global-color-2);}html{font-size:106.25%;}a,.page-title{color:var(--ast-global-color-0);}a:hover,a:focus{color:var(--ast-global-color-1);}body,button,input,select,textarea,.ast-button,.ast-custom-button{font-family:'Karla',sans-serif;font-weight:400;font-size:17px;font-size:1rem;line-height:var(--ast-body-line-height,1.6em);}blockquote{color:var(--ast-global-color-3);}h1,h2,h3,h4,h5,h6,.entry-content :where(h1,h2,h3,h4,h5,h6),.site-title,.site-title a{font-family:'Rubik',sans-serif;font-weight:700;line-height:1.35em;}.site-title{font-size:35px;font-size:2.0588235294118rem;display:none;}header .custom-logo-link img{max-width:250px;width:250px;}.astra-logo-svg{width:250px;}.site-header .site-description{font-size:15px;font-size:0.88235294117647rem;display:none;}.entry-title{font-size:30px;font-size:1.7647058823529rem;}.archive .ast-article-post .ast-article-inner,.blog .ast-article-post .ast-article-inner,.archive .ast-article-post .ast-article-inner:hover,.blog .ast-article-post .ast-article-inner:hover{overflow:hidden;}h1,.entry-content :where(h1){font-size:110px;font-size:6.4705882352941rem;font-family:'Rubik',sans-serif;line-height:1.1em;}h2,.entry-content :where(h2){font-size:90px;font-size:5.2941176470588rem;font-family:'Rubik',sans-serif;line-height:1.3em;}h3,.entry-content :where(h3){font-size:32px;font-size:1.8823529411765rem;font-family:'Rubik',sans-serif;line-height:1.3em;}h4,.entry-content :where(h4){font-size:25px;font-size:1.4705882352941rem;line-height:1.2em;font-family:'Rubik',sans-serif;}h5,.entry-content :where(h5){font-size:17px;font-size:1rem;line-height:1.2em;font-family:'Rubik',sans-serif;}h6,.entry-content :where(h6){font-size:13px;font-size:0.76470588235294rem;line-height:1.25em;font-family:'Rubik',sans-serif;}::selection{background-color:var(--ast-global-color-0);color:#ffffff;}body,h1,h2,h3,h4,h5,h6,.entry-title a,.entry-content :where(h1,h2,h3,h4,h5,h6){color:var(--ast-global-color-3);}.tagcloud a:hover,.tagcloud a:focus,.tagcloud a.current-item{color:#ffffff;border-color:var(--ast-global-color-0);background-color:var(--ast-global-color-0);}input:focus,input[type="text"]:focus,input[type="email"]:focus,input[type="url"]:focus,input[type="password"]:focus,input[type="reset"]:focus,input[type="search"]:focus,textarea:focus{border-color:var(--ast-global-color-0);}input[type="radio"]:checked,input[type=reset],input[type="checkbox"]:checked,input[type="checkbox"]:hover:checked,input[type="checkbox"]:focus:checked,input[type=range]::-webkit-slider-thumb{border-color:var(--ast-global-color-0);background-color:var(--ast-global-color-0);box-shadow:none;}.site-footer a:hover + .post-count,.site-footer a:focus + .post-count{background:var(--ast-global-color-0);border-color:var(--ast-global-color-0);}.single .nav-links .nav-previous,.single .nav-links .nav-next{color:var(--ast-global-color-0);}.entry-meta,.entry-meta *{line-height:1.45;color:var(--ast-global-color-0);}.entry-meta a:not(.ast-button):hover,.entry-meta a:not(.ast-button):hover *,.entry-meta a:not(.ast-button):focus,.entry-meta a:not(.ast-button):focus *,.page-links > .page-link,.page-links .page-link:hover,.post-navigation a:hover{color:var(--ast-global-color-1);}#cat option,.secondary .calendar_wrap thead a,.secondary .calendar_wrap thead a:visited{color:var(--ast-global-color-0);}.secondary .calendar_wrap #today,.ast-progress-val span{background:var(--ast-global-color-0);}.secondary a:hover + .post-count,.secondary a:focus + .post-count{background:var(--ast-global-color-0);border-color:var(--ast-global-color-0);}.calendar_wrap #today > a{color:#ffffff;}.page-links .page-link,.single .post-navigation a{color:var(--ast-global-color-0);}.ast-search-menu-icon .search-form button.search-submit{padding:0 4px;}.ast-search-menu-icon form.search-form{padding-right:0;}.ast-header-search .ast-search-menu-icon.ast-dropdown-active .search-form,.ast-header-search .ast-search-menu-icon.ast-dropdown-active .search-field:focus{transition:all 0.2s;}.search-form input.search-field:focus{outline:none;}.ast-mobile-header-content .ast-builder-layout-element:not(.ast-builder-menu):not(.ast-header-divider-element),.ast-mobile-popup-content .ast-builder-layout-element:not(.ast-builder-menu):not(.ast-header-divider-element){padding:15px 20px;}.wp-block-latest-posts > li > a{color:var(--ast-global-color-2);}.widget-title,.widget .wp-block-heading{font-size:24px;font-size:1.4117647058824rem;color:var(--ast-global-color-3);}.ast-search-menu-icon.slide-search a:focus-visible:focus-visible,.astra-search-icon:focus-visible,#close:focus-visible,a:focus-visible,.ast-menu-toggle:focus-visible,.site .skip-link:focus-visible,.wp-block-loginout input:focus-visible,.wp-block-search.wp-block-search__button-inside .wp-block-search__inside-wrapper,.ast-header-navigation-arrow:focus-visible,.ast-orders-table__row .ast-orders-table__cell:focus-visible,a#ast-apply-coupon:focus-visible,#ast-apply-coupon:focus-visible,#close:focus-visible,.button.search-submit:focus-visible,#search_submit:focus,.normal-search:focus-visible,.ast-header-account-wrap:focus-visible,.astra-cart-drawer-close:focus,.ast-single-variation:focus,.ast-button:focus,.ast-builder-button-wrap:has(.ast-custom-button-link:focus),.ast-builder-button-wrap .ast-custom-button-link:focus{outline-style:dotted;outline-color:inherit;outline-width:thin;}input:focus,input[type="text"]:focus,input[type="email"]:focus,input[type="url"]:focus,input[type="password"]:focus,input[type="reset"]:focus,input[type="search"]:focus,input[type="number"]:focus,textarea:focus,.wp-block-search__input:focus,[data-section="section-header-mobile-trigger"] .ast-button-wrap .ast-mobile-menu-trigger-minimal:focus,.ast-mobile-popup-drawer.active .menu-toggle-close:focus,#ast-scroll-top:focus,#coupon_code:focus,#ast-coupon-code:focus{border-style:dotted;border-color:inherit;border-width:thin;}input{outline:none;}.ast-logo-title-inline .site-logo-img{padding-right:1em;}.site-logo-img img{ transition:all 0.2s linear;}body .ast-oembed-container *{position:absolute;top:0;width:100%;height:100%;left:0;}body .wp-block-embed-pocket-casts .ast-oembed-container *{position:unset;}.ast-single-post-featured-section + article {margin-top: 2em;}.site-content .ast-single-post-featured-section img {width: 100%;overflow: hidden;object-fit: cover;}.site > .ast-single-related-posts-container {margin-top: 0;}@media (min-width: 922px) {.ast-desktop .ast-container--narrow {max-width: var(--ast-narrow-container-width);margin: 0 auto;}}.ast-page-builder-template .hentry {margin: 0;}.ast-page-builder-template .site-content > .ast-container {max-width: 100%;padding: 0;}.ast-page-builder-template .site .site-content #primary {padding: 0;margin: 0;}.ast-page-builder-template .no-results {text-align: center;margin: 4em auto;}.ast-page-builder-template .ast-pagination {padding: 2em;}.ast-page-builder-template .entry-header.ast-no-title.ast-no-thumbnail {margin-top: 0;}.ast-page-builder-template .entry-header.ast-header-without-markup {margin-top: 0;margin-bottom: 0;}.ast-page-builder-template .entry-header.ast-no-title.ast-no-meta {margin-bottom: 0;}.ast-page-builder-template.single .post-navigation {padding-bottom: 2em;}.ast-page-builder-template.single-post .site-content > .ast-container {max-width: 100%;}.ast-page-builder-template .entry-header {margin-top: 4em;margin-left: auto;margin-right: auto;padding-left: 20px;padding-right: 20px;}.single.ast-page-builder-template .entry-header {padding-left: 20px;padding-right: 20px;}.ast-page-builder-template .ast-archive-description {margin: 4em auto 0;padding-left: 20px;padding-right: 20px;}.ast-page-builder-template.ast-no-sidebar .entry-content .alignwide {margin-left: 0;margin-right: 0;}@media (max-width:921.99px){#ast-desktop-header{display:none;}}@media (min-width:922px){#ast-mobile-header{display:none;}}.wp-block-buttons.aligncenter{justify-content:center;}@media (max-width:921px){.ast-theme-transparent-header #primary,.ast-theme-transparent-header #secondary{padding:0;}}.ast-plain-container.ast-no-sidebar #primary{margin-top:0;margin-bottom:0;}.wp-block-buttons .wp-block-button.is-style-outline .wp-block-button__link.wp-element-button,.ast-outline-button,.wp-block-uagb-buttons-child .uagb-buttons-repeater.ast-outline-button{border-top-width:2px;border-right-width:2px;border-bottom-width:2px;border-left-width:2px;font-family:inherit;font-weight:500;font-size:15px;font-size:0.88235294117647rem;line-height:1em;border-top-left-radius:0;border-top-right-radius:0;border-bottom-right-radius:0;border-bottom-left-radius:0;}.wp-block-button .wp-block-button__link.wp-element-button.is-style-outline:not(.has-background),.wp-block-button.is-style-outline>.wp-block-button__link.wp-element-button:not(.has-background),.ast-outline-button{background-color:transparent;}.entry-content[data-ast-blocks-layout] > figure{margin-bottom:1em;}@media (max-width:921px){.ast-left-sidebar #content > .ast-container{display:flex;flex-direction:column-reverse;width:100%;}.ast-separate-container .ast-article-post,.ast-separate-container .ast-article-single{padding:1.5em 2.14em;}.ast-author-box img.avatar{margin:20px 0 0 0;}}@media (min-width:922px){.ast-separate-container.ast-right-sidebar #primary,.ast-separate-container.ast-left-sidebar #primary{border:0;}.search-no-results.ast-separate-container #primary{margin-bottom:4em;}}.elementor-widget-button .elementor-button{border-style:solid;text-decoration:none;border-top-width:0;border-right-width:0;border-left-width:0;border-bottom-width:0;}body .elementor-button.elementor-size-sm,body .elementor-button.elementor-size-xs,body .elementor-button.elementor-size-md,body .elementor-button.elementor-size-lg,body .elementor-button.elementor-size-xl,body .elementor-button{border-top-left-radius:0;border-top-right-radius:0;border-bottom-right-radius:0;border-bottom-left-radius:0;padding-top:17px;padding-right:40px;padding-bottom:17px;padding-left:40px;}.wp-block-button .wp-block-button__link ,.elementor-widget-button .elementor-button,.elementor-widget-button .elementor-button:visited{color:#ffffff;}.elementor-widget-button .elementor-button{border-color:var(--ast-global-color-0);background-color:var(--ast-global-color-0);}.elementor-widget-button .elementor-button:hover,.elementor-widget-button .elementor-button:focus{color:#ffffff;background-color:var(--ast-global-color-1);border-color:var(--ast-global-color-1);}.elementor-widget-button .elementor-button{font-weight:500;font-size:15px;font-size:0.88235294117647rem;line-height:1em;text-transform:uppercase;}body .elementor-button.elementor-size-sm,body .elementor-button.elementor-size-xs,body .elementor-button.elementor-size-md,body .elementor-button.elementor-size-lg,body .elementor-button.elementor-size-xl,body .elementor-button{font-size:15px;font-size:0.88235294117647rem;}.wp-block-button .wp-block-button__link:hover,.wp-block-button .wp-block-button__link:focus{color:#ffffff;background-color:var(--ast-global-color-1);border-color:var(--ast-global-color-1);}.elementor-widget-heading h1.elementor-heading-title{line-height:1.1em;}.elementor-widget-heading h2.elementor-heading-title{line-height:1.3em;}.elementor-widget-heading h3.elementor-heading-title{line-height:1.3em;}.elementor-widget-heading h4.elementor-heading-title{line-height:1.2em;}.elementor-widget-heading h5.elementor-heading-title{line-height:1.2em;}.elementor-widget-heading h6.elementor-heading-title{line-height:1.25em;}.wp-block-button .wp-block-button__link,.wp-block-search .wp-block-search__button,body .wp-block-file .wp-block-file__button{border-color:var(--ast-global-color-0);background-color:var(--ast-global-color-0);color:#ffffff;font-family:inherit;font-weight:500;line-height:1em;text-transform:uppercase;font-size:15px;font-size:0.88235294117647rem;border-top-left-radius:0;border-top-right-radius:0;border-bottom-right-radius:0;border-bottom-left-radius:0;padding-top:17px;padding-right:40px;padding-bottom:17px;padding-left:40px;}.menu-toggle,button,.ast-button,.ast-custom-button,.button,input#submit,input[type="button"],input[type="submit"],input[type="reset"],form[CLASS*="wp-block-search__"].wp-block-search .wp-block-search__inside-wrapper .wp-block-search__button,body .wp-block-file .wp-block-file__button{border-style:solid;border-top-width:0;border-right-width:0;border-left-width:0;border-bottom-width:0;color:#ffffff;border-color:var(--ast-global-color-0);background-color:var(--ast-global-color-0);padding-top:17px;padding-right:40px;padding-bottom:17px;padding-left:40px;font-family:inherit;font-weight:500;font-size:15px;font-size:0.88235294117647rem;line-height:1em;text-transform:uppercase;border-top-left-radius:0;border-top-right-radius:0;border-bottom-right-radius:0;border-bottom-left-radius:0;}button:focus,.menu-toggle:hover,button:hover,.ast-button:hover,.ast-custom-button:hover .button:hover,.ast-custom-button:hover ,input[type=reset]:hover,input[type=reset]:focus,input#submit:hover,input#submit:focus,input[type="button"]:hover,input[type="button"]:focus,input[type="submit"]:hover,input[type="submit"]:focus,form[CLASS*="wp-block-search__"].wp-block-search .wp-block-search__inside-wrapper .wp-block-search__button:hover,form[CLASS*="wp-block-search__"].wp-block-search .wp-block-search__inside-wrapper .wp-block-search__button:focus,body .wp-block-file .wp-block-file__button:hover,body .wp-block-file .wp-block-file__button:focus{color:#ffffff;background-color:var(--ast-global-color-1);border-color:var(--ast-global-color-1);}@media (max-width:921px){.ast-mobile-header-stack .main-header-bar .ast-search-menu-icon{display:inline-block;}.ast-header-break-point.ast-header-custom-item-outside .ast-mobile-header-stack .main-header-bar .ast-search-icon{margin:0;}.ast-comment-avatar-wrap img{max-width:2.5em;}.ast-comment-meta{padding:0 1.8888em 1.3333em;}.ast-separate-container .ast-comment-list li.depth-1{padding:1.5em 2.14em;}.ast-separate-container .comment-respond{padding:2em 2.14em;}}@media (min-width:544px){.ast-container{max-width:100%;}}@media (max-width:544px){.ast-separate-container .ast-article-post,.ast-separate-container .ast-article-single,.ast-separate-container .comments-title,.ast-separate-container .ast-archive-description{padding:1.5em 1em;}.ast-separate-container #content .ast-container{padding-left:0.54em;padding-right:0.54em;}.ast-separate-container .ast-comment-list .bypostauthor{padding:.5em;}.ast-search-menu-icon.ast-dropdown-active .search-field{width:170px;}} #ast-mobile-header .ast-site-header-cart-li a{pointer-events:none;}body,.ast-separate-container{background-image:linear-gradient(to right,rgba(0,0,0,0),rgba(0,0,0,0)),url(wp-content/uploads/2020/10/bg-001-free-img.png);background-repeat:no-repeat;background-position:center center;background-size:auto;background-attachment:fixed;}@media (max-width:921px){.site-title{display:none;}.site-header .site-description{display:none;}h1,.entry-content :where(h1){font-size:76px;}h2,.entry-content :where(h2){font-size:74px;}h3,.entry-content :where(h3){font-size:28px;}h4,.entry-content :where(h4){font-size:26px;font-size:1.5294117647059rem;}body,.ast-separate-container{background-image:url(wp-content/uploads/2020/11/bg-003-free-img.png);background-repeat:repeat;background-position:center center;background-size:auto;background-attachment:scroll;}}@media (max-width:544px){.site-title{display:none;}.site-header .site-description{display:none;}h1,.entry-content :where(h1){font-size:50px;}h2,.entry-content :where(h2){font-size:30px;}h3,.entry-content :where(h3){font-size:25px;}body,.ast-separate-container{background-image:url(wp-content/uploads/2020/11/bg-04-free-img.png);background-repeat:repeat;background-position:center center;background-size:auto;background-attachment:scroll;}}@media (max-width:921px){html{font-size:96.9%;}}@media (max-width:544px){html{font-size:96.9%;}}@media (min-width:922px){.ast-container{max-width:1180px;}}@media (min-width:922px){.site-content .ast-container{display:flex;}}@media (max-width:921px){.site-content .ast-container{flex-direction:column;}}@media (min-width:922px){.main-header-menu .sub-menu .menu-item.ast-left-align-sub-menu:hover > .sub-menu,.main-header-menu .sub-menu .menu-item.ast-left-align-sub-menu.focus > .sub-menu{margin-left:-0px;}}.ast-theme-transparent-header [data-section="section-header-mobile-trigger"] .ast-button-wrap .ast-mobile-menu-trigger-minimal{background:transparent;}.site .comments-area{padding-bottom:3em;}.wp-block-file {display: flex;align-items: center;flex-wrap: wrap;justify-content: space-between;}.wp-block-pullquote {border: none;}.wp-block-pullquote blockquote::before {content: "\201D";font-family: "Helvetica",sans-serif;display: flex;transform: rotate( 180deg );font-size: 6rem;font-style: normal;line-height: 1;font-weight: bold;align-items: center;justify-content: center;}.has-text-align-right > blockquote::before {justify-content: flex-start;}.has-text-align-left > blockquote::before {justify-content: flex-end;}figure.wp-block-pullquote.is-style-solid-color blockquote {max-width: 100%;text-align: inherit;}:root {--wp--custom--ast-default-block-top-padding: 3em;--wp--custom--ast-default-block-right-padding: 3em;--wp--custom--ast-default-block-bottom-padding: 3em;--wp--custom--ast-default-block-left-padding: 3em;--wp--custom--ast-container-width: 1140px;--wp--custom--ast-content-width-size: 1140px;--wp--custom--ast-wide-width-size: calc(1140px + var(--wp--custom--ast-default-block-left-padding) + var(--wp--custom--ast-default-block-right-padding));}.ast-narrow-container {--wp--custom--ast-content-width-size: 750px;--wp--custom--ast-wide-width-size: 750px;}@media(max-width: 921px) {:root {--wp--custom--ast-default-block-top-padding: 3em;--wp--custom--ast-default-block-right-padding: 2em;--wp--custom--ast-default-block-bottom-padding: 3em;--wp--custom--ast-default-block-left-padding: 2em;}}@media(max-width: 544px) {:root {--wp--custom--ast-default-block-top-padding: 3em;--wp--custom--ast-default-block-right-padding: 1.5em;--wp--custom--ast-default-block-bottom-padding: 3em;--wp--custom--ast-default-block-left-padding: 1.5em;}}.entry-content > .wp-block-group,.entry-content > .wp-block-cover,.entry-content > .wp-block-columns {padding-top: var(--wp--custom--ast-default-block-top-padding);padding-right: var(--wp--custom--ast-default-block-right-padding);padding-bottom: var(--wp--custom--ast-default-block-bottom-padding);padding-left: var(--wp--custom--ast-default-block-left-padding);}.ast-plain-container.ast-no-sidebar .entry-content > .alignfull,.ast-page-builder-template .ast-no-sidebar .entry-content > .alignfull {margin-left: calc( -50vw + 50%);margin-right: calc( -50vw + 50%);max-width: 100vw;width: 100vw;}.ast-plain-container.ast-no-sidebar .entry-content .alignfull .alignfull,.ast-page-builder-template.ast-no-sidebar .entry-content .alignfull .alignfull,.ast-plain-container.ast-no-sidebar .entry-content .alignfull .alignwide,.ast-page-builder-template.ast-no-sidebar .entry-content .alignfull .alignwide,.ast-plain-container.ast-no-sidebar .entry-content .alignwide .alignfull,.ast-page-builder-template.ast-no-sidebar .entry-content .alignwide .alignfull,.ast-plain-container.ast-no-sidebar .entry-content .alignwide .alignwide,.ast-page-builder-template.ast-no-sidebar .entry-content .alignwide .alignwide,.ast-plain-container.ast-no-sidebar .entry-content .wp-block-column .alignfull,.ast-page-builder-template.ast-no-sidebar .entry-content .wp-block-column .alignfull,.ast-plain-container.ast-no-sidebar .entry-content .wp-block-column .alignwide,.ast-page-builder-template.ast-no-sidebar .entry-content .wp-block-column .alignwide {margin-left: auto;margin-right: auto;width: 100%;}[data-ast-blocks-layout] .wp-block-separator:not(.is-style-dots) {height: 0;}[data-ast-blocks-layout] .wp-block-separator {margin: 20px auto;}[data-ast-blocks-layout] .wp-block-separator:not(.is-style-wide):not(.is-style-dots) {max-width: 100px;}[data-ast-blocks-layout] .wp-block-separator.has-background {padding: 0;}.entry-content[data-ast-blocks-layout] > * {max-width: var(--wp--custom--ast-content-width-size);margin-left: auto;margin-right: auto;}.entry-content[data-ast-blocks-layout] > .alignwide {max-width: var(--wp--custom--ast-wide-width-size);}.entry-content[data-ast-blocks-layout] .alignfull {max-width: none;}.entry-content .wp-block-columns {margin-bottom: 0;}blockquote {margin: 1.5em;border-color: rgba(0,0,0,0.05);}.wp-block-quote:not(.has-text-align-right):not(.has-text-align-center) {border-left: 5px solid rgba(0,0,0,0.05);}.has-text-align-right > blockquote,blockquote.has-text-align-right {border-right: 5px solid rgba(0,0,0,0.05);}.has-text-align-left > blockquote,blockquote.has-text-align-left {border-left: 5px solid rgba(0,0,0,0.05);}.wp-block-site-tagline,.wp-block-latest-posts .read-more {margin-top: 15px;}.wp-block-loginout p label {display: block;}.wp-block-loginout p:not(.login-remember):not(.login-submit) input {width: 100%;}.wp-block-loginout input:focus {border-color: transparent;}.wp-block-loginout input:focus {outline: thin dotted;}.entry-content .wp-block-media-text .wp-block-media-text__content {padding: 0 0 0 8%;}.entry-content .wp-block-media-text.has-media-on-the-right .wp-block-media-text__content {padding: 0 8% 0 0;}.entry-content .wp-block-media-text.has-background .wp-block-media-text__content {padding: 8%;}.entry-content .wp-block-cover:not([class*="background-color"]):not(.has-text-color.has-link-color) .wp-block-cover__inner-container,.entry-content .wp-block-cover:not([class*="background-color"]) .wp-block-cover-image-text,.entry-content .wp-block-cover:not([class*="background-color"]) .wp-block-cover-text,.entry-content .wp-block-cover-image:not([class*="background-color"]) .wp-block-cover__inner-container,.entry-content .wp-block-cover-image:not([class*="background-color"]) .wp-block-cover-image-text,.entry-content .wp-block-cover-image:not([class*="background-color"]) .wp-block-cover-text {color: var(--ast-global-color-primary,var(--ast-global-color-5));}.wp-block-loginout .login-remember input {width: 1.1rem;height: 1.1rem;margin: 0 5px 4px 0;vertical-align: middle;}.wp-block-latest-posts > li > *:first-child,.wp-block-latest-posts:not(.is-grid) > li:first-child {margin-top: 0;}.entry-content > .wp-block-buttons,.entry-content > .wp-block-uagb-buttons {margin-bottom: 1.5em;}.wp-block-search__inside-wrapper .wp-block-search__input {padding: 0 10px;color: var(--ast-global-color-3);background: var(--ast-global-color-primary,var(--ast-global-color-5));border-color: var(--ast-border-color);}.wp-block-latest-posts .read-more {margin-bottom: 1.5em;}.wp-block-search__no-button .wp-block-search__inside-wrapper .wp-block-search__input {padding-top: 5px;padding-bottom: 5px;}.wp-block-latest-posts .wp-block-latest-posts__post-date,.wp-block-latest-posts .wp-block-latest-posts__post-author {font-size: 1rem;}.wp-block-latest-posts > li > *,.wp-block-latest-posts:not(.is-grid) > li {margin-top: 12px;margin-bottom: 12px;}.ast-page-builder-template .entry-content[data-ast-blocks-layout] > .alignwide:where(:not(.uagb-is-root-container):not(.spectra-is-root-container)) > * {max-width: var(--wp--custom--ast-wide-width-size);}.ast-page-builder-template .entry-content[data-ast-blocks-layout] > .inherit-container-width > *,.ast-page-builder-template .entry-content[data-ast-blocks-layout] > *:not(.wp-block-group):where(:not(.uagb-is-root-container):not(.spectra-is-root-container)) > *,.entry-content[data-ast-blocks-layout] > .wp-block-cover .wp-block-cover__inner-container {max-width: var(--wp--custom--ast-content-width-size) ;margin-left: auto;margin-right: auto;}.ast-page-builder-template .entry-content[data-ast-blocks-layout] > *,.ast-page-builder-template .entry-content[data-ast-blocks-layout] > .alignfull:where(:not(.wp-block-group):not(.uagb-is-root-container):not(.spectra-is-root-container)) > * {max-width: none;}.entry-content[data-ast-blocks-layout] .wp-block-cover:not(.alignleft):not(.alignright) {width: auto;}@media(max-width: 1200px) {.ast-separate-container .entry-content > .alignfull,.ast-separate-container .entry-content[data-ast-blocks-layout] > .alignwide,.ast-plain-container .entry-content[data-ast-blocks-layout] > .alignwide,.ast-plain-container .entry-content .alignfull {margin-left: calc(-1 * min(var(--ast-container-default-xlg-padding),20px)) ;margin-right: calc(-1 * min(var(--ast-container-default-xlg-padding),20px));}}@media(min-width: 1201px) {.ast-separate-container .entry-content > .alignfull {margin-left: calc(-1 * var(--ast-container-default-xlg-padding) );margin-right: calc(-1 * var(--ast-container-default-xlg-padding) );}.ast-separate-container .entry-content[data-ast-blocks-layout] > .alignwide,.ast-plain-container .entry-content[data-ast-blocks-layout] > .alignwide {margin-left: calc(-1 * var(--wp--custom--ast-default-block-left-padding) );margin-right: calc(-1 * var(--wp--custom--ast-default-block-right-padding) );}}@media(min-width: 921px) {.ast-separate-container .entry-content .wp-block-group.alignwide:not(.inherit-container-width) > :where(:not(.alignleft):not(.alignright)),.ast-plain-container .entry-content .wp-block-group.alignwide:not(.inherit-container-width) > :where(:not(.alignleft):not(.alignright)) {max-width: calc( var(--wp--custom--ast-content-width-size) + 80px );}.ast-plain-container.ast-right-sidebar .entry-content[data-ast-blocks-layout] .alignfull,.ast-plain-container.ast-left-sidebar .entry-content[data-ast-blocks-layout] .alignfull {margin-left: -60px;margin-right: -60px;}}@media(min-width: 544px) {.entry-content > .alignleft {margin-right: 20px;}.entry-content > .alignright {margin-left: 20px;}}@media (max-width:544px){.wp-block-columns .wp-block-column:not(:last-child){margin-bottom:20px;}.wp-block-latest-posts{margin:0;}}@media( max-width: 600px ) {.entry-content .wp-block-media-text .wp-block-media-text__content,.entry-content .wp-block-media-text.has-media-on-the-right .wp-block-media-text__content {padding: 8% 0 0;}.entry-content .wp-block-media-text.has-background .wp-block-media-text__content {padding: 8%;}}.ast-page-builder-template .entry-header {padding-left: 0;}.ast-narrow-container .site-content .wp-block-uagb-image--align-full .wp-block-uagb-image__figure {max-width: 100%;margin-left: auto;margin-right: auto;}:root .has-ast-global-color-0-color{color:var(--ast-global-color-0);}:root .has-ast-global-color-0-background-color{background-color:var(--ast-global-color-0);}:root .wp-block-button .has-ast-global-color-0-color{color:var(--ast-global-color-0);}:root .wp-block-button .has-ast-global-color-0-background-color{background-color:var(--ast-global-color-0);}:root .has-ast-global-color-1-color{color:var(--ast-global-color-1);}:root .has-ast-global-color-1-background-color{background-color:var(--ast-global-color-1);}:root .wp-block-button .has-ast-global-color-1-color{color:var(--ast-global-color-1);}:root .wp-block-button .has-ast-global-color-1-background-color{background-color:var(--ast-global-color-1);}:root .has-ast-global-color-2-color{color:var(--ast-global-color-2);}:root .has-ast-global-color-2-background-color{background-color:var(--ast-global-color-2);}:root .wp-block-button .has-ast-global-color-2-color{color:var(--ast-global-color-2);}:root .wp-block-button .has-ast-global-color-2-background-color{background-color:var(--ast-global-color-2);}:root .has-ast-global-color-3-color{color:var(--ast-global-color-3);}:root .has-ast-global-color-3-background-color{background-color:var(--ast-global-color-3);}:root .wp-block-button .has-ast-global-color-3-color{color:var(--ast-global-color-3);}:root .wp-block-button .has-ast-global-color-3-background-color{background-color:var(--ast-global-color-3);}:root .has-ast-global-color-4-color{color:var(--ast-global-color-4);}:root .has-ast-global-color-4-background-color{background-color:var(--ast-global-color-4);}:root .wp-block-button .has-ast-global-color-4-color{color:var(--ast-global-color-4);}:root .wp-block-button .has-ast-global-color-4-background-color{background-color:var(--ast-global-color-4);}:root .has-ast-global-color-5-color{color:var(--ast-global-color-5);}:root .has-ast-global-color-5-background-color{background-color:var(--ast-global-color-5);}:root .wp-block-button .has-ast-global-color-5-color{color:var(--ast-global-color-5);}:root .wp-block-button .has-ast-global-color-5-background-color{background-color:var(--ast-global-color-5);}:root .has-ast-global-color-6-color{color:var(--ast-global-color-6);}:root .has-ast-global-color-6-background-color{background-color:var(--ast-global-color-6);}:root .wp-block-button .has-ast-global-color-6-color{color:var(--ast-global-color-6);}:root .wp-block-button .has-ast-global-color-6-background-color{background-color:var(--ast-global-color-6);}:root .has-ast-global-color-7-color{color:var(--ast-global-color-7);}:root .has-ast-global-color-7-background-color{background-color:var(--ast-global-color-7);}:root .wp-block-button .has-ast-global-color-7-color{color:var(--ast-global-color-7);}:root .wp-block-button .has-ast-global-color-7-background-color{background-color:var(--ast-global-color-7);}:root .has-ast-global-color-8-color{color:var(--ast-global-color-8);}:root .has-ast-global-color-8-background-color{background-color:var(--ast-global-color-8);}:root .wp-block-button .has-ast-global-color-8-color{color:var(--ast-global-color-8);}:root .wp-block-button .has-ast-global-color-8-background-color{background-color:var(--ast-global-color-8);}:root{--ast-global-color-0:#4175FC;--ast-global-color-1:#084AF3;--ast-global-color-2:#FFFFFF;--ast-global-color-3:#E8EBEC;--ast-global-color-4:#101218;--ast-global-color-5:#3B4244;--ast-global-color-6:#000000;--ast-global-color-7:#4B4F58;--ast-global-color-8:#F6F7F8;}:root {--ast-border-color : #dddddd;}.ast-single-entry-banner {-js-display: flex;display: flex;flex-direction: column;justify-content: center;text-align: center;position: relative;background: var(--ast-title-layout-bg);}.ast-single-entry-banner[data-banner-layout="layout-1"] {max-width: 1140px;background: inherit;padding: 20px 0;}.ast-single-entry-banner[data-banner-width-type="custom"] {margin: 0 auto;width: 100%;}.ast-single-entry-banner + .site-content .entry-header {margin-bottom: 0;}.site .ast-author-avatar {--ast-author-avatar-size: ;}a.ast-underline-text {text-decoration: underline;}.ast-container > .ast-terms-link {position: relative;display: block;}a.ast-button.ast-badge-tax {padding: 4px 8px;border-radius: 3px;font-size: inherit;}header.entry-header{text-align:left;}header.entry-header > *:not(:last-child){margin-bottom:10px;}@media (max-width:921px){header.entry-header{text-align:left;}}@media (max-width:544px){header.entry-header{text-align:left;}}.ast-archive-entry-banner {-js-display: flex;display: flex;flex-direction: column;justify-content: center;text-align: center;position: relative;background: var(--ast-title-layout-bg);}.ast-archive-entry-banner[data-banner-width-type="custom"] {margin: 0 auto;width: 100%;}.ast-archive-entry-banner[data-banner-layout="layout-1"] {background: inherit;padding: 20px 0;text-align: left;}body.archive .ast-archive-description{max-width:1140px;width:100%;text-align:left;padding-top:3em;padding-right:3em;padding-bottom:3em;padding-left:3em;}body.archive .ast-archive-description .ast-archive-title,body.archive .ast-archive-description .ast-archive-title *{font-size:40px;font-size:2.3529411764706rem;}body.archive .ast-archive-description > *:not(:last-child){margin-bottom:10px;}@media (max-width:921px){body.archive .ast-archive-description{text-align:left;}}@media (max-width:544px){body.archive .ast-archive-description{text-align:left;}}.ast-theme-transparent-header #masthead .site-logo-img .transparent-custom-logo .astra-logo-svg{width:150px;}.ast-theme-transparent-header #masthead .site-logo-img .transparent-custom-logo img{ max-width:150px; width:150px;}@media (max-width:921px){.ast-theme-transparent-header #masthead .site-logo-img .transparent-custom-logo .astra-logo-svg{width:120px;}.ast-theme-transparent-header #masthead .site-logo-img .transparent-custom-logo img{ max-width:120px; width:120px;}}@media (max-width:543px){.ast-theme-transparent-header #masthead .site-logo-img .transparent-custom-logo .astra-logo-svg{width:100px;}.ast-theme-transparent-header #masthead .site-logo-img .transparent-custom-logo img{ max-width:100px; width:100px;}}@media (min-width:922px){.ast-theme-transparent-header #masthead{position:absolute;left:0;right:0;}.ast-theme-transparent-header .main-header-bar,.ast-theme-transparent-header.ast-header-break-point .main-header-bar{background:none;}body.elementor-editor-active.ast-theme-transparent-header #masthead,.fl-builder-edit .ast-theme-transparent-header #masthead,body.vc_editor.ast-theme-transparent-header #masthead,body.brz-ed.ast-theme-transparent-header #masthead{z-index:0;}.ast-header-break-point.ast-replace-site-logo-transparent.ast-theme-transparent-header .custom-mobile-logo-link{display:none;}.ast-header-break-point.ast-replace-site-logo-transparent.ast-theme-transparent-header .transparent-custom-logo{display:inline-block;}.ast-theme-transparent-header .ast-above-header,.ast-theme-transparent-header .ast-above-header.ast-above-header-bar{background-image:none;background-color:transparent;}.ast-theme-transparent-header .ast-below-header,.ast-theme-transparent-header .ast-below-header.ast-below-header-bar{background-image:none;background-color:transparent;}}.ast-theme-transparent-header .ast-builder-menu .main-header-menu,.ast-theme-transparent-header .ast-builder-menu .main-header-menu .menu-link,.ast-theme-transparent-header [CLASS*="ast-builder-menu-"] .main-header-menu .menu-item > .menu-link,.ast-theme-transparent-header .ast-masthead-custom-menu-items,.ast-theme-transparent-header .ast-masthead-custom-menu-items a,.ast-theme-transparent-header .ast-builder-menu .main-header-menu .menu-item > .ast-menu-toggle,.ast-theme-transparent-header .ast-builder-menu .main-header-menu .menu-item > .ast-menu-toggle,.ast-theme-transparent-header .ast-above-header-navigation a,.ast-header-break-point.ast-theme-transparent-header .ast-above-header-navigation a,.ast-header-break-point.ast-theme-transparent-header .ast-above-header-navigation > ul.ast-above-header-menu > .menu-item-has-children:not(.current-menu-item) > .ast-menu-toggle,.ast-theme-transparent-header .ast-below-header-menu,.ast-theme-transparent-header .ast-below-header-menu a,.ast-header-break-point.ast-theme-transparent-header .ast-below-header-menu a,.ast-header-break-point.ast-theme-transparent-header .ast-below-header-menu,.ast-theme-transparent-header .main-header-menu .menu-link{color:var(--ast-global-color-2);}.ast-theme-transparent-header .ast-builder-menu .main-header-menu .menu-item:hover > .menu-link,.ast-theme-transparent-header .ast-builder-menu .main-header-menu .menu-item:hover > .ast-menu-toggle,.ast-theme-transparent-header .ast-builder-menu .main-header-menu .ast-masthead-custom-menu-items a:hover,.ast-theme-transparent-header .ast-builder-menu .main-header-menu .focus > .menu-link,.ast-theme-transparent-header .ast-builder-menu .main-header-menu .focus > .ast-menu-toggle,.ast-theme-transparent-header .ast-builder-menu .main-header-menu .current-menu-item > .menu-link,.ast-theme-transparent-header .ast-builder-menu .main-header-menu .current-menu-ancestor > .menu-link,.ast-theme-transparent-header .ast-builder-menu .main-header-menu .current-menu-item > .ast-menu-toggle,.ast-theme-transparent-header .ast-builder-menu .main-header-menu .current-menu-ancestor > .ast-menu-toggle,.ast-theme-transparent-header [CLASS*="ast-builder-menu-"] .main-header-menu .current-menu-item > .menu-link,.ast-theme-transparent-header [CLASS*="ast-builder-menu-"] .main-header-menu .current-menu-ancestor > .menu-link,.ast-theme-transparent-header [CLASS*="ast-builder-menu-"] .main-header-menu .current-menu-item > .ast-menu-toggle,.ast-theme-transparent-header [CLASS*="ast-builder-menu-"] .main-header-menu .current-menu-ancestor > .ast-menu-toggle,.ast-theme-transparent-header .main-header-menu .menu-item:hover > .menu-link,.ast-theme-transparent-header .main-header-menu .current-menu-item > .menu-link,.ast-theme-transparent-header .main-header-menu .current-menu-ancestor > .menu-link{color:var(--ast-global-color-0);}.ast-theme-transparent-header .ast-builder-menu .main-header-menu .menu-item .sub-menu .menu-link,.ast-theme-transparent-header .main-header-menu .menu-item .sub-menu .menu-link{background-color:transparent;}@media (max-width:921px){.ast-theme-transparent-header #masthead{position:absolute;left:0;right:0;}.ast-theme-transparent-header .main-header-bar,.ast-theme-transparent-header.ast-header-break-point .main-header-bar{background:none;}body.elementor-editor-active.ast-theme-transparent-header #masthead,.fl-builder-edit .ast-theme-transparent-header #masthead,body.vc_editor.ast-theme-transparent-header #masthead,body.brz-ed.ast-theme-transparent-header #masthead{z-index:0;}.ast-header-break-point.ast-replace-site-logo-transparent.ast-theme-transparent-header .custom-mobile-logo-link{display:none;}.ast-header-break-point.ast-replace-site-logo-transparent.ast-theme-transparent-header .transparent-custom-logo{display:inline-block;}.ast-theme-transparent-header .ast-above-header,.ast-theme-transparent-header .ast-above-header.ast-above-header-bar{background-image:none;background-color:transparent;}.ast-theme-transparent-header .ast-below-header,.ast-theme-transparent-header .ast-below-header.ast-below-header-bar{background-image:none;background-color:transparent;}}@media (max-width:921px){.ast-theme-transparent-header .ast-builder-menu .main-header-menu,.ast-theme-transparent-header .ast-builder-menu .main-header-menu .menu-link,.ast-theme-transparent-header [CLASS*="ast-builder-menu-"] .main-header-menu .menu-item > .menu-link,.ast-theme-transparent-header .ast-masthead-custom-menu-items,.ast-theme-transparent-header .ast-masthead-custom-menu-items a,.ast-theme-transparent-header .ast-builder-menu .main-header-menu .menu-item > .ast-menu-toggle,.ast-theme-transparent-header .ast-builder-menu .main-header-menu .menu-item > .ast-menu-toggle,.ast-theme-transparent-header .main-header-menu .menu-link{color:#131b26;}.ast-theme-transparent-header .ast-builder-menu .main-header-menu .menu-item:hover > .menu-link,.ast-theme-transparent-header .ast-builder-menu .main-header-menu .menu-item:hover > .ast-menu-toggle,.ast-theme-transparent-header .ast-builder-menu .main-header-menu .ast-masthead-custom-menu-items a:hover,.ast-theme-transparent-header .ast-builder-menu .main-header-menu .focus > .menu-link,.ast-theme-transparent-header .ast-builder-menu .main-header-menu .focus > .ast-menu-toggle,.ast-theme-transparent-header .ast-builder-menu .main-header-menu .current-menu-item > .menu-link,.ast-theme-transparent-header .ast-builder-menu .main-header-menu .current-menu-ancestor > .menu-link,.ast-theme-transparent-header .ast-builder-menu .main-header-menu .current-menu-item > .ast-menu-toggle,.ast-theme-transparent-header .ast-builder-menu .main-header-menu .current-menu-ancestor > .ast-menu-toggle,.ast-theme-transparent-header [CLASS*="ast-builder-menu-"] .main-header-menu .current-menu-item > .menu-link,.ast-theme-transparent-header [CLASS*="ast-builder-menu-"] .main-header-menu .current-menu-ancestor > .menu-link,.ast-theme-transparent-header [CLASS*="ast-builder-menu-"] .main-header-menu .current-menu-item > .ast-menu-toggle,.ast-theme-transparent-header [CLASS*="ast-builder-menu-"] .main-header-menu .current-menu-ancestor > .ast-menu-toggle,.ast-theme-transparent-header .main-header-menu .menu-item:hover > .menu-link,.ast-theme-transparent-header .main-header-menu .current-menu-item > .menu-link,.ast-theme-transparent-header .main-header-menu .current-menu-ancestor > .menu-link{color:var(--ast-global-color-0);}}.ast-theme-transparent-header #ast-desktop-header > .ast-main-header-wrap > .main-header-bar,.ast-theme-transparent-header.ast-header-break-point #ast-mobile-header > .ast-main-header-wrap > .main-header-bar{border-bottom-style:none;}.ast-breadcrumbs .trail-browse,.ast-breadcrumbs .trail-items,.ast-breadcrumbs .trail-items li{display:inline-block;margin:0;padding:0;border:none;background:inherit;text-indent:0;text-decoration:none;}.ast-breadcrumbs .trail-browse{font-size:inherit;font-style:inherit;font-weight:inherit;color:inherit;}.ast-breadcrumbs .trail-items{list-style:none;}.trail-items li::after{padding:0 0.3em;content:"\00bb";}.trail-items li:last-of-type::after{display:none;}h1,h2,h3,h4,h5,h6,.entry-content :where(h1,h2,h3,h4,h5,h6){color:var(--ast-global-color-2);}@media (max-width:921px){.ast-builder-grid-row-container.ast-builder-grid-row-tablet-3-firstrow .ast-builder-grid-row > *:first-child,.ast-builder-grid-row-container.ast-builder-grid-row-tablet-3-lastrow .ast-builder-grid-row > *:last-child{grid-column:1 / -1;}}@media (max-width:544px){.ast-builder-grid-row-container.ast-builder-grid-row-mobile-3-firstrow .ast-builder-grid-row > *:first-child,.ast-builder-grid-row-container.ast-builder-grid-row-mobile-3-lastrow .ast-builder-grid-row > *:last-child{grid-column:1 / -1;}}.ast-builder-layout-element[data-section="title_tagline"]{display:flex;}@media (max-width:921.99px){.ast-header-break-point .ast-builder-layout-element[data-section="title_tagline"]{display:flex;}}@media (max-width:544px){.ast-header-break-point .ast-builder-layout-element[data-section="title_tagline"]{display:flex;}}.ast-builder-menu-1{font-family:inherit;font-weight:inherit;}.ast-builder-menu-1 .sub-menu,.ast-builder-menu-1 .inline-on-mobile .sub-menu{border-top-width:2px;border-bottom-width:0;border-right-width:0;border-left-width:0;border-color:var(--ast-global-color-0);border-style:solid;}.ast-builder-menu-1 .sub-menu .sub-menu{top:-2px;}.ast-builder-menu-1 .main-header-menu > .menu-item > .sub-menu,.ast-builder-menu-1 .main-header-menu > .menu-item > .astra-full-megamenu-wrapper{margin-top:0;}.ast-desktop .ast-builder-menu-1 .main-header-menu > .menu-item > .sub-menu:before,.ast-desktop .ast-builder-menu-1 .main-header-menu > .menu-item > .astra-full-megamenu-wrapper:before{height:calc( 0px + 2px + 5px );}.ast-desktop .ast-builder-menu-1 .menu-item .sub-menu .menu-link{border-style:none;}@media (max-width:921px){.ast-header-break-point .ast-builder-menu-1 .menu-item.menu-item-has-children > .ast-menu-toggle{top:0;}.ast-builder-menu-1 .inline-on-mobile .menu-item.menu-item-has-children > .ast-menu-toggle{right:-15px;}.ast-builder-menu-1 .menu-item-has-children > .menu-link:after{content:unset;}.ast-builder-menu-1 .main-header-menu > .menu-item > .sub-menu,.ast-builder-menu-1 .main-header-menu > .menu-item > .astra-full-megamenu-wrapper{margin-top:0;}}@media (max-width:544px){.ast-header-break-point .ast-builder-menu-1 .menu-item.menu-item-has-children > .ast-menu-toggle{top:0;}.ast-builder-menu-1 .main-header-menu > .menu-item > .sub-menu,.ast-builder-menu-1 .main-header-menu > .menu-item > .astra-full-megamenu-wrapper{margin-top:0;}}.ast-builder-menu-1{display:flex;}@media (max-width:921.99px){.ast-header-break-point .ast-builder-menu-1{display:flex;}}@media (max-width:544px){.ast-header-break-point .ast-builder-menu-1{display:flex;}}.site-below-footer-wrap{padding-top:20px;padding-bottom:20px;}.site-below-footer-wrap[data-section="section-below-footer-builder"]{background-image:url(wp-content/uploads/2020/10/bg-001-free-img.png);background-repeat:no-repeat;background-position:center center;background-size:auto;background-attachment:fixed;min-height:80px;border-style:solid;border-width:0px;border-top-width:1px;border-top-color:#2e2e2e;}.site-below-footer-wrap[data-section="section-below-footer-builder"] .ast-builder-grid-row{max-width:1140px;min-height:80px;margin-left:auto;margin-right:auto;}.site-below-footer-wrap[data-section="section-below-footer-builder"] .ast-builder-grid-row,.site-below-footer-wrap[data-section="section-below-footer-builder"] .site-footer-section{align-items:flex-start;}.site-below-footer-wrap[data-section="section-below-footer-builder"].ast-footer-row-inline .site-footer-section{display:flex;margin-bottom:0;}.ast-builder-grid-row-2-equal .ast-builder-grid-row{grid-template-columns:repeat( 2,1fr );}@media (max-width:921px){.site-below-footer-wrap[data-section="section-below-footer-builder"].ast-footer-row-tablet-inline .site-footer-section{display:flex;margin-bottom:0;}.site-below-footer-wrap[data-section="section-below-footer-builder"].ast-footer-row-tablet-stack .site-footer-section{display:block;margin-bottom:10px;}.ast-builder-grid-row-container.ast-builder-grid-row-tablet-2-equal .ast-builder-grid-row{grid-template-columns:repeat( 2,1fr );}}@media (max-width:544px){.site-below-footer-wrap[data-section="section-below-footer-builder"].ast-footer-row-mobile-inline .site-footer-section{display:flex;margin-bottom:0;}.site-below-footer-wrap[data-section="section-below-footer-builder"].ast-footer-row-mobile-stack .site-footer-section{display:block;margin-bottom:10px;}.ast-builder-grid-row-container.ast-builder-grid-row-mobile-full .ast-builder-grid-row{grid-template-columns:1fr;}}.site-below-footer-wrap[data-section="section-below-footer-builder"]{padding-top:30px;padding-bottom:30px;padding-left:30px;padding-right:30px;}@media (max-width:544px){.site-below-footer-wrap[data-section="section-below-footer-builder"]{padding-left:30px;padding-right:30px;}}.site-below-footer-wrap[data-section="section-below-footer-builder"]{display:grid;}@media (max-width:921.99px){.ast-header-break-point .site-below-footer-wrap[data-section="section-below-footer-builder"]{display:grid;}}@media (max-width:544px){.ast-header-break-point .site-below-footer-wrap[data-section="section-below-footer-builder"]{display:grid;}}.ast-footer-copyright{text-align:left;}.ast-footer-copyright.site-footer-focus-item {color:var(--ast-global-color-2);}@media (max-width:921px){.ast-footer-copyright{text-align:left;}}@media (max-width:544px){.ast-footer-copyright{text-align:center;}}.ast-footer-copyright.ast-builder-layout-element{display:flex;}@media (max-width:921.99px){.ast-header-break-point .ast-footer-copyright.ast-builder-layout-element{display:flex;}}@media (max-width:544px){.ast-header-break-point .ast-footer-copyright.ast-builder-layout-element{display:flex;}}.site-footer{background-image:linear-gradient(to right,rgba(47,55,66,0),rgba(47,55,66,0)),url(wp-content/uploads/2020/11/bg-003-free-img.png);background-repeat:repeat;background-position:center center;background-size:auto;background-attachment:scroll;}.site-primary-footer-wrap{padding-top:45px;padding-bottom:45px;}.site-primary-footer-wrap[data-section="section-primary-footer-builder"]{background-image:url(wp-content/uploads/2020/10/bg-001-free-img.png);background-repeat:no-repeat;background-position:center center;background-size:auto;background-attachment:fixed;}.site-primary-footer-wrap[data-section="section-primary-footer-builder"] .ast-builder-grid-row{max-width:1140px;margin-left:auto;margin-right:auto;}.site-primary-footer-wrap[data-section="section-primary-footer-builder"] .ast-builder-grid-row,.site-primary-footer-wrap[data-section="section-primary-footer-builder"] .site-footer-section{align-items:flex-start;}.site-primary-footer-wrap[data-section="section-primary-footer-builder"].ast-footer-row-inline .site-footer-section{display:flex;margin-bottom:0;}.ast-builder-grid-row-2-lheavy .ast-builder-grid-row{grid-template-columns:2fr 1fr;}@media (max-width:921px){.site-primary-footer-wrap[data-section="section-primary-footer-builder"].ast-footer-row-tablet-inline .site-footer-section{display:flex;margin-bottom:0;}.site-primary-footer-wrap[data-section="section-primary-footer-builder"].ast-footer-row-tablet-stack .site-footer-section{display:block;margin-bottom:10px;}.ast-builder-grid-row-container.ast-builder-grid-row-tablet-2-equal .ast-builder-grid-row{grid-template-columns:repeat( 2,1fr );}}@media (max-width:544px){.site-primary-footer-wrap[data-section="section-primary-footer-builder"].ast-footer-row-mobile-inline .site-footer-section{display:flex;margin-bottom:0;}.site-primary-footer-wrap[data-section="section-primary-footer-builder"].ast-footer-row-mobile-stack .site-footer-section{display:block;margin-bottom:10px;}.ast-builder-grid-row-container.ast-builder-grid-row-mobile-full .ast-builder-grid-row{grid-template-columns:1fr;}}.site-primary-footer-wrap[data-section="section-primary-footer-builder"]{padding-top:120px;padding-bottom:120px;padding-left:30px;padding-right:30px;}@media (max-width:921px){.site-primary-footer-wrap[data-section="section-primary-footer-builder"]{padding-top:90px;padding-bottom:90px;padding-left:25px;padding-right:25px;}}@media (max-width:544px){.site-primary-footer-wrap[data-section="section-primary-footer-builder"]{padding-top:50px;padding-bottom:30px;padding-left:20px;padding-right:20px;}}.site-primary-footer-wrap[data-section="section-primary-footer-builder"]{display:grid;}@media (max-width:921.99px){.ast-header-break-point .site-primary-footer-wrap[data-section="section-primary-footer-builder"]{display:grid;}}@media (max-width:544px){.ast-header-break-point .site-primary-footer-wrap[data-section="section-primary-footer-builder"]{display:grid;}}.footer-widget-area[data-section="sidebar-widgets-footer-widget-1"].footer-widget-area-inner{text-align:left;}@media (max-width:921px){.footer-widget-area[data-section="sidebar-widgets-footer-widget-1"].footer-widget-area-inner{text-align:left;}}@media (max-width:544px){.footer-widget-area[data-section="sidebar-widgets-footer-widget-1"].footer-widget-area-inner{text-align:left;}}.footer-widget-area[data-section="sidebar-widgets-footer-widget-2"].footer-widget-area-inner{text-align:left;}@media (max-width:921px){.footer-widget-area[data-section="sidebar-widgets-footer-widget-2"].footer-widget-area-inner{text-align:left;}}@media (max-width:544px){.footer-widget-area[data-section="sidebar-widgets-footer-widget-2"].footer-widget-area-inner{text-align:left;}}.footer-widget-area[data-section="sidebar-widgets-footer-widget-3"].footer-widget-area-inner{text-align:left;}@media (max-width:921px){.footer-widget-area[data-section="sidebar-widgets-footer-widget-3"].footer-widget-area-inner{text-align:left;}}@media (max-width:544px){.footer-widget-area[data-section="sidebar-widgets-footer-widget-3"].footer-widget-area-inner{text-align:left;}}.footer-widget-area[data-section="sidebar-widgets-footer-widget-4"].footer-widget-area-inner{text-align:left;}@media (max-width:921px){.footer-widget-area[data-section="sidebar-widgets-footer-widget-4"].footer-widget-area-inner{text-align:left;}}@media (max-width:544px){.footer-widget-area[data-section="sidebar-widgets-footer-widget-4"].footer-widget-area-inner{text-align:left;}}.footer-widget-area[data-section="sidebar-widgets-footer-widget-1"] .widget-title,.footer-widget-area[data-section="sidebar-widgets-footer-widget-1"] h1,.footer-widget-area[data-section="sidebar-widgets-footer-widget-1"] .widget-area h1,.footer-widget-area[data-section="sidebar-widgets-footer-widget-1"] h2,.footer-widget-area[data-section="sidebar-widgets-footer-widget-1"] .widget-area h2,.footer-widget-area[data-section="sidebar-widgets-footer-widget-1"] h3,.footer-widget-area[data-section="sidebar-widgets-footer-widget-1"] .widget-area h3,.footer-widget-area[data-section="sidebar-widgets-footer-widget-1"] h4,.footer-widget-area[data-section="sidebar-widgets-footer-widget-1"] .widget-area h4,.footer-widget-area[data-section="sidebar-widgets-footer-widget-1"] h5,.footer-widget-area[data-section="sidebar-widgets-footer-widget-1"] .widget-area h5,.footer-widget-area[data-section="sidebar-widgets-footer-widget-1"] h6,.footer-widget-area[data-section="sidebar-widgets-footer-widget-1"] .widget-area h6{color:var(--ast-global-color-2);}.footer-widget-area[data-section="sidebar-widgets-footer-widget-1"]{display:block;}@media (max-width:921.99px){.ast-header-break-point .footer-widget-area[data-section="sidebar-widgets-footer-widget-1"]{display:block;}}@media (max-width:544px){.ast-header-break-point .footer-widget-area[data-section="sidebar-widgets-footer-widget-1"]{display:block;}}.footer-widget-area[data-section="sidebar-widgets-footer-widget-2"] .widget-title,.footer-widget-area[data-section="sidebar-widgets-footer-widget-2"] h1,.footer-widget-area[data-section="sidebar-widgets-footer-widget-2"] .widget-area h1,.footer-widget-area[data-section="sidebar-widgets-footer-widget-2"] h2,.footer-widget-area[data-section="sidebar-widgets-footer-widget-2"] .widget-area h2,.footer-widget-area[data-section="sidebar-widgets-footer-widget-2"] h3,.footer-widget-area[data-section="sidebar-widgets-footer-widget-2"] .widget-area h3,.footer-widget-area[data-section="sidebar-widgets-footer-widget-2"] h4,.footer-widget-area[data-section="sidebar-widgets-footer-widget-2"] .widget-area h4,.footer-widget-area[data-section="sidebar-widgets-footer-widget-2"] h5,.footer-widget-area[data-section="sidebar-widgets-footer-widget-2"] .widget-area h5,.footer-widget-area[data-section="sidebar-widgets-footer-widget-2"] h6,.footer-widget-area[data-section="sidebar-widgets-footer-widget-2"] .widget-area h6{color:var(--ast-global-color-2);font-size:90px;font-size:5.2941176470588rem;}@media (max-width:921px){.footer-widget-area[data-section="sidebar-widgets-footer-widget-2"] .widget-title,.footer-widget-area[data-section="sidebar-widgets-footer-widget-2"] h1,.footer-widget-area[data-section="sidebar-widgets-footer-widget-2"] .widget-area h1,.footer-widget-area[data-section="sidebar-widgets-footer-widget-2"] h2,.footer-widget-area[data-section="sidebar-widgets-footer-widget-2"] .widget-area h2,.footer-widget-area[data-section="sidebar-widgets-footer-widget-2"] h3,.footer-widget-area[data-section="sidebar-widgets-footer-widget-2"] .widget-area h3,.footer-widget-area[data-section="sidebar-widgets-footer-widget-2"] h4,.footer-widget-area[data-section="sidebar-widgets-footer-widget-2"] .widget-area h4,.footer-widget-area[data-section="sidebar-widgets-footer-widget-2"] h5,.footer-widget-area[data-section="sidebar-widgets-footer-widget-2"] .widget-area h5,.footer-widget-area[data-section="sidebar-widgets-footer-widget-2"] h6,.footer-widget-area[data-section="sidebar-widgets-footer-widget-2"] .widget-area h6{font-size:64px;font-size:3.7647058823529rem;}}@media (max-width:544px){.footer-widget-area[data-section="sidebar-widgets-footer-widget-2"] .widget-title,.footer-widget-area[data-section="sidebar-widgets-footer-widget-2"] h1,.footer-widget-area[data-section="sidebar-widgets-footer-widget-2"] .widget-area h1,.footer-widget-area[data-section="sidebar-widgets-footer-widget-2"] h2,.footer-widget-area[data-section="sidebar-widgets-footer-widget-2"] .widget-area h2,.footer-widget-area[data-section="sidebar-widgets-footer-widget-2"] h3,.footer-widget-area[data-section="sidebar-widgets-footer-widget-2"] .widget-area h3,.footer-widget-area[data-section="sidebar-widgets-footer-widget-2"] h4,.footer-widget-area[data-section="sidebar-widgets-footer-widget-2"] .widget-area h4,.footer-widget-area[data-section="sidebar-widgets-footer-widget-2"] h5,.footer-widget-area[data-section="sidebar-widgets-footer-widget-2"] .widget-area h5,.footer-widget-area[data-section="sidebar-widgets-footer-widget-2"] h6,.footer-widget-area[data-section="sidebar-widgets-footer-widget-2"] .widget-area h6{font-size:46px;font-size:2.7058823529412rem;}}.footer-widget-area[data-section="sidebar-widgets-footer-widget-2"]{display:block;}@media (max-width:921.99px){.ast-header-break-point .footer-widget-area[data-section="sidebar-widgets-footer-widget-2"]{display:block;}}@media (max-width:544px){.ast-header-break-point .footer-widget-area[data-section="sidebar-widgets-footer-widget-2"]{display:block;}}.footer-widget-area[data-section="sidebar-widgets-footer-widget-3"].footer-widget-area-inner{color:var(--ast-global-color-2);}.footer-widget-area[data-section="sidebar-widgets-footer-widget-3"]{display:block;}@media (max-width:921.99px){.ast-header-break-point .footer-widget-area[data-section="sidebar-widgets-footer-widget-3"]{display:block;}}@media (max-width:544px){.ast-header-break-point .footer-widget-area[data-section="sidebar-widgets-footer-widget-3"]{display:block;}}.footer-widget-area[data-section="sidebar-widgets-footer-widget-4"].footer-widget-area-inner{font-size:32px;font-size:1.8823529411765rem;}.footer-widget-area[data-section="sidebar-widgets-footer-widget-4"]{display:block;}@media (max-width:921.99px){.ast-header-break-point .footer-widget-area[data-section="sidebar-widgets-footer-widget-4"]{display:block;}}@media (max-width:544px){.ast-header-break-point .footer-widget-area[data-section="sidebar-widgets-footer-widget-4"]{display:block;}}.elementor-widget-heading .elementor-heading-title{margin:0;}.elementor-page .ast-menu-toggle{color:unset;background:unset;}.elementor-post.elementor-grid-item.hentry{margin-bottom:0;}.woocommerce div.product .elementor-element.elementor-products-grid .related.products ul.products li.product,.elementor-element .elementor-wc-products .woocommerce[class*='columns-'] ul.products li.product{width:auto;margin:0;float:none;}body .elementor hr{background-color:#ccc;margin:0;}.ast-left-sidebar .elementor-section.elementor-section-stretched,.ast-right-sidebar .elementor-section.elementor-section-stretched{max-width:100%;left:0 !important;}.elementor-posts-container [CLASS*="ast-width-"]{width:100%;}.elementor-template-full-width .ast-container{display:block;}.elementor-screen-only,.screen-reader-text,.screen-reader-text span,.ui-helper-hidden-accessible{top:0 !important;}@media (max-width:544px){.elementor-element .elementor-wc-products .woocommerce[class*="columns-"] ul.products li.product{width:auto;margin:0;}.elementor-element .woocommerce .woocommerce-result-count{float:none;}}.ast-header-break-point .main-header-bar{border-bottom-width:0;}@media (min-width:922px){.main-header-bar{border-bottom-width:0;}}.main-header-menu .menu-item, #astra-footer-menu .menu-item, .main-header-bar .ast-masthead-custom-menu-items{-js-display:flex;display:flex;-webkit-box-pack:center;-webkit-justify-content:center;-moz-box-pack:center;-ms-flex-pack:center;justify-content:center;-webkit-box-orient:vertical;-webkit-box-direction:normal;-webkit-flex-direction:column;-moz-box-orient:vertical;-moz-box-direction:normal;-ms-flex-direction:column;flex-direction:column;}.main-header-menu > .menu-item > .menu-link, #astra-footer-menu > .menu-item > .menu-link{height:100%;-webkit-box-align:center;-webkit-align-items:center;-moz-box-align:center;-ms-flex-align:center;align-items:center;-js-display:flex;display:flex;}.ast-header-break-point .main-navigation ul .menu-item .menu-link .icon-arrow:first-of-type svg{top:.2em;margin-top:0px;margin-left:0px;width:.65em;transform:translate(0, -2px) rotateZ(270deg);}.ast-mobile-popup-content .ast-submenu-expanded > .ast-menu-toggle{transform:rotateX(180deg);overflow-y:auto;}@media (min-width:922px){.ast-builder-menu .main-navigation > ul > li:last-child a{margin-right:0;}}.ast-separate-container .ast-article-inner{background-color:transparent;background-image:none;}.ast-separate-container .ast-article-post{background-color:var(--ast-global-color-5);background-image:none;}@media (max-width:921px){.ast-separate-container .ast-article-post{background-color:var(--ast-global-color-5);background-image:none;}}@media (max-width:544px){.ast-separate-container .ast-article-post{background-color:var(--ast-global-color-5);}}.ast-separate-container .ast-article-single:not(.ast-related-post), .ast-separate-container .error-404, .ast-separate-container .no-results, .single.ast-separate-container  .ast-author-meta, .ast-separate-container .related-posts-title-wrapper, .ast-separate-container .comments-count-wrapper, .ast-box-layout.ast-plain-container .site-content, .ast-padded-layout.ast-plain-container .site-content, .ast-separate-container .ast-archive-description, .ast-separate-container .comments-area .comment-respond, .ast-separate-container .comments-area .ast-comment-list li, .ast-separate-container .comments-area .comments-title{background-color:var(--ast-global-color-5);background-image:none;}@media (max-width:921px){.ast-separate-container .ast-article-single:not(.ast-related-post), .ast-separate-container .error-404, .ast-separate-container .no-results, .single.ast-separate-container  .ast-author-meta, .ast-separate-container .related-posts-title-wrapper, .ast-separate-container .comments-count-wrapper, .ast-box-layout.ast-plain-container .site-content, .ast-padded-layout.ast-plain-container .site-content, .ast-separate-container .ast-archive-description{background-color:var(--ast-global-color-5);background-image:none;}}@media (max-width:544px){.ast-separate-container .ast-article-single:not(.ast-related-post), .ast-separate-container .error-404, .ast-separate-container .no-results, .single.ast-separate-container  .ast-author-meta, .ast-separate-container .related-posts-title-wrapper, .ast-separate-container .comments-count-wrapper, .ast-box-layout.ast-plain-container .site-content, .ast-padded-layout.ast-plain-container .site-content, .ast-separate-container .ast-archive-description{background-color:var(--ast-global-color-5);}}.ast-separate-container.ast-two-container #secondary .widget{background-color:var(--ast-global-color-5);background-image:none;}@media (max-width:921px){.ast-separate-container.ast-two-container #secondary .widget{background-color:var(--ast-global-color-5);background-image:none;}}@media (max-width:544px){.ast-separate-container.ast-two-container #secondary .widget{background-color:var(--ast-global-color-5);}}.ast-mobile-header-content > *,.ast-desktop-header-content > * {padding: 10px 0;height: auto;}.ast-mobile-header-content > *:first-child,.ast-desktop-header-content > *:first-child {padding-top: 10px;}.ast-mobile-header-content > .ast-builder-menu,.ast-desktop-header-content > .ast-builder-menu {padding-top: 0;}.ast-mobile-header-content > *:last-child,.ast-desktop-header-content > *:last-child {padding-bottom: 0;}.ast-mobile-header-content .ast-search-menu-icon.ast-inline-search label,.ast-desktop-header-content .ast-search-menu-icon.ast-inline-search label {width: 100%;}.ast-desktop-header-content .main-header-bar-navigation .ast-submenu-expanded > .ast-menu-toggle::before {transform: rotateX(180deg);}#ast-desktop-header .ast-desktop-header-content,.ast-mobile-header-content .ast-search-icon,.ast-desktop-header-content .ast-search-icon,.ast-mobile-header-wrap .ast-mobile-header-content,.ast-main-header-nav-open.ast-popup-nav-open .ast-mobile-header-wrap .ast-mobile-header-content,.ast-main-header-nav-open.ast-popup-nav-open .ast-desktop-header-content {display: none;}.ast-main-header-nav-open.ast-header-break-point #ast-desktop-header .ast-desktop-header-content,.ast-main-header-nav-open.ast-header-break-point .ast-mobile-header-wrap .ast-mobile-header-content {display: block;}.ast-desktop .ast-desktop-header-content .astra-menu-animation-slide-up > .menu-item > .sub-menu,.ast-desktop .ast-desktop-header-content .astra-menu-animation-slide-up > .menu-item .menu-item > .sub-menu,.ast-desktop .ast-desktop-header-content .astra-menu-animation-slide-down > .menu-item > .sub-menu,.ast-desktop .ast-desktop-header-content .astra-menu-animation-slide-down > .menu-item .menu-item > .sub-menu,.ast-desktop .ast-desktop-header-content .astra-menu-animation-fade > .menu-item > .sub-menu,.ast-desktop .ast-desktop-header-content .astra-menu-animation-fade > .menu-item .menu-item > .sub-menu {opacity: 1;visibility: visible;}.ast-hfb-header.ast-default-menu-enable.ast-header-break-point .ast-mobile-header-wrap .ast-mobile-header-content .main-header-bar-navigation {width: unset;margin: unset;}.ast-mobile-header-content.content-align-flex-end .main-header-bar-navigation .menu-item-has-children > .ast-menu-toggle,.ast-desktop-header-content.content-align-flex-end .main-header-bar-navigation .menu-item-has-children > .ast-menu-toggle {left: calc( 20px - 0.907em);right: auto;}.ast-mobile-header-content .ast-search-menu-icon,.ast-mobile-header-content .ast-search-menu-icon.slide-search,.ast-desktop-header-content .ast-search-menu-icon,.ast-desktop-header-content .ast-search-menu-icon.slide-search {width: 100%;position: relative;display: block;right: auto;transform: none;}.ast-mobile-header-content .ast-search-menu-icon.slide-search .search-form,.ast-mobile-header-content .ast-search-menu-icon .search-form,.ast-desktop-header-content .ast-search-menu-icon.slide-search .search-form,.ast-desktop-header-content .ast-search-menu-icon .search-form {right: 0;visibility: visible;opacity: 1;position: relative;top: auto;transform: none;padding: 0;display: block;overflow: hidden;}.ast-mobile-header-content .ast-search-menu-icon.ast-inline-search .search-field,.ast-mobile-header-content .ast-search-menu-icon .search-field,.ast-desktop-header-content .ast-search-menu-icon.ast-inline-search .search-field,.ast-desktop-header-content .ast-search-menu-icon .search-field {width: 100%;padding-right: 5.5em;}.ast-mobile-header-content .ast-search-menu-icon .search-submit,.ast-desktop-header-content .ast-search-menu-icon .search-submit {display: block;position: absolute;height: 100%;top: 0;right: 0;padding: 0 1em;border-radius: 0;}.ast-hfb-header.ast-default-menu-enable.ast-header-break-point .ast-mobile-header-wrap .ast-mobile-header-content .main-header-bar-navigation ul .sub-menu .menu-link {padding-left: 30px;}.ast-hfb-header.ast-default-menu-enable.ast-header-break-point .ast-mobile-header-wrap .ast-mobile-header-content .main-header-bar-navigation .sub-menu .menu-item .menu-item .menu-link {padding-left: 40px;}.ast-mobile-popup-drawer.active .ast-mobile-popup-inner{background-color:#ffffff;;}.ast-mobile-header-wrap .ast-mobile-header-content, .ast-desktop-header-content{background-color:#ffffff;;}.ast-mobile-popup-content > *, .ast-mobile-header-content > *, .ast-desktop-popup-content > *, .ast-desktop-header-content > *{padding-top:0;padding-bottom:0;}.content-align-flex-start .ast-builder-layout-element{justify-content:flex-start;}.content-align-flex-start .main-header-menu{text-align:left;}.ast-mobile-popup-drawer.active .menu-toggle-close{color:#3a3a3a;}.ast-mobile-header-wrap .ast-primary-header-bar,.ast-primary-header-bar .site-primary-header-wrap{min-height:70px;}.ast-desktop:not(:has(.ast-header-sticked)) .ast-primary-header-bar .main-header-menu > .menu-item{line-height:70px;}.ast-header-break-point #masthead .ast-mobile-header-wrap .ast-primary-header-bar,.ast-header-break-point #masthead .ast-mobile-header-wrap .ast-below-header-bar,.ast-header-break-point #masthead .ast-mobile-header-wrap .ast-above-header-bar{padding-left:20px;padding-right:20px;}.ast-header-break-point .ast-primary-header-bar{border-bottom-width:0;border-bottom-color:#eaeaea;border-bottom-style:solid;}@media (min-width:922px){.ast-primary-header-bar{border-bottom-width:0;border-bottom-color:#eaeaea;border-bottom-style:solid;}}.ast-primary-header-bar{background-color:#ffffff;background-image:none;}.ast-desktop .ast-primary-header-bar.main-header-bar, .ast-header-break-point #masthead .ast-primary-header-bar.main-header-bar{padding-top:9px;}.ast-primary-header-bar{display:block;}@media (max-width:921.99px){.ast-header-break-point .ast-primary-header-bar{display:grid;}}@media (max-width:544px){.ast-header-break-point .ast-primary-header-bar{display:grid;}}[data-section="section-header-mobile-trigger"] .ast-button-wrap .ast-mobile-menu-trigger-minimal{color:#ffffff;border:none;background:transparent;}[data-section="section-header-mobile-trigger"] .ast-button-wrap .mobile-menu-toggle-icon .ast-mobile-svg{width:20px;height:20px;fill:#ffffff;}[data-section="section-header-mobile-trigger"] .ast-button-wrap .mobile-menu-wrap .mobile-menu{color:#ffffff;}:root{--e-global-color-astglobalcolor0:#4175FC;--e-global-color-astglobalcolor1:#084AF3;--e-global-color-astglobalcolor2:#FFFFFF;--e-global-color-astglobalcolor3:#E8EBEC;--e-global-color-astglobalcolor4:#101218;--e-global-color-astglobalcolor5:#3B4244;--e-global-color-astglobalcolor6:#000000;--e-global-color-astglobalcolor7:#4B4F58;--e-global-color-astglobalcolor8:#F6F7F8;}
-/*# sourceURL=astra-theme-css-inline-css */
-</style>
-<link rel='stylesheet' id='astra-google-fonts-css' href='css@family=Karla%3A400,%7CRubik%3A700,&display=swap&ver=4.13.6.css' media='all' />
-<style id="wp-emoji-styles-inline-css">
-
-	img.wp-smiley, img.emoji {
-		display: inline !important;
-		border: none !important;
-		box-shadow: none !important;
-		height: 1em !important;
-		width: 1em !important;
-		margin: 0 0.07em !important;
-		vertical-align: -0.1em !important;
-		background: none !important;
-		padding: 0 !important;
-	}
-/*# sourceURL=wp-emoji-styles-inline-css */
-</style>
-<style id="global-styles-inline-css">
-:root{--wp--preset--aspect-ratio--square: 1;--wp--preset--aspect-ratio--4-3: 4/3;--wp--preset--aspect-ratio--3-4: 3/4;--wp--preset--aspect-ratio--3-2: 3/2;--wp--preset--aspect-ratio--2-3: 2/3;--wp--preset--aspect-ratio--16-9: 16/9;--wp--preset--aspect-ratio--9-16: 9/16;--wp--preset--color--black: #000000;--wp--preset--color--cyan-bluish-gray: #abb8c3;--wp--preset--color--white: #ffffff;--wp--preset--color--pale-pink: #f78da7;--wp--preset--color--vivid-red: #cf2e2e;--wp--preset--color--luminous-vivid-orange: #ff6900;--wp--preset--color--luminous-vivid-amber: #fcb900;--wp--preset--color--light-green-cyan: #7bdcb5;--wp--preset--color--vivid-green-cyan: #00d084;--wp--preset--color--pale-cyan-blue: #8ed1fc;--wp--preset--color--vivid-cyan-blue: #0693e3;--wp--preset--color--vivid-purple: #9b51e0;--wp--preset--color--ast-global-color-0: var(--ast-global-color-0);--wp--preset--color--ast-global-color-1: var(--ast-global-color-1);--wp--preset--color--ast-global-color-2: var(--ast-global-color-2);--wp--preset--color--ast-global-color-3: var(--ast-global-color-3);--wp--preset--color--ast-global-color-4: var(--ast-global-color-4);--wp--preset--color--ast-global-color-5: var(--ast-global-color-5);--wp--preset--color--ast-global-color-6: var(--ast-global-color-6);--wp--preset--color--ast-global-color-7: var(--ast-global-color-7);--wp--preset--color--ast-global-color-8: var(--ast-global-color-8);--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple: linear-gradient(135deg,rgb(6,147,227) 0%,rgb(155,81,224) 100%);--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan: linear-gradient(135deg,rgb(122,220,180) 0%,rgb(0,208,130) 100%);--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange: linear-gradient(135deg,rgb(252,185,0) 0%,rgb(255,105,0) 100%);--wp--preset--gradient--luminous-vivid-orange-to-vivid-red: linear-gradient(135deg,rgb(255,105,0) 0%,rgb(207,46,46) 100%);--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray: linear-gradient(135deg,rgb(238,238,238) 0%,rgb(169,184,195) 100%);--wp--preset--gradient--cool-to-warm-spectrum: linear-gradient(135deg,rgb(74,234,220) 0%,rgb(151,120,209) 20%,rgb(207,42,186) 40%,rgb(238,44,130) 60%,rgb(251,105,98) 80%,rgb(254,248,76) 100%);--wp--preset--gradient--blush-light-purple: linear-gradient(135deg,rgb(255,206,236) 0%,rgb(152,150,240) 100%);--wp--preset--gradient--blush-bordeaux: linear-gradient(135deg,rgb(254,205,165) 0%,rgb(254,45,45) 50%,rgb(107,0,62) 100%);--wp--preset--gradient--luminous-dusk: linear-gradient(135deg,rgb(255,203,112) 0%,rgb(199,81,192) 50%,rgb(65,88,208) 100%);--wp--preset--gradient--pale-ocean: linear-gradient(135deg,rgb(255,245,203) 0%,rgb(182,227,212) 50%,rgb(51,167,181) 100%);--wp--preset--gradient--electric-grass: linear-gradient(135deg,rgb(202,248,128) 0%,rgb(113,206,126) 100%);--wp--preset--gradient--midnight: linear-gradient(135deg,rgb(2,3,129) 0%,rgb(40,116,252) 100%);--wp--preset--font-size--small: 13px;--wp--preset--font-size--medium: 20px;--wp--preset--font-size--large: 36px;--wp--preset--font-size--x-large: 42px;--wp--preset--spacing--20: 0.44rem;--wp--preset--spacing--30: 0.67rem;--wp--preset--spacing--40: 1rem;--wp--preset--spacing--50: 1.5rem;--wp--preset--spacing--60: 2.25rem;--wp--preset--spacing--70: 3.38rem;--wp--preset--spacing--80: 5.06rem;--wp--preset--shadow--natural: 6px 6px 9px rgba(0, 0, 0, 0.2);--wp--preset--shadow--deep: 12px 12px 50px rgba(0, 0, 0, 0.4);--wp--preset--shadow--sharp: 6px 6px 0px rgba(0, 0, 0, 0.2);--wp--preset--shadow--outlined: 6px 6px 0px -3px rgb(255, 255, 255), 6px 6px rgb(0, 0, 0);--wp--preset--shadow--crisp: 6px 6px 0px rgb(0, 0, 0);}:root { --wp--style--global--content-size: var(--wp--custom--ast-content-width-size);--wp--style--global--wide-size: var(--wp--custom--ast-wide-width-size); }:where(body) { margin: 0; }.wp-site-blocks > .alignleft { float: left; margin-right: 2em; }.wp-site-blocks > .alignright { float: right; margin-left: 2em; }.wp-site-blocks > .aligncenter { justify-content: center; margin-left: auto; margin-right: auto; }:where(.wp-site-blocks) > * { margin-block-start: 24px; margin-block-end: 0; }:where(.wp-site-blocks) > :first-child { margin-block-start: 0; }:where(.wp-site-blocks) > :last-child { margin-block-end: 0; }:root { --wp--style--block-gap: 24px; }:root :where(.is-layout-flow) > :first-child{margin-block-start: 0;}:root :where(.is-layout-flow) > :last-child{margin-block-end: 0;}:root :where(.is-layout-flow) > *{margin-block-start: 24px;margin-block-end: 0;}:root :where(.is-layout-constrained) > :first-child{margin-block-start: 0;}:root :where(.is-layout-constrained) > :last-child{margin-block-end: 0;}:root :where(.is-layout-constrained) > *{margin-block-start: 24px;margin-block-end: 0;}:root :where(.is-layout-flex){gap: 24px;}:root :where(.is-layout-grid){gap: 24px;}.is-layout-flow > .alignleft{float: left;margin-inline-start: 0;margin-inline-end: 2em;}.is-layout-flow > .alignright{float: right;margin-inline-start: 2em;margin-inline-end: 0;}.is-layout-flow > .aligncenter{margin-left: auto !important;margin-right: auto !important;}.is-layout-constrained > .alignleft{float: left;margin-inline-start: 0;margin-inline-end: 2em;}.is-layout-constrained > .alignright{float: right;margin-inline-start: 2em;margin-inline-end: 0;}.is-layout-constrained > .aligncenter{margin-left: auto !important;margin-right: auto !important;}.is-layout-constrained > :where(:not(.alignleft):not(.alignright):not(.alignfull)){max-width: var(--wp--style--global--content-size);margin-left: auto !important;margin-right: auto !important;}.is-layout-constrained > .alignwide{max-width: var(--wp--style--global--wide-size);}body .is-layout-flex{display: flex;}.is-layout-flex{flex-wrap: wrap;align-items: center;}.is-layout-flex > :is(*, div){margin: 0;}body .is-layout-grid{display: grid;}.is-layout-grid > :is(*, div){margin: 0;}body{padding-top: 0px;padding-right: 0px;padding-bottom: 0px;padding-left: 0px;}a:where(:not(.wp-element-button)){text-decoration: none;}:root :where(.wp-element-button, .wp-block-button__link){background-color: #32373c;border-width: 0;color: #fff;font-family: inherit;font-size: inherit;font-style: inherit;font-weight: inherit;letter-spacing: inherit;line-height: inherit;padding-top: calc(0.667em + 2px);padding-right: calc(1.333em + 2px);padding-bottom: calc(0.667em + 2px);padding-left: calc(1.333em + 2px);text-decoration: none;text-transform: inherit;}.has-black-color{color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-color{color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-color{color: var(--wp--preset--color--white) !important;}.has-pale-pink-color{color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-color{color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-color{color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-color{color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-color{color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-color{color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-color{color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-color{color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-color{color: var(--wp--preset--color--vivid-purple) !important;}.has-ast-global-color-0-color{color: var(--wp--preset--color--ast-global-color-0) !important;}.has-ast-global-color-1-color{color: var(--wp--preset--color--ast-global-color-1) !important;}.has-ast-global-color-2-color{color: var(--wp--preset--color--ast-global-color-2) !important;}.has-ast-global-color-3-color{color: var(--wp--preset--color--ast-global-color-3) !important;}.has-ast-global-color-4-color{color: var(--wp--preset--color--ast-global-color-4) !important;}.has-ast-global-color-5-color{color: var(--wp--preset--color--ast-global-color-5) !important;}.has-ast-global-color-6-color{color: var(--wp--preset--color--ast-global-color-6) !important;}.has-ast-global-color-7-color{color: var(--wp--preset--color--ast-global-color-7) !important;}.has-ast-global-color-8-color{color: var(--wp--preset--color--ast-global-color-8) !important;}.has-black-background-color{background-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-background-color{background-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-background-color{background-color: var(--wp--preset--color--white) !important;}.has-pale-pink-background-color{background-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-background-color{background-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-background-color{background-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-background-color{background-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-background-color{background-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-background-color{background-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-background-color{background-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-background-color{background-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-background-color{background-color: var(--wp--preset--color--vivid-purple) !important;}.has-ast-global-color-0-background-color{background-color: var(--wp--preset--color--ast-global-color-0) !important;}.has-ast-global-color-1-background-color{background-color: var(--wp--preset--color--ast-global-color-1) !important;}.has-ast-global-color-2-background-color{background-color: var(--wp--preset--color--ast-global-color-2) !important;}.has-ast-global-color-3-background-color{background-color: var(--wp--preset--color--ast-global-color-3) !important;}.has-ast-global-color-4-background-color{background-color: var(--wp--preset--color--ast-global-color-4) !important;}.has-ast-global-color-5-background-color{background-color: var(--wp--preset--color--ast-global-color-5) !important;}.has-ast-global-color-6-background-color{background-color: var(--wp--preset--color--ast-global-color-6) !important;}.has-ast-global-color-7-background-color{background-color: var(--wp--preset--color--ast-global-color-7) !important;}.has-ast-global-color-8-background-color{background-color: var(--wp--preset--color--ast-global-color-8) !important;}.has-black-border-color{border-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-border-color{border-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-border-color{border-color: var(--wp--preset--color--white) !important;}.has-pale-pink-border-color{border-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-border-color{border-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-border-color{border-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-border-color{border-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-border-color{border-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-border-color{border-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-border-color{border-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-border-color{border-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-border-color{border-color: var(--wp--preset--color--vivid-purple) !important;}.has-ast-global-color-0-border-color{border-color: var(--wp--preset--color--ast-global-color-0) !important;}.has-ast-global-color-1-border-color{border-color: var(--wp--preset--color--ast-global-color-1) !important;}.has-ast-global-color-2-border-color{border-color: var(--wp--preset--color--ast-global-color-2) !important;}.has-ast-global-color-3-border-color{border-color: var(--wp--preset--color--ast-global-color-3) !important;}.has-ast-global-color-4-border-color{border-color: var(--wp--preset--color--ast-global-color-4) !important;}.has-ast-global-color-5-border-color{border-color: var(--wp--preset--color--ast-global-color-5) !important;}.has-ast-global-color-6-border-color{border-color: var(--wp--preset--color--ast-global-color-6) !important;}.has-ast-global-color-7-border-color{border-color: var(--wp--preset--color--ast-global-color-7) !important;}.has-ast-global-color-8-border-color{border-color: var(--wp--preset--color--ast-global-color-8) !important;}.has-vivid-cyan-blue-to-vivid-purple-gradient-background{background: var(--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple) !important;}.has-light-green-cyan-to-vivid-green-cyan-gradient-background{background: var(--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan) !important;}.has-luminous-vivid-amber-to-luminous-vivid-orange-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange) !important;}.has-luminous-vivid-orange-to-vivid-red-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-orange-to-vivid-red) !important;}.has-very-light-gray-to-cyan-bluish-gray-gradient-background{background: var(--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray) !important;}.has-cool-to-warm-spectrum-gradient-background{background: var(--wp--preset--gradient--cool-to-warm-spectrum) !important;}.has-blush-light-purple-gradient-background{background: var(--wp--preset--gradient--blush-light-purple) !important;}.has-blush-bordeaux-gradient-background{background: var(--wp--preset--gradient--blush-bordeaux) !important;}.has-luminous-dusk-gradient-background{background: var(--wp--preset--gradient--luminous-dusk) !important;}.has-pale-ocean-gradient-background{background: var(--wp--preset--gradient--pale-ocean) !important;}.has-electric-grass-gradient-background{background: var(--wp--preset--gradient--electric-grass) !important;}.has-midnight-gradient-background{background: var(--wp--preset--gradient--midnight) !important;}.has-small-font-size{font-size: var(--wp--preset--font-size--small) !important;}.has-medium-font-size{font-size: var(--wp--preset--font-size--medium) !important;}.has-large-font-size{font-size: var(--wp--preset--font-size--large) !important;}.has-x-large-font-size{font-size: var(--wp--preset--font-size--x-large) !important;}
-:root :where(.wp-block-icon svg){width: 24px;}
-:root :where(.wp-block-pullquote){font-size: 1.5em;line-height: 1.6;}
-/*# sourceURL=global-styles-inline-css */
-</style>
-<link rel='stylesheet' id='elementor-frontend-css' href='wp-content/plugins/elementor/assets/css/frontend.min.css@ver=4.1.4.css' media='all' />
-<link rel='stylesheet' id='elementor-post-207-css' href='wp-content/cache/speedycache/www.xonmedia.ltd/assets/ad9a286313d08a55-post-207.css' media='all' />
-<link rel='stylesheet' id='font-awesome-5-all-css' href='wp-content/plugins/elementor/assets/lib/font-awesome/css/all.min.css@ver=4.1.4.css' media='all' />
-<link rel='stylesheet' id='font-awesome-4-shim-css' href='wp-content/plugins/elementor/assets/lib/font-awesome/css/v4-shims.min.css@ver=4.1.4.css' media='all' />
-<link rel='stylesheet' id='widget-divider-css' href='wp-content/plugins/elementor/assets/css/widget-divider.min.css@ver=4.1.4.css' media='all' />
-<link rel='stylesheet' id='widget-heading-css' href='wp-content/plugins/elementor/assets/css/widget-heading.min.css@ver=4.1.4.css' media='all' />
-<link rel='stylesheet' id='widget-image-css' href='wp-content/plugins/elementor/assets/css/widget-image.min.css@ver=4.1.4.css' media='all' />
-<link rel='stylesheet' id='widget-spacer-css' href='wp-content/plugins/elementor/assets/css/widget-spacer.min.css@ver=4.1.4.css' media='all' />
-<link rel='stylesheet' id='elementor-post-205-css' href='wp-content/cache/speedycache/www.xonmedia.ltd/assets/7bd51509b0ace9e9-post-205.css' media='all' />
-<link rel='stylesheet' id='elementor-gf-local-roboto-css' href='wp-content/cache/speedycache/www.xonmedia.ltd/assets/49f1275f5a78a14b-roboto.css' media='all' />
-<link rel='stylesheet' id='elementor-gf-local-robotoslab-css' href='wp-content/cache/speedycache/www.xonmedia.ltd/assets/e56d33c95bf78b18-robotoslab.css' media='all' />
-<script id="font-awesome-4-shim-js" src="wp-content/plugins/elementor/assets/lib/font-awesome/js/v4-shims.min.js@ver=4.1.4"></script>
-<script id="jquery-core-js" src="wp-includes/js/jquery/jquery.min.js@ver=3.7.1"></script>
-<script id="jquery-migrate-js" src="wp-includes/js/jquery/jquery-migrate.min.js@ver=3.4.1"></script>
-<link rel="https://api.w.org/" href="index.php@rest_route=%252F.html" /><meta name="generator" content="WordPress 7.0.1" />
-<link rel='shortlink' href='index.html' />
-<meta name="generator" content="Elementor 4.1.4; features: e_font_icon_svg, additional_custom_breakpoints; settings: css_print_method-external, google_font-enabled, font_display-swap">
-<style>.recentcomments a{display:inline !important;padding:0 !important;margin:0 !important;}</style>			<style>
-				.e-con.e-parent:nth-of-type(n+4):not(.e-lazyloaded):not(.e-no-lazyload),
-				.e-con.e-parent:nth-of-type(n+4):not(.e-lazyloaded):not(.e-no-lazyload) * {
-					background-image: none !important;
-				}
-				@media screen and (max-height: 1024px) {
-					.e-con.e-parent:nth-of-type(n+3):not(.e-lazyloaded):not(.e-no-lazyload),
-					.e-con.e-parent:nth-of-type(n+3):not(.e-lazyloaded):not(.e-no-lazyload) * {
-						background-image: none !important;
-					}
-				}
-				@media screen and (max-height: 640px) {
-					.e-con.e-parent:nth-of-type(n+2):not(.e-lazyloaded):not(.e-no-lazyload),
-					.e-con.e-parent:nth-of-type(n+2):not(.e-lazyloaded):not(.e-no-lazyload) * {
-						background-image: none !important;
-					}
-				}
-			</style>
-			<link rel="icon" href="wp-content/uploads/2024/03/cropped-default-monochrome-black-minilogo-32x32.png" sizes="32x32" />
-<link rel="icon" href="wp-content/uploads/2024/03/cropped-default-monochrome-black-minilogo-192x192.png" sizes="192x192" />
-<link rel="apple-touch-icon" href="wp-content/uploads/2024/03/cropped-default-monochrome-black-minilogo-180x180.png" />
-<meta name="msapplication-TileImage" content="wp-content/uploads/2024/03/cropped-default-monochrome-black-minilogo-270x270.png" />
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+tailwind.config = {
+  darkMode: "class",
+  theme: {
+    extend: {
+      colors: {
+        "surface-tint": "#91cdff",
+        "on-tertiary": "#002979",
+        "text-muted": "#8d96a5",
+        "surface-canvas": "#07080b",
+        "surface-container": "#1d1f26",
+        "surface-dim": "#111319",
+        "surface-container-lowest": "#0c0e14",
+        "text-primary": "#f6f7f8",
+        "primary": "#91cdff",
+        "primary-container": "#00acff",
+        "primary-cyan": "#00acff",
+        "surface-container-high": "#282a30",
+        "tertiary-container": "#809fff",
+        "secondary": "#c1c2fb",
+        "tertiary": "#b4c5ff",
+        "background": "#111319",
+        "matrix-cyan-glow": "#00acff33",
+        "outline-variant": "#3e4851",
+        "outline-bright": "#4b4f58",
+        "outline-dim": "#222733",
+        "surface-elevated": "#171a23",
+        "surface-dark": "#101218"
+      },
+      fontFamily: {
+        headline: ["Rubik", "sans-serif"],
+        display: ["Hacked", "sans-serif"],
+        body: ["Karla", "sans-serif"],
+        mono: ["Space Mono", "monospace"]
+      }
+    }
+  }
+};
+</script>
 </head>
-
-<body itemtype='https://schema.org/WebPage' itemscope='itemscope' class="home wp-singular page-template-default page page-id-205 wp-custom-logo wp-embed-responsive wp-theme-astra ast-desktop ast-page-builder-template ast-no-sidebar astra-4.13.6 ast-single-post ast-inherit-site-logo-transparent ast-theme-transparent-header ast-hfb-header elementor-default elementor-kit-207 elementor-page elementor-page-205">
-			<script>
-			(function(){if(window.matchMedia('(max-width:921.99px)').matches){document.body.classList.add('ast-header-break-point');document.body.classList.remove('ast-desktop');}})();
-			</script>
-			
-<a
-	class="skip-link screen-reader-text"
-	href="#content">
-		Skip to content</a>
-
-<div
-class="hfeed site" id="page">
-			<header
-		class="site-header header-main-layout-1 ast-primary-menu-enabled ast-logo-title-inline ast-hide-custom-menu-mobile ast-builder-menu-toggle-icon ast-mobile-header-inline" id="masthead" itemtype="https://schema.org/WPHeader" itemscope="itemscope" itemid="#masthead"		>
-			<div id="ast-desktop-header" data-toggle-type="dropdown">
-		<div class="ast-main-header-wrap main-header-bar-wrap ">
-		<div class="ast-primary-header-bar ast-primary-header main-header-bar site-header-focus-item" data-section="section-primary-header-builder">
-						<div class="site-primary-header-wrap ast-builder-grid-row-container site-header-focus-item ast-container" data-section="section-primary-header-builder">
-				<div class="ast-builder-grid-row ast-builder-grid-row-has-sides ast-builder-grid-row-no-center">
-											<div class="site-header-primary-section-left site-header-section ast-flex site-header-section-left">
-									<div class="ast-builder-layout-element ast-flex site-header-focus-item" data-section="title_tagline">
-							<div
-				class="site-branding ast-site-identity" itemtype="https://schema.org/Organization" itemscope="itemscope"				>
-					<span class="site-logo-img"><a href="./" class="custom-logo-link" rel="home" aria-current="page"><img width="250" height="31" src="wp-content/uploads/2023/12/default-monochrome-white-250x31.png" class="custom-logo" alt="XON MEDIA LTD" decoding="async" srcset="wp-content/uploads/2023/12/default-monochrome-white-250x31.png 1x, wp-content/uploads/2023/12/default-monochrome-white.png 2x" sizes="(max-width: 250px) 100vw, 250px" /></a></span>				</div>
-			<!-- .site-branding -->
-					</div>
-								</div>
-																								<div class="site-header-primary-section-right site-header-section ast-flex ast-grid-right-section">
-										<div class="ast-builder-menu-1 ast-builder-menu ast-flex ast-builder-menu-1-focus-item ast-builder-layout-element site-header-focus-item" data-section="section-hb-menu-1">
-			<div class="ast-main-header-bar-alignment"><div class="main-header-bar-navigation"><nav class="site-navigation ast-flex-grow-1 navigation-accessibility site-header-focus-item" id="primary-site-navigation-desktop" aria-label="Primary Site Navigation" itemtype="https://schema.org/SiteNavigationElement" itemscope="itemscope"><div class="main-navigation ast-inline-flex"><ul id="ast-hf-menu-1" class="main-header-menu ast-menu-shadow ast-nav-menu ast-flex  submenu-with-border stack-on-mobile"><li id="menu-item-22" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-home current-menu-item page_item page-item-205 current_page_item menu-item-22"><a href="./" aria-current="page" class="menu-link">Home</a></li>
-<li id="menu-item-865" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-865"><a href="./#services" class="menu-link">What We Do</a></li>
-<li id="menu-item-864" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-864"><a href="./#aboutus" class="menu-link">About Us</a></li>
-<li id="menu-item-21" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-21"><a href="contact/" class="menu-link">Contact</a></li>
-</ul></div></nav></div></div>		</div>
-									</div>
-												</div>
-					</div>
-								</div>
-			</div>
-	</div> <!-- Main Header Bar Wrap -->
-<div id="ast-mobile-header" class="ast-mobile-header-wrap " data-type="dropdown">
-		<div class="ast-main-header-wrap main-header-bar-wrap" >
-		<div class="ast-primary-header-bar ast-primary-header main-header-bar site-primary-header-wrap site-header-focus-item ast-builder-grid-row-layout-default ast-builder-grid-row-tablet-layout-default ast-builder-grid-row-mobile-layout-default" data-section="section-primary-header-builder">
-									<div class="ast-builder-grid-row ast-builder-grid-row-has-sides ast-builder-grid-row-no-center">
-													<div class="site-header-primary-section-left site-header-section ast-flex site-header-section-left">
-										<div class="ast-builder-layout-element ast-flex site-header-focus-item" data-section="title_tagline">
-							<div
-				class="site-branding ast-site-identity" itemtype="https://schema.org/Organization" itemscope="itemscope"				>
-					<span class="site-logo-img"><a href="./" class="custom-logo-link" rel="home" aria-current="page"><img width="250" height="31" src="wp-content/uploads/2023/12/default-monochrome-white-250x31.png" class="custom-logo" alt="XON MEDIA LTD" decoding="async" srcset="wp-content/uploads/2023/12/default-monochrome-white-250x31.png 1x, wp-content/uploads/2023/12/default-monochrome-white.png 2x" sizes="(max-width: 250px) 100vw, 250px" /></a></span>				</div>
-			<!-- .site-branding -->
-					</div>
-									</div>
-																									<div class="site-header-primary-section-right site-header-section ast-flex ast-grid-right-section">
-										<div class="ast-builder-layout-element ast-flex site-header-focus-item" data-section="section-header-mobile-trigger">
-						<div class="ast-button-wrap">
-				<button
-					type="button"
-					class="menu-toggle main-header-menu-toggle ast-mobile-menu-trigger-minimal"
-					aria-expanded="false"
-					aria-label="Main menu toggle"
-														>
-					<span class="mobile-menu-toggle-icon">
-						<span aria-hidden="true" class="ahfb-svg-iconset ast-inline-flex svg-baseline"><svg class='ast-mobile-svg ast-menu2-svg' fill='currentColor' version='1.1' xmlns='http://www.w3.org/2000/svg' width='24' height='28' viewBox='0 0 24 28'><path d='M24 21v2c0 0.547-0.453 1-1 1h-22c-0.547 0-1-0.453-1-1v-2c0-0.547 0.453-1 1-1h22c0.547 0 1 0.453 1 1zM24 13v2c0 0.547-0.453 1-1 1h-22c-0.547 0-1-0.453-1-1v-2c0-0.547 0.453-1 1-1h22c0.547 0 1 0.453 1 1zM24 5v2c0 0.547-0.453 1-1 1h-22c-0.547 0-1-0.453-1-1v-2c0-0.547 0.453-1 1-1h22c0.547 0 1 0.453 1 1z'></path></svg></span><span aria-hidden="true" class="ahfb-svg-iconset ast-inline-flex svg-baseline"><svg class='ast-mobile-svg ast-close-svg' fill='currentColor' version='1.1' xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'><path d='M5.293 6.707l5.293 5.293-5.293 5.293c-0.391 0.391-0.391 1.024 0 1.414s1.024 0.391 1.414 0l5.293-5.293 5.293 5.293c0.391 0.391 1.024 0.391 1.414 0s0.391-1.024 0-1.414l-5.293-5.293 5.293-5.293c0.391-0.391 0.391-1.024 0-1.414s-1.024-0.391-1.414 0l-5.293 5.293-5.293-5.293c-0.391-0.391-1.024-0.391-1.414 0s-0.391 1.024 0 1.414z'></path></svg></span>					</span>
-									</button>
-			</div>
-					</div>
-									</div>
-											</div>
-						</div>
-	</div>
-				<div class="ast-mobile-header-content content-align-flex-start ">
-						<div class="ast-builder-menu-1 ast-builder-menu ast-flex ast-builder-menu-1-focus-item ast-builder-layout-element site-header-focus-item" data-section="section-hb-menu-1">
-			<div class="ast-main-header-bar-alignment"><div class="main-header-bar-navigation"><nav class="site-navigation ast-flex-grow-1 navigation-accessibility site-header-focus-item" id="primary-site-navigation-mobile" aria-label="Primary Site Navigation" itemtype="https://schema.org/SiteNavigationElement" itemscope="itemscope"><div class="main-navigation ast-inline-flex"><ul id="ast-hf-menu-1-mobile" class="main-header-menu ast-menu-shadow ast-nav-menu ast-flex  submenu-with-border stack-on-mobile"><li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-home current-menu-item page_item page-item-205 current_page_item menu-item-22"><a href="./" aria-current="page" class="menu-link">Home</a></li>
-<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-865"><a href="./#services" class="menu-link">What We Do</a></li>
-<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-864"><a href="./#aboutus" class="menu-link">About Us</a></li>
-<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-21"><a href="contact/" class="menu-link">Contact</a></li>
-</ul></div></nav></div></div>		</div>
-					</div>
-			</div>
-		</header><!-- #masthead -->
-			<div id="content" class="site-content">
-		<div class="ast-container">
-		
-
-	<div id="primary" class="content-area primary">
-
-		
-					<main id="main" class="site-main">
-				<article
-class="post-205 page type-page status-publish ast-article-single" id="post-205" itemtype="https://schema.org/CreativeWork" itemscope="itemscope">
-	
-				<header class="entry-header ast-no-title ast-header-without-markup">
-							</header> <!-- .entry-header -->
-		
-<div class="entry-content clear"
-	itemprop="text">
-
-	
-			<div data-elementor-type="wp-page" data-elementor-id="205" class="elementor elementor-205">
-				<div class="elementor-element elementor-element-2f64593 e-flex e-con-boxed e-con e-parent" data-id="2f64593" data-element_type="container" data-e-type="container">
-					<div class="e-con-inner">
-		<div class="elementor-element elementor-element-b83d319 e-con-full e-flex e-con e-child" data-id="b83d319" data-element_type="container" data-e-type="container">
-				<div class="elementor-element elementor-element-26e87b6 elementor-widget-divider--view-line elementor-widget elementor-widget-divider" data-id="26e87b6" data-element_type="widget" data-e-type="widget" data-widget_type="divider.default">
-				<div class="elementor-widget-container">
-							<div class="elementor-divider">
-			<span class="elementor-divider-separator">
-						</span>
-		</div>
-						</div>
-				</div>
-				</div>
-		<div class="elementor-element elementor-element-e0d906f e-con-full e-flex e-con e-child" data-id="e0d906f" data-element_type="container" data-e-type="container">
-				<div class="elementor-element elementor-element-9b0ecab elementor-widget elementor-widget-heading" data-id="9b0ecab" data-element_type="widget" data-e-type="widget" data-widget_type="heading.default">
-				<div class="elementor-widget-container">
-					<h1 class="elementor-heading-title elementor-size-default">Media &amp; Advertising</h1>				</div>
-				</div>
-				</div>
-		<div class="elementor-element elementor-element-ce8f5d6 e-con-full e-flex e-con e-child" data-id="ce8f5d6" data-element_type="container" data-e-type="container">
-				<div class="elementor-element elementor-element-16ad668 elementor-view-default elementor-widget elementor-widget-icon" data-id="16ad668" data-element_type="widget" data-e-type="widget" data-widget_type="icon.default">
-				<div class="elementor-widget-container">
-							<div class="elementor-icon-wrapper">
-			<div class="elementor-icon">
-			<svg aria-hidden="true" class="e-font-icon-svg e-fas-quote-left" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><path d="M464 256h-80v-64c0-35.3 28.7-64 64-64h8c13.3 0 24-10.7 24-24V56c0-13.3-10.7-24-24-24h-8c-88.4 0-160 71.6-160 160v240c0 26.5 21.5 48 48 48h128c26.5 0 48-21.5 48-48V304c0-26.5-21.5-48-48-48zm-288 0H96v-64c0-35.3 28.7-64 64-64h8c13.3 0 24-10.7 24-24V56c0-13.3-10.7-24-24-24h-8C71.6 32 0 103.6 0 192v240c0 26.5 21.5 48 48 48h128c26.5 0 48-21.5 48-48V304c0-26.5-21.5-48-48-48z"></path></svg>			</div>
-		</div>
-						</div>
-				</div>
-				<div class="elementor-element elementor-element-96f076c elementor-widget elementor-widget-heading" data-id="96f076c" data-element_type="widget" data-e-type="widget" data-widget_type="heading.default">
-				<div class="elementor-widget-container">
-					<h5 class="elementor-heading-title elementor-size-default">Marketing is the lifeblood of business</h5>				</div>
-				</div>
-				</div>
-					</div>
-				</div>
-		<div class="elementor-element elementor-element-2c6f6db e-flex e-con-boxed e-con e-parent" data-id="2c6f6db" data-element_type="container" data-e-type="container" id="services">
-					<div class="e-con-inner">
-		<div class="elementor-element elementor-element-4d3649c e-con-full e-flex e-con e-child" data-id="4d3649c" data-element_type="container" data-e-type="container">
-				<div class="elementor-element elementor-element-7a76443 elementor-widget elementor-widget-heading" data-id="7a76443" data-element_type="widget" data-e-type="widget" data-widget_type="heading.default">
-				<div class="elementor-widget-container">
-					<h6 class="elementor-heading-title elementor-size-default">01</h6>				</div>
-				</div>
-				<div class="elementor-element elementor-element-2f11ac3 elementor-widget elementor-widget-heading" data-id="2f11ac3" data-element_type="widget" data-e-type="widget" data-widget_type="heading.default">
-				<div class="elementor-widget-container">
-					<h5 class="elementor-heading-title elementor-size-default">Services</h5>				</div>
-				</div>
-				</div>
-		<div class="elementor-element elementor-element-5114b20 e-con-full e-flex e-con e-child" data-id="5114b20" data-element_type="container" data-e-type="container" data-settings="{&quot;background_background&quot;:&quot;gradient&quot;}">
-				<div class="elementor-element elementor-element-7ef0760 elementor-widget elementor-widget-heading" data-id="7ef0760" data-element_type="widget" data-e-type="widget" data-widget_type="heading.default">
-				<div class="elementor-widget-container">
-					<h3 class="elementor-heading-title elementor-size-default">Paid Advertising</h3>				</div>
-				</div>
-				<div class="elementor-element elementor-element-f3bc12c elementor-widget-divider--view-line elementor-widget elementor-widget-divider" data-id="f3bc12c" data-element_type="widget" data-e-type="widget" data-widget_type="divider.default">
-				<div class="elementor-widget-container">
-							<div class="elementor-divider">
-			<span class="elementor-divider-separator">
-						</span>
-		</div>
-						</div>
-				</div>
-				<div class="elementor-element elementor-element-a8124b6 elementor-widget elementor-widget-text-editor" data-id="a8124b6" data-element_type="widget" data-e-type="widget" data-widget_type="text-editor.default">
-				<div class="elementor-widget-container">
-									<p>Our paid advertising service offers a range of targeted advertising options to help you reach your ideal audience. We specialize in pay-per-click (PPC) advertising on Google, Facebook, and other platforms, ensuring maximum reach and ROI for your business.</p>								</div>
-				</div>
-				</div>
-		<div class="elementor-element elementor-element-3bcbd2c e-con-full e-flex e-con e-child" data-id="3bcbd2c" data-element_type="container" data-e-type="container" data-settings="{&quot;background_background&quot;:&quot;gradient&quot;}">
-				<div class="elementor-element elementor-element-84db8a2 elementor-widget elementor-widget-heading" data-id="84db8a2" data-element_type="widget" data-e-type="widget" data-widget_type="heading.default">
-				<div class="elementor-widget-container">
-					<h3 class="elementor-heading-title elementor-size-default">Social Media Management</h3>				</div>
-				</div>
-				<div class="elementor-element elementor-element-9c12da4 elementor-widget-divider--view-line elementor-widget elementor-widget-divider" data-id="9c12da4" data-element_type="widget" data-e-type="widget" data-widget_type="divider.default">
-				<div class="elementor-widget-container">
-							<div class="elementor-divider">
-			<span class="elementor-divider-separator">
-						</span>
-		</div>
-						</div>
-				</div>
-				<div class="elementor-element elementor-element-42e789c elementor-widget elementor-widget-text-editor" data-id="42e789c" data-element_type="widget" data-e-type="widget" data-widget_type="text-editor.default">
-				<div class="elementor-widget-container">
-									<p>With our social media management service, we can help you grow your brand’s online presence by developing and executing a strategic marketing plan tailored to your business goals. </p>								</div>
-				</div>
-				</div>
-		<div class="elementor-element elementor-element-2b513be e-con-full e-flex e-con e-child" data-id="2b513be" data-element_type="container" data-e-type="container" data-settings="{&quot;background_background&quot;:&quot;gradient&quot;}">
-				<div class="elementor-element elementor-element-9ab8c1e elementor-widget elementor-widget-heading" data-id="9ab8c1e" data-element_type="widget" data-e-type="widget" data-widget_type="heading.default">
-				<div class="elementor-widget-container">
-					<h3 class="elementor-heading-title elementor-size-default">Web Analytics</h3>				</div>
-				</div>
-				<div class="elementor-element elementor-element-7ea55b9 elementor-widget-divider--view-line elementor-widget elementor-widget-divider" data-id="7ea55b9" data-element_type="widget" data-e-type="widget" data-widget_type="divider.default">
-				<div class="elementor-widget-container">
-							<div class="elementor-divider">
-			<span class="elementor-divider-separator">
-						</span>
-		</div>
-						</div>
-				</div>
-				<div class="elementor-element elementor-element-c439f12 elementor-widget elementor-widget-text-editor" data-id="c439f12" data-element_type="widget" data-e-type="widget" data-widget_type="text-editor.default">
-				<div class="elementor-widget-container">
-									<p>Our web analytics service provides you with detailed insights into your website’s performance, including traffic sources, user behavior, and conversion rates.</p>								</div>
-				</div>
-				</div>
-					</div>
-				</div>
-		<div class="elementor-element elementor-element-e48da1e e-flex e-con-boxed e-con e-parent" data-id="e48da1e" data-element_type="container" data-e-type="container">
-					<div class="e-con-inner">
-		<div class="elementor-element elementor-element-5aa8c3c e-con-full e-flex e-con e-child" data-id="5aa8c3c" data-element_type="container" data-e-type="container">
-				</div>
-		<div class="elementor-element elementor-element-29ddb12 e-con-full e-flex e-con e-child" data-id="29ddb12" data-element_type="container" data-e-type="container" data-settings="{&quot;background_background&quot;:&quot;gradient&quot;}">
-				<div class="elementor-element elementor-element-e6fd770 elementor-widget elementor-widget-heading" data-id="e6fd770" data-element_type="widget" data-e-type="widget" data-widget_type="heading.default">
-				<div class="elementor-widget-container">
-					<h3 class="elementor-heading-title elementor-size-default">Content Creation</h3>				</div>
-				</div>
-				<div class="elementor-element elementor-element-be91442 elementor-widget-divider--view-line elementor-widget elementor-widget-divider" data-id="be91442" data-element_type="widget" data-e-type="widget" data-widget_type="divider.default">
-				<div class="elementor-widget-container">
-							<div class="elementor-divider">
-			<span class="elementor-divider-separator">
-						</span>
-		</div>
-						</div>
-				</div>
-				<div class="elementor-element elementor-element-2418cb0 elementor-widget elementor-widget-text-editor" data-id="2418cb0" data-element_type="widget" data-e-type="widget" data-widget_type="text-editor.default">
-				<div class="elementor-widget-container">
-									<p>We will help you develop a content strategy that aligns with your business goals and resonates with your audience. From blog posts to social media graphics, we’ve got you covered.</p>								</div>
-				</div>
-				</div>
-		<div class="elementor-element elementor-element-3ef99dd e-con-full e-flex e-con e-child" data-id="3ef99dd" data-element_type="container" data-e-type="container" data-settings="{&quot;background_background&quot;:&quot;gradient&quot;}">
-				<div class="elementor-element elementor-element-69d1e2e elementor-widget elementor-widget-heading" data-id="69d1e2e" data-element_type="widget" data-e-type="widget" data-widget_type="heading.default">
-				<div class="elementor-widget-container">
-					<h3 class="elementor-heading-title elementor-size-default">Web Development</h3>				</div>
-				</div>
-				<div class="elementor-element elementor-element-bbcd8cd elementor-widget-divider--view-line elementor-widget elementor-widget-divider" data-id="bbcd8cd" data-element_type="widget" data-e-type="widget" data-widget_type="divider.default">
-				<div class="elementor-widget-container">
-							<div class="elementor-divider">
-			<span class="elementor-divider-separator">
-						</span>
-		</div>
-						</div>
-				</div>
-				<div class="elementor-element elementor-element-e564d7c elementor-widget elementor-widget-text-editor" data-id="e564d7c" data-element_type="widget" data-e-type="widget" data-widget_type="text-editor.default">
-				<div class="elementor-widget-container">
-									<p>We&#8217;ll a website that perfectly aligns with your brand&#8217;s ethos and drives engagement. Whether it&#8217;s an informative site or a complex e-commerce platform, our tailored web solutions can handle them all.</p>								</div>
-				</div>
-				</div>
-		<div class="elementor-element elementor-element-9b1daf8 e-con-full e-flex e-con e-child" data-id="9b1daf8" data-element_type="container" data-e-type="container" data-settings="{&quot;background_background&quot;:&quot;gradient&quot;}">
-				<div class="elementor-element elementor-element-db6f334 elementor-widget elementor-widget-heading" data-id="db6f334" data-element_type="widget" data-e-type="widget" data-widget_type="heading.default">
-				<div class="elementor-widget-container">
-					<h3 class="elementor-heading-title elementor-size-default">Digital Consultancy</h3>				</div>
-				</div>
-				<div class="elementor-element elementor-element-9b7d90f elementor-widget-divider--view-line elementor-widget elementor-widget-divider" data-id="9b7d90f" data-element_type="widget" data-e-type="widget" data-widget_type="divider.default">
-				<div class="elementor-widget-container">
-							<div class="elementor-divider">
-			<span class="elementor-divider-separator">
-						</span>
-		</div>
-						</div>
-				</div>
-				<div class="elementor-element elementor-element-4d068fd elementor-widget elementor-widget-text-editor" data-id="4d068fd" data-element_type="widget" data-e-type="widget" data-widget_type="text-editor.default">
-				<div class="elementor-widget-container">
-									<p>We dive deep into your brand&#8217;s needs, market trends, and customer behavior to develop tailored strategies that drive growth and innovation. A service that is designed to guide you towards sustainable success.</p>								</div>
-				</div>
-				</div>
-					</div>
-				</div>
-		<div class="elementor-element elementor-element-18af7c6 e-flex e-con-boxed e-con e-parent" data-id="18af7c6" data-element_type="container" data-e-type="container">
-					<div class="e-con-inner">
-		<div class="elementor-element elementor-element-c22e64f e-con-full e-flex e-con e-child" data-id="c22e64f" data-element_type="container" data-e-type="container">
-				<div class="elementor-element elementor-element-c334d03 elementor-widget elementor-widget-heading" data-id="c334d03" data-element_type="widget" data-e-type="widget" data-widget_type="heading.default">
-				<div class="elementor-widget-container">
-					<h6 class="elementor-heading-title elementor-size-default">02</h6>				</div>
-				</div>
-				<div class="elementor-element elementor-element-714abce elementor-widget elementor-widget-heading" data-id="714abce" data-element_type="widget" data-e-type="widget" data-widget_type="heading.default">
-				<div class="elementor-widget-container">
-					<h5 class="elementor-heading-title elementor-size-default">Why Us</h5>				</div>
-				</div>
-				</div>
-		<div class="elementor-element elementor-element-308af30 e-con-full e-flex e-con e-child" data-id="308af30" data-element_type="container" data-e-type="container">
-				<div class="elementor-element elementor-element-e848fd5 elementor-widget elementor-widget-heading" data-id="e848fd5" data-element_type="widget" data-e-type="widget" data-widget_type="heading.default">
-				<div class="elementor-widget-container">
-					<h2 class="elementor-heading-title elementor-size-default">How we do it</h2>				</div>
-				</div>
-				</div>
-		<div class="elementor-element elementor-element-e7ff2a7 e-con-full e-flex e-con e-child" data-id="e7ff2a7" data-element_type="container" data-e-type="container">
-				<div class="elementor-element elementor-element-349b1c7 elementor-align-right elementor-widget elementor-widget-button" data-id="349b1c7" data-element_type="widget" data-e-type="widget" data-widget_type="button.default">
-				<div class="elementor-widget-container">
-									<div class="elementor-button-wrapper">
-					<a class="elementor-button elementor-button-link elementor-size-sm" href="#">
-						<span class="elementor-button-content-wrapper">
-						<span class="elementor-button-icon">
-				<svg aria-hidden="true" class="e-font-icon-svg e-fas-angle-right" viewBox="0 0 256 512" xmlns="http://www.w3.org/2000/svg"><path d="M224.3 273l-136 136c-9.4 9.4-24.6 9.4-33.9 0l-22.6-22.6c-9.4-9.4-9.4-24.6 0-33.9l96.4-96.4-96.4-96.4c-9.4-9.4-9.4-24.6 0-33.9L54.3 103c9.4-9.4 24.6-9.4 33.9 0l136 136c9.5 9.4 9.5 24.6.1 34z"></path></svg>			</span>
-								</span>
-					</a>
-				</div>
-								</div>
-				</div>
-				</div>
-					</div>
-				</div>
-		<div class="elementor-element elementor-element-79eff30 e-flex e-con-boxed e-con e-parent" data-id="79eff30" data-element_type="container" data-e-type="container">
-					<div class="e-con-inner">
-		<div class="elementor-element elementor-element-82a75b1 e-con-full e-flex e-con e-child" data-id="82a75b1" data-element_type="container" data-e-type="container">
-				</div>
-		<div class="elementor-element elementor-element-0f75b3e e-con-full e-flex e-con e-child" data-id="0f75b3e" data-element_type="container" data-e-type="container">
-		<div class="elementor-element elementor-element-e04160d e-flex e-con-boxed e-con e-child" data-id="e04160d" data-element_type="container" data-e-type="container">
-					<div class="e-con-inner">
-		<div class="elementor-element elementor-element-d61d447 e-con-full e-flex e-con e-child" data-id="d61d447" data-element_type="container" data-e-type="container" data-settings="{&quot;background_background&quot;:&quot;classic&quot;}">
-				<div class="elementor-element elementor-element-e34855a elementor-widget elementor-widget-heading" data-id="e34855a" data-element_type="widget" data-e-type="widget" data-widget_type="heading.default">
-				<div class="elementor-widget-container">
-					<h6 class="elementor-heading-title elementor-size-default">Gain Digital Advantage</h6>				</div>
-				</div>
-				<div class="elementor-element elementor-element-f2b1198 elementor-widget elementor-widget-heading" data-id="f2b1198" data-element_type="widget" data-e-type="widget" data-widget_type="heading.default">
-				<div class="elementor-widget-container">
-					<h4 class="elementor-heading-title elementor-size-default">Innovative strategies</h4>				</div>
-				</div>
-				<div class="elementor-element elementor-element-28ba667 elementor-widget elementor-widget-text-editor" data-id="28ba667" data-element_type="widget" data-e-type="widget" data-widget_type="text-editor.default">
-				<div class="elementor-widget-container">
-									<p>Empower your business with cutting-edge digital strategies. Our unique approach combines the latest trends with deep industry insights, ensuring your brand stays ahead in the digital arena.</p>								</div>
-				</div>
-				</div>
-		<div class="elementor-element elementor-element-b02192d e-con-full e-flex e-con e-child" data-id="b02192d" data-element_type="container" data-e-type="container" data-settings="{&quot;background_background&quot;:&quot;classic&quot;}">
-				<div class="elementor-element elementor-element-6e5f19e elementor-widget elementor-widget-spacer" data-id="6e5f19e" data-element_type="widget" data-e-type="widget" data-widget_type="spacer.default">
-				<div class="elementor-widget-container">
-							<div class="elementor-spacer">
-			<div class="elementor-spacer-inner"></div>
-		</div>
-						</div>
-				</div>
-				</div>
-					</div>
-				</div>
-		<div class="elementor-element elementor-element-6f12a16 e-flex e-con-boxed e-con e-child" data-id="6f12a16" data-element_type="container" data-e-type="container">
-					<div class="e-con-inner">
-		<div class="elementor-element elementor-element-6ddc04d e-con-full e-flex e-con e-child" data-id="6ddc04d" data-element_type="container" data-e-type="container" data-settings="{&quot;background_background&quot;:&quot;classic&quot;}">
-				<div class="elementor-element elementor-element-1d246c3 elementor-widget elementor-widget-spacer" data-id="1d246c3" data-element_type="widget" data-e-type="widget" data-widget_type="spacer.default">
-				<div class="elementor-widget-container">
-							<div class="elementor-spacer">
-			<div class="elementor-spacer-inner"></div>
-		</div>
-						</div>
-				</div>
-				</div>
-		<div class="elementor-element elementor-element-4689ce6 e-con-full e-flex e-con e-child" data-id="4689ce6" data-element_type="container" data-e-type="container" data-settings="{&quot;background_background&quot;:&quot;classic&quot;}">
-				<div class="elementor-element elementor-element-f997454 elementor-widget elementor-widget-heading" data-id="f997454" data-element_type="widget" data-e-type="widget" data-widget_type="heading.default">
-				<div class="elementor-widget-container">
-					<h6 class="elementor-heading-title elementor-size-default">Results-Oriented Solutions</h6>				</div>
-				</div>
-				<div class="elementor-element elementor-element-841a8e7 elementor-widget elementor-widget-heading" data-id="841a8e7" data-element_type="widget" data-e-type="widget" data-widget_type="heading.default">
-				<div class="elementor-widget-container">
-					<h4 class="elementor-heading-title elementor-size-default">Strategic insights</h4>				</div>
-				</div>
-				<div class="elementor-element elementor-element-dfdb414 elementor-widget elementor-widget-text-editor" data-id="dfdb414" data-element_type="widget" data-e-type="widget" data-widget_type="text-editor.default">
-				<div class="elementor-widget-container">
-									<p>Focused on tangible outcomes, our solutions merge strategic insights with practical applications to deliver measurable success for your business.</p>								</div>
-				</div>
-				</div>
-					</div>
-				</div>
-		<div class="elementor-element elementor-element-b64b1dd e-flex e-con-boxed e-con e-child" data-id="b64b1dd" data-element_type="container" data-e-type="container">
-					<div class="e-con-inner">
-		<div class="elementor-element elementor-element-1d2e5ee e-con-full e-flex e-con e-child" data-id="1d2e5ee" data-element_type="container" data-e-type="container" data-settings="{&quot;background_background&quot;:&quot;classic&quot;}">
-				<div class="elementor-element elementor-element-25e4751 elementor-widget elementor-widget-heading" data-id="25e4751" data-element_type="widget" data-e-type="widget" data-widget_type="heading.default">
-				<div class="elementor-widget-container">
-					<h6 class="elementor-heading-title elementor-size-default">From Art to Science</h6>				</div>
-				</div>
-				<div class="elementor-element elementor-element-227f8a3 elementor-widget elementor-widget-heading" data-id="227f8a3" data-element_type="widget" data-e-type="widget" data-widget_type="heading.default">
-				<div class="elementor-widget-container">
-					<h4 class="elementor-heading-title elementor-size-default">Personalized tactics</h4>				</div>
-				</div>
-				<div class="elementor-element elementor-element-68a228d elementor-widget elementor-widget-text-editor" data-id="68a228d" data-element_type="widget" data-e-type="widget" data-widget_type="text-editor.default">
-				<div class="elementor-widget-container">
-									<p>Blending creativity with analytical precision, we transform marketing from art to science, delivering personalized tactics that resonate with your target audience.</p>								</div>
-				</div>
-				</div>
-		<div class="elementor-element elementor-element-39b7cce e-con-full e-flex e-con e-child" data-id="39b7cce" data-element_type="container" data-e-type="container" data-settings="{&quot;background_background&quot;:&quot;classic&quot;}">
-				<div class="elementor-element elementor-element-e1d2c56 elementor-widget elementor-widget-spacer" data-id="e1d2c56" data-element_type="widget" data-e-type="widget" data-widget_type="spacer.default">
-				<div class="elementor-widget-container">
-							<div class="elementor-spacer">
-			<div class="elementor-spacer-inner"></div>
-		</div>
-						</div>
-				</div>
-				</div>
-					</div>
-				</div>
-				</div>
-					</div>
-				</div>
-		<div class="elementor-element elementor-element-02ffac9 e-flex e-con-boxed e-con e-parent" data-id="02ffac9" data-element_type="container" data-e-type="container" id="aboutus">
-					<div class="e-con-inner">
-		<div class="elementor-element elementor-element-7b3b03e e-con-full e-flex e-con e-child" data-id="7b3b03e" data-element_type="container" data-e-type="container">
-				<div class="elementor-element elementor-element-b5ae379 elementor-widget elementor-widget-heading" data-id="b5ae379" data-element_type="widget" data-e-type="widget" data-widget_type="heading.default">
-				<div class="elementor-widget-container">
-					<h6 class="elementor-heading-title elementor-size-default">04</h6>				</div>
-				</div>
-				<div class="elementor-element elementor-element-0f68818 elementor-widget elementor-widget-heading" data-id="0f68818" data-element_type="widget" data-e-type="widget" data-widget_type="heading.default">
-				<div class="elementor-widget-container">
-					<h5 class="elementor-heading-title elementor-size-default">About Us</h5>				</div>
-				</div>
-				</div>
-		<div class="elementor-element elementor-element-2b3ed32 e-con-full e-flex e-con e-child" data-id="2b3ed32" data-element_type="container" data-e-type="container">
-				<div class="elementor-element elementor-element-0c60d05 elementor-widget elementor-widget-heading" data-id="0c60d05" data-element_type="widget" data-e-type="widget" data-widget_type="heading.default">
-				<div class="elementor-widget-container">
-					<h2 class="elementor-heading-title elementor-size-default">Who we are</h2>				</div>
-				</div>
-				</div>
-		<div class="elementor-element elementor-element-f8c315b e-con-full e-flex e-con e-child" data-id="f8c315b" data-element_type="container" data-e-type="container">
-				<div class="elementor-element elementor-element-a096e8a elementor-align-right elementor-widget elementor-widget-button" data-id="a096e8a" data-element_type="widget" data-e-type="widget" data-widget_type="button.default">
-				<div class="elementor-widget-container">
-									<div class="elementor-button-wrapper">
-					<a class="elementor-button elementor-button-link elementor-size-sm" href="#">
-						<span class="elementor-button-content-wrapper">
-						<span class="elementor-button-icon">
-				<svg aria-hidden="true" class="e-font-icon-svg e-fas-angle-right" viewBox="0 0 256 512" xmlns="http://www.w3.org/2000/svg"><path d="M224.3 273l-136 136c-9.4 9.4-24.6 9.4-33.9 0l-22.6-22.6c-9.4-9.4-9.4-24.6 0-33.9l96.4-96.4-96.4-96.4c-9.4-9.4-9.4-24.6 0-33.9L54.3 103c9.4-9.4 24.6-9.4 33.9 0l136 136c9.5 9.4 9.5 24.6.1 34z"></path></svg>			</span>
-								</span>
-					</a>
-				</div>
-								</div>
-				</div>
-				</div>
-					</div>
-				</div>
-		<div class="elementor-element elementor-element-61ce3a3 e-flex e-con-boxed e-con e-parent" data-id="61ce3a3" data-element_type="container" data-e-type="container">
-					<div class="e-con-inner">
-		<div class="elementor-element elementor-element-428adec e-con-full e-flex e-con e-child" data-id="428adec" data-element_type="container" data-e-type="container">
-		<div class="elementor-element elementor-element-fcf611b e-con-full e-flex e-con e-child" data-id="fcf611b" data-element_type="container" data-e-type="container">
-		<div class="elementor-element elementor-element-8e110e6 e-con-full e-flex e-con e-child" data-id="8e110e6" data-element_type="container" data-e-type="container">
-				<div class="elementor-element elementor-element-53ebde4 elementor-widget elementor-widget-heading" data-id="53ebde4" data-element_type="widget" data-e-type="widget" data-widget_type="heading.default">
-				<div class="elementor-widget-container">
-					<h4 class="elementor-heading-title elementor-size-default">Empowering businesses to thrive in the digital landscape</h4>				</div>
-				</div>
-				</div>
-				</div>
-		<div class="elementor-element elementor-element-5c19110 e-flex e-con-boxed e-con e-child" data-id="5c19110" data-element_type="container" data-e-type="container">
-					<div class="e-con-inner">
-		<div class="elementor-element elementor-element-3d0f566 e-con-full e-flex e-con e-child" data-id="3d0f566" data-element_type="container" data-e-type="container">
-				<div class="elementor-element elementor-element-3f90d4b elementor-widget elementor-widget-heading" data-id="3f90d4b" data-element_type="widget" data-e-type="widget" data-widget_type="heading.default">
-				<div class="elementor-widget-container">
-					<h3 class="elementor-heading-title elementor-size-default">We are the decisive factor behind your success</h3>				</div>
-				</div>
-				</div>
-		<div class="elementor-element elementor-element-50ab2a6 e-con-full e-flex e-con e-child" data-id="50ab2a6" data-element_type="container" data-e-type="container">
-				<div class="elementor-element elementor-element-034a25e elementor-widget elementor-widget-text-editor" data-id="034a25e" data-element_type="widget" data-e-type="widget" data-widget_type="text-editor.default">
-				<div class="elementor-widget-container">
-									<h3 class="elementor-heading-title elementor-size-default" style="font-family: Poppins, sans-serif; font-size: var( --e-global-typography-text-font-size ); font-style: normal; font-weight: var( --e-global-typography-text-font-weight ); margin-bottom: 0px; line-height: var( --e-global-typography-text-line-height ); background-color: #222222;">XON MEDIA LTD is a digital agency that specializes in helping businesses grow their online presence through strategic social media management and targeted advertising campaigns. Our team of experts also provides web analytics and content creation services to ensure our clients stay ahead of the competition. With cutting-edge software and AI solutions, our team helps marketers optimize their campaigns for maximum results.</h3>								</div>
-				</div>
-				</div>
-					</div>
-				</div>
-				</div>
-					</div>
-				</div>
-				</div>
-		
-	
-	
-</div><!-- .entry-content .clear -->
-
-	
-	
-</article><!-- #post-## -->
-
-			</main><!-- #main -->
-			
-		
-	</div><!-- #primary -->
-
-
-	</div> <!-- ast-container -->
-	</div><!-- #content -->
-<footer
-class="site-footer" id="colophon" itemtype="https://schema.org/WPFooter" itemscope="itemscope" itemid="#colophon">
-			<div class="site-primary-footer-wrap ast-builder-grid-row-container site-footer-focus-item ast-builder-grid-row-2-lheavy ast-builder-grid-row-tablet-2-equal ast-builder-grid-row-mobile-full ast-footer-row-stack ast-footer-row-tablet-stack ast-footer-row-mobile-stack" data-section="section-primary-footer-builder">
-	<div class="ast-builder-grid-row-container-inner">
-					<div class="ast-builder-footer-grid-columns site-primary-footer-inner-wrap ast-builder-grid-row">
-											<div class="site-footer-primary-section-1 site-footer-section site-footer-section-1">
-							<aside
-		class="footer-widget-area widget-area site-footer-focus-item footer-widget-area-inner" data-section="sidebar-widgets-footer-widget-2" aria-label="Footer Widget 2" role="region"		>
-			<section id="block-11" class="widget widget_block">
-<h2 class="wp-block-heading">Let's talk</h2>
-</section>		</aside>
-				<aside
-		class="footer-widget-area widget-area site-footer-focus-item footer-widget-area-inner" data-section="sidebar-widgets-footer-widget-1" aria-label="Footer Widget 1" role="region"				>
-			<section id="block-13" class="widget widget_block"><h5 class="wp-block-heading"><a style="color: white; text-decoration: underline;"  href="contact/" data-type="link" data-id="contact/">Contact Us</a></h5></section>		</aside>
-						</div>
-											<div class="site-footer-primary-section-2 site-footer-section site-footer-section-2">
-							<aside
-		class="footer-widget-area widget-area site-footer-focus-item footer-widget-area-inner" data-section="sidebar-widgets-footer-widget-3" aria-label="Footer Widget 3" role="region"		>
-			<section id="text-2" class="widget widget_text">			<div class="textwidget"><p>e: <a href="mailto:info@xonmedia.ltd" class="__cf_email__" data-cfemail="5831363e3718203736353d3c313976342c3c">info@xonmedia.ltd</a></p>
+<body class="bg-[#07080b] text-[#f6f7f8] font-body antialiased selection:bg-[#00acff] selection:text-black matrix-grid relative selection:font-medium">
+<canvas class="fixed inset-0 pointer-events-none z-0 opacity-40" id="matrix-canvas"></canvas>
+<div class="fixed inset-0 pointer-events-none z-0">
+  <div class="absolute -top-48 left-1/2 -translate-x-1/2 w-[850px] h-[550px] bg-[#00acff]/[0.08] blur-[150px] rounded-full"></div>
+  <div class="absolute bottom-1/4 right-0 w-[500px] h-[500px] bg-[#010033]/60 blur-[130px] rounded-full"></div>
+  <div class="absolute top-1/2 left-0 w-[450px] h-[450px] bg-[#00acff]/[0.04] blur-[140px] rounded-full"></div>
 </div>
-		</section>		</aside>
-				<aside
-		class="footer-widget-area widget-area site-footer-focus-item footer-widget-area-inner" data-section="sidebar-widgets-footer-widget-4" aria-label="Footer Widget 4" role="region"		>
-			<section id="text-3" class="widget widget_text">			<div class="textwidget"><p><strong>Providing digital solutions for your business</strong></p>
-</div>
-		</section>		</aside>
-						</div>
-										</div>
-			</div>
 
-</div>
-<div class="site-below-footer-wrap ast-builder-grid-row-container site-footer-focus-item ast-builder-grid-row-2-equal ast-builder-grid-row-tablet-2-equal ast-builder-grid-row-mobile-full ast-footer-row-stack ast-footer-row-tablet-stack ast-footer-row-mobile-stack" data-section="section-below-footer-builder">
-	<div class="ast-builder-grid-row-container-inner">
-					<div class="ast-builder-footer-grid-columns site-below-footer-inner-wrap ast-builder-grid-row">
-											<div class="site-footer-below-section-1 site-footer-section site-footer-section-1">
-								<div class="ast-builder-layout-element ast-flex site-footer-focus-item ast-footer-copyright" data-section="section-footer-builder">
-				<div class="ast-footer-copyright"><p>Copyright &copy; 2026 XON MEDIA LTD</p>
-</div>			</div>
-						</div>
-											<div class="site-footer-below-section-2 site-footer-section site-footer-section-2">
-									</div>
-										</div>
-			</div>
+<header class="fixed top-0 left-0 w-full z-50 bg-[#07080b]/90 backdrop-blur-xl border-b border-[#00acff]/20">
+  <div class="max-w-[1280px] mx-auto h-20 px-6 sm:px-8 flex items-center justify-between gap-6">
+    <div class="flex items-center gap-6 min-w-0">
+      <a class="flex items-center group focus:outline-none shrink-0" href="/">
+        <img alt="XON MEDIA LTD" class="h-6 sm:h-7 w-auto object-contain transition-transform duration-300 group-hover:scale-[1.02] filter drop-shadow-[0_0_10px_rgba(0,172,255,0.5)]" src="/assets/xon-logo-white.svg"/>
+      </a>
+      <div class="hidden xl:flex items-center gap-2 px-3 py-1 rounded-sm bg-[#101218] border border-[#00acff]/30 shadow-[0_0_10px_rgba(0,172,255,0.15)]">
+        <span class="w-1.5 h-1.5 rounded-full bg-[#00acff] animate-ping"></span>
+        <span class="font-mono text-[10px] tracking-widest text-[#00acff] font-bold uppercase xon-glitch-hover">ARCH // MATRIX_CORE_v2.5</span>
+      </div>
+    </div>
+    <nav class="hidden md:flex items-center gap-8 font-mono text-xs uppercase tracking-widest text-[#8d96a5]">
+      <a class="hover:text-[#00acff] transition-colors" href="/">Home</a>
+      <a class="hover:text-[#00acff] transition-colors" href="#services">What We Do</a>
+      <a class="hover:text-[#00acff] transition-colors" href="#telemetry">Data Pipeline</a>
+      <a class="hover:text-[#00acff] transition-colors" href="#whyus">About Us</a>
+      <a class="hover:text-[#00acff] transition-colors" href="/contact/">Contact</a>
+    </nav>
+    <div class="flex items-center gap-3">
+      <a class="hidden md:inline-flex relative items-center justify-center px-5 py-2.5 rounded-sm font-mono text-xs font-bold uppercase tracking-widest bg-transparent text-[#00acff] border border-[#00acff] hover:bg-[#00acff] hover:text-black shadow-[0_0_15px_rgba(0,172,255,0.2)] hover:shadow-[0_0_24px_rgba(0,172,255,0.6)] transition-all duration-300 group" href="/contact/">
+        <span class="group-hover:tracking-wider transition-all">Contact Us //</span>
+        <span class="material-symbols-outlined text-[16px] ml-1.5 group-hover:translate-x-1 transition-transform">arrow_forward</span>
+      </a>
+      <button type="button" class="burger-btn" id="burger-btn" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
+        <span class="material-symbols-outlined" id="burger-icon" aria-hidden="true">menu</span>
+      </button>
+    </div>
+  </div>
+  <div id="mobile-menu" class="md:hidden border-t border-[#00acff]/20 bg-[#07080b]/98 backdrop-blur-xl" hidden>
+    <nav class="px-6 py-6 flex flex-col gap-1 font-mono text-sm uppercase tracking-widest text-[#8d96a5]">
+      <a class="py-3 border-b border-[#00acff]/10 hover:text-[#00acff] transition-colors" href="/">Home</a>
+      <a class="py-3 border-b border-[#00acff]/10 hover:text-[#00acff] transition-colors" href="#services">What We Do</a>
+      <a class="py-3 border-b border-[#00acff]/10 hover:text-[#00acff] transition-colors" href="#telemetry">Data Pipeline</a>
+      <a class="py-3 border-b border-[#00acff]/10 hover:text-[#00acff] transition-colors" href="#whyus">About Us</a>
+      <a class="py-3 border-b border-[#00acff]/10 hover:text-[#00acff] transition-colors" href="/contact/">Contact</a>
+      <a class="mt-4 inline-flex items-center justify-center gap-2 px-5 py-3 font-mono text-xs font-bold uppercase tracking-widest text-black bg-[#00acff] hover:bg-white transition-colors" href="/contact/">
+        <span>Contact Us //</span>
+        <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+      </a>
+    </nav>
+  </div>
+</header>
 
+<main class="relative z-10 w-full pt-20">
+<section class="relative min-h-[calc(100vh-5rem)] flex flex-col justify-center max-w-[1280px] mx-auto px-6 sm:px-8 pt-16 pb-20 border-b border-[#00acff]/15">
+  <div class="flex items-center gap-3 font-mono text-xs text-[#00acff] mb-8 uppercase tracking-[0.2em]">
+    <span class="inline-block w-2.5 h-2.5 bg-[#00acff] animate-pulse shadow-[0_0_10px_#00acff]"></span>
+    <span class="xon-glitch-hover cursor-default">SYSTEM_DESIGNATION // 00_MATRIX_MONOLITH</span>
+    <span class="text-[#3e4851]">|</span>
+    <span class="text-[#8d96a5]">EST. 2026</span>
+    <span class="text-[#3e4851]">|</span>
+    <span class="hidden sm:inline text-[#91cdff]">// NODE: ONLINE</span>
+  </div>
+  <div class="flex flex-col gap-6 max-w-5xl">
+    <h1 class="font-hacked text-4xl sm:text-6xl lg:text-7xl text-white drop-shadow-sm">
+      <span class="glitch-slice-title" data-text="MEDIA AND ADVERTISING">Media and Advertising</span>
+    </h1>
+    <div class="h-1 w-28 bg-[#00acff] shadow-[0_0_16px_rgba(0,172,255,0.9)] relative overflow-hidden">
+      <div class="absolute inset-0 bg-white/70 -translate-x-full animate-[ticker_2s_infinite]"></div>
+    </div>
+    <p class="font-headline text-2xl sm:text-3xl lg:text-4xl font-semibold text-[#00acff] tracking-tight">Marketing is the lifeblood of business.</p>
+    <p class="font-body text-lg sm:text-xl text-[#8d96a5] max-w-3xl leading-relaxed">Company site for XON MEDIA LTD, a digital agency helping businesses grow online through advertising, social, analytics, server-side data infrastructure, web development, and digital consultancy.</p>
+    <div class="pt-4 flex flex-wrap items-center gap-4">
+      <a class="inline-flex items-center justify-center gap-3 px-8 py-4 bg-[#00acff] text-black font-mono text-sm font-bold uppercase tracking-widest hover:bg-white transition-all shadow-[0_0_30px_rgba(0,172,255,0.4)] group" href="/contact/">
+        <span>Contact Us //</span>
+        <span class="material-symbols-outlined text-[18px] group-hover:rotate-45 transition-transform">terminal</span>
+      </a>
+      <a class="inline-flex items-center justify-center gap-2 px-6 py-4 border border-[#00acff]/30 font-mono text-xs font-bold uppercase tracking-widest text-[#8d96a5] hover:text-white hover:border-[#00acff] transition-colors bg-[#101218]/80 backdrop-blur-sm" href="#services">
+        <span>View Our Process //</span>
+        <span class="material-symbols-outlined text-[16px]">south</span>
+      </a>
+    </div>
+  </div>
+  <div class="absolute right-8 bottom-12 hidden lg:flex flex-col items-end gap-1 font-mono text-[11px] text-[#8d96a5] uppercase tracking-widest pointer-events-none backdrop-blur-sm p-3 border border-[#00acff]/15 bg-[#07080b]/90">
+    <span class="text-[#00acff] flex items-center gap-1.5"><span class="w-1.5 h-1.5 bg-[#00acff] rounded-full animate-ping"></span>SYS_STATUS: MATRIX_STREAM_ACTIVE</span>
+    <span class="text-[#91cdff]">LAT: 51.5074° N // LON: 0.1278° W</span>
+    <span>SGTM_GATEWAY: ACTIVE // BYPASS_ITP</span>
+    <span class="text-white font-semibold">DATA_INTEGRITY: 99.98% BLENDED</span>
+  </div>
+</section>
+
+<div class="w-full bg-[#101218] border-b border-[#00acff]/20 overflow-hidden py-4 select-none relative">
+  <div class="absolute inset-y-0 left-0 w-16 bg-gradient-to-r from-[#07080b] to-transparent z-10 pointer-events-none"></div>
+  <div class="absolute inset-y-0 right-0 w-16 bg-gradient-to-l from-[#07080b] to-transparent z-10 pointer-events-none"></div>
+  <div class="animate-marquee whitespace-nowrap font-mono text-xs sm:text-sm tracking-[0.25em] uppercase text-[#8d96a5] font-semibold">
+    <span class="mx-6 text-[#00acff] font-bold">PAID ADVERTISING</span><span class="text-[#3e4851]">//</span>
+    <span class="mx-6 hover:text-white transition-colors">SERVER-SIDE TRACKING (SGTM)</span><span class="text-[#3e4851]">//</span>
+    <span class="mx-6 text-white font-bold">META CONVERSIONS API (CAPI)</span><span class="text-[#3e4851]">//</span>
+    <span class="mx-6 hover:text-white transition-colors">GOOGLE ANALYTICS 4</span><span class="text-[#3e4851]">//</span>
+    <span class="mx-6 text-[#91cdff] font-bold">BIGQUERY WAREHOUSING</span><span class="text-[#3e4851]">//</span>
+    <span class="mx-6 hover:text-white transition-colors">LOOKER STUDIO BI</span><span class="text-[#3e4851]">//</span>
+    <span class="mx-6 text-[#00acff] font-bold">WEB DEVELOPMENT</span><span class="text-[#3e4851]">//</span>
+    <span class="mx-6 hover:text-white transition-colors">SOCIAL MEDIA &amp; CONTENT</span><span class="text-[#3e4851]">//</span>
+    <span class="mx-6 text-white font-bold">DIGITAL CONSULTANCY</span><span class="text-[#3e4851]">//</span>
+    <span class="mx-6 text-[#00acff] font-bold">PAID ADVERTISING</span><span class="text-[#3e4851]">//</span>
+    <span class="mx-6 hover:text-white transition-colors">SERVER-SIDE TRACKING (SGTM)</span><span class="text-[#3e4851]">//</span>
+    <span class="mx-6 text-white font-bold">META CONVERSIONS API (CAPI)</span><span class="text-[#3e4851]">//</span>
+    <span class="mx-6 hover:text-white transition-colors">GOOGLE ANALYTICS 4</span><span class="text-[#3e4851]">//</span>
+    <span class="mx-6 text-[#91cdff] font-bold">BIGQUERY WAREHOUSING</span><span class="text-[#3e4851]">//</span>
+    <span class="mx-6 hover:text-white transition-colors">LOOKER STUDIO BI</span><span class="text-[#3e4851]">//</span>
+  </div>
 </div>
-	</footer><!-- #colophon -->
-	</div><!-- #page -->
-			<script data-cfasync="false" src="cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-				const lazyloadRunObserver = () => {
-					const lazyloadBackgrounds = document.querySelectorAll( `.e-con.e-parent:not(.e-lazyloaded)` );
-					const lazyloadBackgroundObserver = new IntersectionObserver( ( entries ) => {
-						entries.forEach( ( entry ) => {
-							if ( entry.isIntersecting ) {
-								let lazyloadBackground = entry.target;
-								if( lazyloadBackground ) {
-									lazyloadBackground.classList.add( 'e-lazyloaded' );
-								}
-								lazyloadBackgroundObserver.unobserve( entry.target );
-							}
-						});
-					}, { rootMargin: '200px 0px 200px 0px' } );
-					lazyloadBackgrounds.forEach( ( lazyloadBackground ) => {
-						lazyloadBackgroundObserver.observe( lazyloadBackground );
-					} );
-				};
-				const events = [
-					'DOMContentLoaded',
-					'elementor/lazyload/observe',
-				];
-				events.forEach( ( event ) => {
-					document.addEventListener( event, lazyloadRunObserver );
-				} );
-			</script>
-			<script id="astra-theme-js-js-extra">
-var astra = {"break_point":"921","isRtl":"","is_scroll_to_id":"","is_scroll_to_top":"","is_header_footer_builder_active":"1","responsive_cart_click":"flyout","is_dark_palette":""};
-//# sourceURL=astra-theme-js-js-extra
+
+<section class="w-full py-24 sm:py-32 max-w-[1280px] mx-auto px-6 sm:px-8 border-b border-[#00acff]/15" id="services">
+  <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-16 border-b border-[#00acff]/20">
+    <div class="flex flex-col gap-2">
+      <div class="font-mono text-xs uppercase tracking-[0.3em] text-[#00acff] font-bold flex items-center gap-2">
+        <span class="w-2 h-2 bg-[#00acff] animate-pulse"></span>01 / Expanded Services Architecture
+      </div>
+      <h2 class="font-hacked text-4xl sm:text-5xl lg:text-6xl text-white glitch-slice-title" data-text="CORE CAPABILITIES">Core Capabilities</h2>
+    </div>
+    <div class="font-mono text-xs text-[#8d96a5] uppercase tracking-widest max-w-sm">
+      <span class="text-[#00acff]">// FULL-SPECTRUM PROTOCOLS</span><br/>
+      Synthesizing media acquisition with enterprise telemetry, custom data pipelines, and server-side infrastructure.
+    </div>
+  </div>
+
+    <div class="pt-8 pb-4 flex items-center justify-between border-b border-[#00acff]/20">
+    <div class="font-mono text-xs uppercase tracking-widest text-[#00acff] font-bold">// 01.A ACQUISITION &amp; CREATIVE ENGINES</div>
+    <span class="font-mono text-[11px] text-[#8d96a5] uppercase tracking-wider">[NODES 01.01 - 01.06]</span>
+  </div>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 divide-y md:divide-y-0 md:border-b border-[#00acff]/20">
+    <div class="p-8 sm:p-10 border-[#00acff]/20 md:border-r md:border-b flex flex-col justify-between gap-8 group hover:bg-[#101218] transition-all relative overflow-hidden card-glitch-frame">
+      <div class="absolute top-0 right-0 w-24 h-24 bg-[#00acff]/[0.04] pointer-events-none -mr-12 -mt-12 rounded-full group-hover:scale-150 transition-transform"></div>
+      <div class="flex flex-col gap-4">
+        <div class="flex items-center justify-between font-mono text-xs">
+          <span class="px-2 py-0.5 border border-[#00acff]/40 text-[#00acff] tracking-widest font-bold">01.01</span>
+          <span class="text-[#8d96a5] uppercase tracking-wider">PPC // DSP</span>
+        </div>
+        <h3 class="font-hacked text-2xl text-white group-hover:text-[#00acff] transition-colors glitch-slice-title" data-text="PAID ADVERTISING">Paid Advertising</h3>
+        <p class="font-body text-base text-[#8d96a5] leading-relaxed">Our paid advertising service offers targeted advertising strategies to help you reach your ideal audience. We specialize in pay-per-click (PPC) advertising on Google, Facebook, and multi-channel programmatic networks, ensuring maximum reach and verifiable ROI.</p>
+      </div>
+      <div class="pt-4 flex items-center gap-2 font-mono text-[11px] text-[#8d96a5] uppercase tracking-widest">
+        <span class="w-1.5 h-1.5 bg-[#00acff] rounded-full"></span><span>Google / Meta / TikTok Ads</span>
+      </div>
+    </div>
+    <div class="p-8 sm:p-10 border-[#00acff]/20 md:border-r lg:border-r md:border-b flex flex-col justify-between gap-8 group hover:bg-[#101218] transition-all relative overflow-hidden card-glitch-frame">
+      <div class="flex flex-col gap-4">
+        <div class="flex items-center justify-between font-mono text-xs">
+          <span class="px-2 py-0.5 border border-[#00acff]/40 text-[#00acff] tracking-widest font-bold">01.02</span>
+          <span class="text-[#8d96a5] uppercase tracking-wider">COMMUNITY // BRAND</span>
+        </div>
+        <h3 class="font-hacked text-2xl text-white group-hover:text-[#00acff] transition-colors glitch-slice-title" data-text="SOCIAL MEDIA MANAGEMENT">Social Media Management</h3>
+        <p class="font-body text-base text-[#8d96a5] leading-relaxed">With our social media management service, we help you grow your brand’s online presence by developing and executing a strategic marketing plan tailored directly to high-engagement conversions and community loyalty.</p>
+      </div>
+      <div class="pt-4 flex items-center gap-2 font-mono text-[11px] text-[#8d96a5] uppercase tracking-widest">
+        <span class="w-1.5 h-1.5 bg-[#00acff] rounded-full"></span><span>Full Cadence Growth</span>
+      </div>
+    </div>
+    <div class="p-8 sm:p-10 border-[#00acff]/20 md:border-b flex flex-col justify-between gap-8 group hover:bg-[#101218] transition-all relative overflow-hidden card-glitch-frame">
+      <div class="flex flex-col gap-4">
+        <div class="flex items-center justify-between font-mono text-xs">
+          <span class="px-2 py-0.5 border border-[#00acff]/40 text-[#00acff] tracking-widest font-bold">01.03</span>
+          <span class="text-[#8d96a5] uppercase tracking-wider">TELEMETRY // DATA</span>
+        </div>
+        <h3 class="font-hacked text-2xl text-white group-hover:text-[#00acff] transition-colors glitch-slice-title" data-text="WEB ANALYTICS">Web Analytics</h3>
+        <p class="font-body text-base text-[#8d96a5] leading-relaxed">Our web analytics service provides detailed insights into your website’s performance, user behavior, funnel friction, conversion rates, and multi-touch attribution matrices.</p>
+      </div>
+      <div class="pt-4 flex items-center gap-2 font-mono text-[11px] text-[#8d96a5] uppercase tracking-widest">
+        <span class="w-1.5 h-1.5 bg-[#00acff] rounded-full"></span><span>GA4 / Attribution Models</span>
+      </div>
+    </div>
+    <div class="p-8 sm:p-10 border-[#00acff]/20 md:border-r md:border-b flex flex-col justify-between gap-8 group hover:bg-[#101218] transition-all relative overflow-hidden card-glitch-frame">
+      <div class="flex flex-col gap-4">
+        <div class="flex items-center justify-between font-mono text-xs">
+          <span class="px-2 py-0.5 border border-[#00acff]/40 text-[#00acff] tracking-widest font-bold">01.04</span>
+          <span class="text-[#8d96a5] uppercase tracking-wider">CREATIVE // COPY</span>
+        </div>
+        <h3 class="font-hacked text-2xl text-white group-hover:text-[#00acff] transition-colors glitch-slice-title" data-text="CONTENT CREATION">Content Creation</h3>
+        <p class="font-body text-base text-[#8d96a5] leading-relaxed">We develop content strategies that align with your business goals and resonate with your audience. From technical editorial pieces to high-converting social graphics and motion assets, we’ve got you covered.</p>
+      </div>
+      <div class="pt-4 flex items-center gap-2 font-mono text-[11px] text-[#8d96a5] uppercase tracking-widest">
+        <span class="w-1.5 h-1.5 bg-[#00acff] rounded-full"></span><span>Editorial &amp; Multi-Asset</span>
+      </div>
+    </div>
+    <div class="p-8 sm:p-10 border-[#00acff]/20 md:border-r md:border-b flex flex-col justify-between gap-8 group hover:bg-[#101218] transition-all relative overflow-hidden card-glitch-frame">
+      <div class="flex flex-col gap-4">
+        <div class="flex items-center justify-between font-mono text-xs">
+          <span class="px-2 py-0.5 border border-[#00acff]/40 text-[#00acff] tracking-widest font-bold">01.05</span>
+          <span class="text-[#8d96a5] uppercase tracking-wider">ENGINEERING // UI</span>
+        </div>
+        <h3 class="font-hacked text-2xl text-white group-hover:text-[#00acff] transition-colors glitch-slice-title" data-text="WEB DEVELOPMENT">Web Development</h3>
+        <p class="font-body text-base text-[#8d96a5] leading-relaxed">We engineer high-performance web applications that perfectly embody your brand's ethos and maximize conversion rates. From high-speed corporate sites to complex e-commerce architectures, our code is built for endurance.</p>
+      </div>
+      <div class="pt-4 flex items-center gap-2 font-mono text-[11px] text-[#8d96a5] uppercase tracking-widest">
+        <span class="w-1.5 h-1.5 bg-[#00acff] rounded-full"></span><span>Full-Stack Enterprise</span>
+      </div>
+    </div>
+    <div class="p-8 sm:p-10 md:border-b border-[#00acff]/20 flex flex-col justify-between gap-8 group hover:bg-[#101218] transition-all relative overflow-hidden card-glitch-frame">
+      <div class="flex flex-col gap-4">
+        <div class="flex items-center justify-between font-mono text-xs">
+          <span class="px-2 py-0.5 border border-[#00acff]/40 text-[#00acff] tracking-widest font-bold">01.06</span>
+          <span class="text-[#8d96a5] uppercase tracking-wider">STRATEGY // AI</span>
+        </div>
+        <h3 class="font-hacked text-2xl text-white group-hover:text-[#00acff] transition-colors glitch-slice-title" data-text="DIGITAL CONSULTANCY">Digital Consultancy</h3>
+        <p class="font-body text-base text-[#8d96a5] leading-relaxed">We dive deep into your brand’s needs, market trends, and customer behavior to develop tailored strategies that drive sustainable growth, AI integration, and operational efficiency.</p>
+      </div>
+      <div class="pt-4 flex items-center gap-2 font-mono text-[11px] text-[#8d96a5] uppercase tracking-widest">
+        <span class="w-1.5 h-1.5 bg-[#00acff] rounded-full"></span><span>Executive Advisory</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="mt-16 pt-8 pb-4 flex items-center justify-between border-b border-[#00acff]/20" id="telemetry">
+    <div class="font-mono text-xs uppercase tracking-widest text-[#00acff] font-bold flex items-center gap-2">
+      <span class="w-2 h-2 rounded-full bg-[#00acff] animate-pulse"></span>// 01.B ADVANCED TRACKING &amp; DATA INFRASTRUCTURE
+    </div>
+    <span class="font-mono text-[11px] text-[#8d96a5] uppercase tracking-wider">[TELEMETRY LAYER // 100% FIDELITY]</span>
+  </div>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 divide-y md:divide-y-0 md:border-b border-[#00acff]/20">
+    <div class="p-8 sm:p-10 border-[#00acff]/20 md:border-r md:border-b flex flex-col justify-between gap-8 group hover:bg-[#101218] transition-all relative overflow-hidden bg-[#07080b] card-glitch-frame">
+      <div class="flex flex-col gap-4">
+        <div class="flex items-center justify-between font-mono text-xs">
+          <span class="px-2 py-0.5 border border-[#00acff]/40 text-[#00acff] tracking-widest font-bold">01.07</span>
+          <span class="text-[#91cdff] uppercase tracking-wider">SGTM // CLOUD RUN</span>
+        </div>
+        <h3 class="font-hacked text-2xl text-white group-hover:text-[#00acff] transition-colors glitch-slice-title" data-text="SERVER-SIDE TRACKING ARCHITECTURE">Server-Side Tracking Architecture</h3>
+        <p class="font-body text-base text-[#8d96a5] leading-relaxed">Deploy dedicated Cloud Run, Stape, or AWS Server-Side Google Tag Manager (SGTM) infrastructure. Bypass aggressive ad-blockers, resist iOS Safari ITP cookie degradation, and secure 100% data transmission fidelity in your own first-party cloud domain.</p>
+      </div>
+      <div class="pt-4 flex flex-col gap-3 font-mono text-[11px]">
+        <div class="flex items-center gap-2 text-[#8d96a5] uppercase tracking-widest">
+          <span class="w-1.5 h-1.5 bg-[#00acff] rounded-full"></span><span>First-Party Cookies // Anti-ITP</span>
+        </div>
+        <a class="inline-flex items-center gap-2 text-[#00acff] font-bold uppercase tracking-widest hover:text-white transition-colors group/link pt-1" href="/services/server-side-tracking/">
+          <span>Explore Architecture</span>
+          <span class="material-symbols-outlined text-[15px] group-hover/link:translate-x-1 transition-transform">arrow_forward</span>
+        </a>
+      </div>
+    </div>
+    <div class="p-8 sm:p-10 border-[#00acff]/20 md:border-r lg:border-r md:border-b flex flex-col justify-between gap-8 group hover:bg-[#101218] transition-all relative overflow-hidden bg-[#07080b] card-glitch-frame">
+      <div class="flex flex-col gap-4">
+        <div class="flex items-center justify-between font-mono text-xs">
+          <span class="px-2 py-0.5 border border-[#00acff]/40 text-[#00acff] tracking-widest font-bold">01.08</span>
+          <span class="text-[#91cdff] uppercase tracking-wider">CONTAINER // TAGGING</span>
+        </div>
+        <h3 class="font-hacked text-2xl text-white group-hover:text-[#00acff] transition-colors glitch-slice-title" data-text="GOOGLE TAG MANAGER (WEB &amp; SGTM)">Google Tag Manager (Web &amp; SGTM)</h3>
+        <p class="font-body text-base text-[#8d96a5] leading-relaxed">Enterprise web and server GTM container architecture with rigorous custom dataLayer engineering, unified event payloads, automated event deduplication, and zero-latency client-side execution.</p>
+      </div>
+      <div class="pt-4 flex items-center gap-2 font-mono text-[11px] text-[#8d96a5] uppercase tracking-widest">
+        <span class="w-1.5 h-1.5 bg-[#00acff] rounded-full"></span><span>dataLayer &amp; Event Deduplication</span>
+      </div>
+    </div>
+    <div class="p-8 sm:p-10 border-[#00acff]/20 md:border-b flex flex-col justify-between gap-8 group hover:bg-[#101218] transition-all relative overflow-hidden bg-[#07080b] card-glitch-frame">
+      <div class="flex flex-col gap-4">
+        <div class="flex items-center justify-between font-mono text-xs">
+          <span class="px-2 py-0.5 border border-[#00acff]/40 text-[#00acff] tracking-widest font-bold">01.09</span>
+          <span class="text-[#91cdff] uppercase tracking-wider">GA4 // MEASUREMENT</span>
+        </div>
+        <h3 class="font-hacked text-2xl text-white group-hover:text-[#00acff] transition-colors glitch-slice-title" data-text="GOOGLE ANALYTICS 4 (GA4)">Google Analytics 4 (GA4)</h3>
+        <p class="font-body text-base text-[#8d96a5] leading-relaxed">Complete GA4 enterprise audits, cross-domain measurement protocols, tailored event parameter schemas, custom dimensions, enhanced e-commerce funnels, and Consent Mode v2 regulatory compliance.</p>
+      </div>
+      <div class="pt-4 flex items-center gap-2 font-mono text-[11px] text-[#8d96a5] uppercase tracking-widest">
+        <span class="w-1.5 h-1.5 bg-[#00acff] rounded-full"></span><span>Consent Mode v2 &amp; E-commerce Funnel</span>
+      </div>
+    </div>
+    <div class="p-8 sm:p-10 border-[#00acff]/20 md:border-r flex flex-col justify-between gap-8 group hover:bg-[#101218] transition-all relative overflow-hidden bg-[#07080b] card-glitch-frame">
+      <div class="flex flex-col gap-4">
+        <div class="flex items-center justify-between font-mono text-xs">
+          <span class="px-2 py-0.5 border border-[#00acff]/40 text-[#00acff] tracking-widest font-bold">01.10</span>
+          <span class="text-[#91cdff] uppercase tracking-wider">CAPI // HIGH_EQM</span>
+        </div>
+        <h3 class="font-hacked text-2xl text-white group-hover:text-[#00acff] transition-colors glitch-slice-title" data-text="META CONVERSIONS API (CAPI)">Meta Conversions API (CAPI)</h3>
+        <p class="font-body text-base text-[#8d96a5] leading-relaxed">Direct server-to-server gateway connecting your CRM and web events directly to Meta’s Ads Manager. Achieve 8.5+ Event Quality Match (EQM) scores, seamless browser/server event deduplication, and superior algorithmic ROAS.</p>
+      </div>
+      <div class="pt-4 flex items-center gap-2 font-mono text-[11px] text-[#8d96a5] uppercase tracking-widest">
+        <span class="w-1.5 h-1.5 bg-[#00acff] rounded-full"></span><span>Server-to-Server Event Pipeline</span>
+      </div>
+    </div>
+    <div class="p-8 sm:p-10 border-[#00acff]/20 md:border-r flex flex-col justify-between gap-8 group hover:bg-[#101218] transition-all relative overflow-hidden bg-[#07080b] card-glitch-frame">
+      <div class="flex flex-col gap-4">
+        <div class="flex items-center justify-between font-mono text-xs">
+          <span class="px-2 py-0.5 border border-[#00acff]/40 text-[#00acff] tracking-widest font-bold">01.11</span>
+          <span class="text-[#91cdff] uppercase tracking-wider">SQL // WAREHOUSE</span>
+        </div>
+        <h3 class="font-hacked text-2xl text-white group-hover:text-[#00acff] transition-colors glitch-slice-title" data-text="BIGQUERY SETUP &amp; WAREHOUSE ANALYTICS">BigQuery Setup &amp; Warehouse Analytics</h3>
+        <p class="font-body text-base text-[#8d96a5] leading-relaxed">Stream un-sampled raw GA4 and omnichannel ad network log data directly into Google Cloud BigQuery. Engineered SQL transformation pipelines, automated attribution modelling, and custom user lifetime value (LTV) cohort tables.</p>
+      </div>
+      <div class="pt-4 flex items-center gap-2 font-mono text-[11px] text-[#8d96a5] uppercase tracking-widest">
+        <span class="w-1.5 h-1.5 bg-[#00acff] rounded-full"></span><span>Raw Log Extraction &amp; SQL Pipelines</span>
+      </div>
+    </div>
+    <div class="p-8 sm:p-10 flex flex-col justify-between gap-8 group hover:bg-[#101218] transition-all relative overflow-hidden bg-[#07080b] card-glitch-frame">
+      <div class="flex flex-col gap-4">
+        <div class="flex items-center justify-between font-mono text-xs">
+          <span class="px-2 py-0.5 border border-[#00acff]/40 text-[#00acff] tracking-widest font-bold">01.12</span>
+          <span class="text-[#91cdff] uppercase tracking-wider">BI // EXECUTIVE UI</span>
+        </div>
+        <h3 class="font-hacked text-2xl text-white group-hover:text-[#00acff] transition-colors glitch-slice-title" data-text="LOOKER STUDIO DASHBOARD DEV">Looker Studio Dashboard Dev</h3>
+        <p class="font-body text-base text-[#8d96a5] leading-relaxed">Custom executive dashboard suites that aggregate blended marketing spend, real-time MER (Marketing Efficiency Ratio), CAC, cross-platform attribution, and automated client-facing telemetry portals.</p>
+      </div>
+      <div class="pt-4 flex items-center gap-2 font-mono text-[11px] text-[#8d96a5] uppercase tracking-widest">
+        <span class="w-1.5 h-1.5 bg-[#00acff] rounded-full"></span><span>Real-Time Blended Marketing ROAS</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="w-full py-24 sm:py-32 bg-[#101218]/80 border-b border-[#00acff]/15 relative" id="whyus">
+  <div class="max-w-[1280px] mx-auto px-6 sm:px-8">
+    <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-16">
+      <div class="flex flex-col gap-2">
+        <div class="font-mono text-xs uppercase tracking-[0.3em] text-[#00acff] font-bold">02 / Why Us</div>
+        <h2 class="font-hacked text-4xl sm:text-5xl lg:text-6xl text-white glitch-slice-title" data-text="HOW WE DO IT">How we do it</h2>
+      </div>
+      <div class="font-mono text-xs text-[#8d96a5] uppercase tracking-widest max-w-sm">
+        <span class="text-[#00acff]">// OPERATIONAL PHILOSOPHY</span><br/>
+        Rigorous tactical execution powered by high-clarity data pipelines and server-side truth.
+      </div>
+    </div>
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      <div class="relative p-8 sm:p-10 bg-[#07080b] border border-[#00acff]/20 flex flex-col justify-between gap-8 shadow-[0_4px_30px_rgba(0,0,0,0.5)] group hover:border-[#00acff]/60 transition-all card-glitch-frame">
+        <div class="flex flex-col gap-6">
+          <div class="font-mono text-3xl font-black text-[#00acff]/40 group-hover:text-[#00acff] transition-colors">01</div>
+          <div class="flex flex-col gap-2">
+            <div class="font-mono text-xs uppercase tracking-widest text-[#00acff] font-bold">Innovative strategies</div>
+            <h3 class="font-hacked text-2xl text-white glitch-slice-title" data-text="GAIN DIGITAL ADVANTAGE">Gain Digital Advantage</h3>
+          </div>
+          <p class="font-body text-base text-[#8d96a5] leading-relaxed">Empower your business with cutting-edge digital strategies. Our unique approach combines the latest trends with deep industry insights, ensuring your brand stays ahead in the digital arena.</p>
+        </div>
+        <div class="pt-6 border-t border-[#00acff]/15 flex items-center justify-between font-mono text-[11px] text-[#8d96a5]">
+          <span class="uppercase tracking-widest">TACTIC // 01</span>
+          <span class="material-symbols-outlined text-[16px] text-[#00acff]">trending_up</span>
+        </div>
+      </div>
+      <div class="relative p-8 sm:p-10 bg-[#07080b] border border-[#00acff]/20 flex flex-col justify-between gap-8 shadow-[0_4px_30px_rgba(0,0,0,0.5)] group hover:border-[#00acff]/60 transition-all card-glitch-frame">
+        <div class="flex flex-col gap-6">
+          <div class="font-mono text-3xl font-black text-[#00acff]/40 group-hover:text-[#00acff] transition-colors">02</div>
+          <div class="flex flex-col gap-2">
+            <div class="font-mono text-xs uppercase tracking-widest text-[#00acff] font-bold">Strategic insights</div>
+            <h3 class="font-hacked text-2xl text-white glitch-slice-title" data-text="RESULTS-ORIENTED SOLUTIONS">Results-Oriented Solutions</h3>
+          </div>
+          <p class="font-body text-base text-[#8d96a5] leading-relaxed">Focused on tangible outcomes, our solutions merge strategic insights with practical applications to deliver measurable success for your business.</p>
+        </div>
+        <div class="pt-6 border-t border-[#00acff]/15 flex items-center justify-between font-mono text-[11px] text-[#8d96a5]">
+          <span class="uppercase tracking-widest">TACTIC // 02</span>
+          <span class="material-symbols-outlined text-[16px] text-[#00acff]">insights</span>
+        </div>
+      </div>
+      <div class="relative p-8 sm:p-10 bg-[#07080b] border border-[#00acff]/20 flex flex-col justify-between gap-8 shadow-[0_4px_30px_rgba(0,0,0,0.5)] group hover:border-[#00acff]/60 transition-all card-glitch-frame">
+        <div class="flex flex-col gap-6">
+          <div class="font-mono text-3xl font-black text-[#00acff]/40 group-hover:text-[#00acff] transition-colors">03</div>
+          <div class="flex flex-col gap-2">
+            <div class="font-mono text-xs uppercase tracking-widest text-[#00acff] font-bold">Personalized tactics</div>
+            <h3 class="font-hacked text-2xl text-white glitch-slice-title" data-text="FROM ART TO SCIENCE">From Art to Science</h3>
+          </div>
+          <p class="font-body text-base text-[#8d96a5] leading-relaxed">Blending creativity with analytical precision, we transform marketing from art to science, delivering personalized tactics that resonate with your target audience.</p>
+        </div>
+        <div class="pt-6 border-t border-[#00acff]/15 flex items-center justify-between font-mono text-[11px] text-[#8d96a5]">
+          <span class="uppercase tracking-widest">TACTIC // 03</span>
+          <span class="material-symbols-outlined text-[16px] text-[#00acff]">precision_manufacturing</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="w-full py-24 sm:py-32 max-w-[1280px] mx-auto px-6 sm:px-8 border-b border-[#00acff]/15" id="aboutus">
+  <div class="relative bg-[#101218] border border-[#00acff]/20 p-8 sm:p-16 lg:p-20 overflow-hidden card-glitch-frame">
+    <div class="pointer-events-none absolute -top-32 -right-32 w-96 h-96 bg-[#00acff]/10 blur-[100px] rounded-full"></div>
+    <div class="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+      <div class="lg:col-span-7 flex flex-col gap-6">
+        <div class="flex flex-col gap-2">
+          <div class="font-mono text-xs uppercase tracking-[0.3em] text-[#00acff] font-bold">04 / About Us</div>
+          <div class="font-mono text-xs uppercase tracking-widest text-[#8d96a5] font-semibold">Who we are</div>
+        </div>
+        <h2 class="font-hacked text-3xl sm:text-4xl lg:text-5xl text-white glitch-slice-title" data-text="EMPOWERING BUSINESSES TO THRIVE IN THE DIGITAL LANDSCAPE">Empowering businesses to thrive in the digital landscape</h2>
+        <div class="inline-block font-mono text-sm uppercase tracking-wider text-[#00acff] border-l-2 border-[#00acff] pl-4 py-1">We are the decisive factor behind your success</div>
+        <p class="font-body text-base sm:text-lg text-[#8d96a5] leading-relaxed">XON MEDIA LTD is a digital agency that specializes in helping businesses grow their online presence through strategic social media management and targeted advertising campaigns. Our team of experts also provides web analytics, server-side data infrastructure, and content creation services to ensure our clients stay ahead of the competition. With cutting-edge software and AI solutions, our team helps marketers optimize their campaigns for maximum results.</p>
+        <div class="pt-4">
+          <a class="inline-flex items-center gap-3 px-8 py-4 bg-[#00acff] text-black font-mono text-xs font-bold uppercase tracking-widest hover:bg-white transition-all shadow-[0_0_20px_rgba(0,172,255,0.3)] group" href="/contact/">
+            <span>Contact Us //</span>
+            <span class="material-symbols-outlined text-[16px] group-hover:translate-x-1 transition-transform">arrow_forward</span>
+          </a>
+        </div>
+      </div>
+      <div class="lg:col-span-5 bg-[#07080b] border border-[#00acff]/20 p-8 flex flex-col gap-6 shadow-2xl relative overflow-hidden">
+        <div class="absolute -right-8 -bottom-8 w-28 h-28 bg-[#00acff]/[0.05] rounded-full blur-xl pointer-events-none"></div>
+        <div class="flex items-center justify-between pb-3 border-b border-[#00acff]/20">
+          <span class="font-mono text-xs text-[#8d96a5] uppercase tracking-wider">// TELEMETRY_PROFILE</span>
+          <span class="font-mono text-xs text-[#00acff] font-bold xon-glitch-hover">XON_CORE // v2.5</span>
+        </div>
+        <div class="space-y-4 font-mono text-xs">
+          <div class="flex justify-between py-2 border-b border-[#00acff]/10"><span class="text-[#8d96a5] uppercase">AGENCY ENTITY:</span><span class="text-white font-bold">XON MEDIA LTD</span></div>
+          <div class="flex justify-between py-2 border-b border-[#00acff]/10"><span class="text-[#8d96a5] uppercase">PRIMARY ENGINE:</span><span class="text-[#00acff] font-bold">PAID MEDIA &amp; SOCIAL</span></div>
+          <div class="flex justify-between py-2 border-b border-[#00acff]/10"><span class="text-[#8d96a5] uppercase">DATA TELEMETRY:</span><span class="text-[#91cdff] font-bold">SERVER-SIDE SGTM + CAPI</span></div>
+          <div class="flex justify-between py-2 border-b border-[#00acff]/10"><span class="text-[#8d96a5] uppercase">WAREHOUSE:</span><span class="text-[#00acff] font-bold">BIGQUERY / LOOKER BI</span></div>
+          <div class="flex justify-between py-2 border-b border-[#00acff]/10"><span class="text-[#8d96a5] uppercase">CORE METHODOLOGY:</span><span class="text-white font-bold">ART TO SCIENCE</span></div>
+          <div class="flex justify-between py-2 border-b border-[#00acff]/10"><span class="text-[#8d96a5] uppercase">OPTIMIZATION:</span><span class="text-[#00acff] font-bold">AI &amp; TARGETED DSP</span></div>
+          <div class="flex justify-between py-2 border-b border-[#00acff]/10"><span class="text-[#8d96a5] uppercase">MISSION:</span><span class="text-white font-bold">SUSTAINABLE SCALE</span></div>
+        </div>
+        <div class="p-3 bg-[#171a23] border border-[#00acff]/20 flex items-center gap-3 text-[#8d96a5] text-xs">
+          <span class="material-symbols-outlined text-[#00acff] text-[18px]">verified</span>
+          <span>Active tracking protocol ready for deployment.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="w-full bg-[#07080b] pt-20 pb-12 border-t border-[#00acff]/20 relative z-10">
+  <div class="max-w-[1280px] mx-auto px-6 sm:px-8 flex flex-col gap-16">
+    <div class="grid grid-cols-1 md:grid-cols-12 gap-12 items-start">
+      <div class="md:col-span-6 flex flex-col gap-6">
+        <a class="inline-block focus:outline-none" href="/">
+          <img alt="XON MEDIA LTD" class="h-7 w-auto object-contain filter drop-shadow-[0_0_8px_rgba(0,172,255,0.4)]" src="/assets/xon-logo-white.svg"/>
+        </a>
+        <p class="font-body text-base text-[#8d96a5] max-w-md">Providing digital solutions, server-side data telemetry, and acquisition engines for your business.</p>
+        <div class="font-hacked text-3xl sm:text-4xl text-white glitch-slice-title" data-text="LET'S TALK">Let's talk</div>
+        <div class="flex items-center gap-3">
+          <a class="font-mono text-sm text-[#00acff] hover:underline tracking-wider" href="mailto:info@xonmedia.ltd">info@xonmedia.ltd</a>
+          <span class="text-[#3e4851]">/</span>
+          <a class="font-mono text-xs uppercase tracking-widest text-[#8d96a5] hover:text-white" href="/contact/">Contact Us</a>
+        </div>
+      </div>
+      <div class="md:col-span-6 grid grid-cols-2 sm:grid-cols-3 gap-8 font-mono text-xs">
+        <div class="flex flex-col gap-4">
+          <span class="text-[#00acff] uppercase tracking-widest font-bold">// CAPABILITIES</span>
+          <div class="flex flex-col gap-2 text-[#8d96a5]">
+            <a class="hover:text-white transition-colors" href="#services">Paid Advertising</a>
+            <a class="hover:text-white transition-colors" href="#services">Social Media</a>
+            <a class="hover:text-white transition-colors" href="#services">Web Development</a>
+            <a class="hover:text-white transition-colors" href="#services">Content Creation</a>
+            <a class="hover:text-white transition-colors" href="#services">Digital Consultancy</a>
+          </div>
+        </div>
+        <div class="flex flex-col gap-4">
+          <span class="text-white uppercase tracking-widest font-bold">// DATA &amp; ANALYTICS</span>
+          <div class="flex flex-col gap-2 text-[#8d96a5]">
+            <a class="hover:text-white transition-colors" href="/services/server-side-tracking/">Server-Side Tracking</a>
+            <a class="hover:text-white transition-colors" href="#telemetry">Google Tag Manager</a>
+            <a class="hover:text-white transition-colors" href="#telemetry">Google Analytics 4</a>
+            <a class="hover:text-white transition-colors" href="#telemetry">Meta CAPI Gateway</a>
+            <a class="hover:text-white transition-colors" href="#telemetry">BigQuery Pipelines</a>
+            <a class="hover:text-white transition-colors" href="#telemetry">Looker Studio BI</a>
+          </div>
+        </div>
+        <div class="flex flex-col gap-4">
+          <span class="text-[#00acff] uppercase tracking-widest font-bold">// DIRECT</span>
+          <div class="flex flex-col gap-2 text-[#8d96a5]">
+            <a class="hover:text-white transition-colors" href="/">Home</a>
+            <a class="hover:text-white transition-colors" href="#services">What We Do</a>
+            <a class="hover:text-white transition-colors" href="#whyus">Why Us</a>
+            <a class="hover:text-white transition-colors" href="#aboutus">About Us</a>
+            <a class="hover:text-white transition-colors" href="/contact/">Contact Form</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="pt-8 border-t border-[#00acff]/15 flex flex-col sm:flex-row items-center justify-between gap-4 font-mono text-[11px] text-[#8d96a5] uppercase tracking-wider">
+      <div>Copyright © 2026 XON MEDIA LTD</div>
+      <div class="flex items-center gap-6">
+        <span class="text-[#00acff]">MATRIX PROTOCOL: ONLINE</span>
+        <span class="text-[#91cdff]">HIGH-CONTRAST MONOLITH v2.5</span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function() {
+  const btn = document.getElementById('burger-btn');
+  const menu = document.getElementById('mobile-menu');
+  const icon = document.getElementById('burger-icon');
+  if (!btn || !menu || !icon) return;
+
+  function setOpen(open) {
+    menu.classList.toggle('is-open', open);
+    menu.hidden = !open;
+    btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    btn.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+    icon.textContent = open ? 'close' : 'menu';
+    document.body.style.overflow = open ? 'hidden' : '';
+  }
+
+  btn.addEventListener('click', function() {
+    setOpen(!menu.classList.contains('is-open'));
+  });
+
+  menu.querySelectorAll('a').forEach(function(link) {
+    link.addEventListener('click', function() { setOpen(false); });
+  });
+
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') setOpen(false);
+  });
+
+  window.addEventListener('resize', function() {
+    if (window.matchMedia('(min-width: 768px)').matches) setOpen(false);
+  });
+})();
 </script>
-<script id="astra-theme-js-js" src="wp-content/themes/astra/assets/js/minified/frontend.min.js@ver=4.13.6"></script>
-<script id="wp-dom-ready-js" src="wp-includes/js/dist/dom-ready.min.js@ver=a06281ae5cf5500e9317"></script>
-<script id="starter-templates-zip-preview-js-extra">
-var starter_templates_zip_preview = {"AstColorPaletteVarPrefix":"--ast-global-color-","AstEleColorPaletteVarPrefix":["ast-global-color-0","ast-global-color-1","ast-global-color-2","ast-global-color-3","ast-global-color-4","ast-global-color-5","ast-global-color-6","ast-global-color-7","ast-global-color-8"]};
-//# sourceURL=starter-templates-zip-preview-js-extra
+<script>
+(function() {
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduceMotion) return;
+  const titles = document.querySelectorAll('.glitch-slice-title');
+  const timers = new WeakMap();
+
+  function randomDelay() {
+    return 10000 + Math.random() * 18000; // 10–28s between bursts
+  }
+
+  function fireGlitch(el) {
+    el.classList.remove('is-glitching');
+    void el.offsetWidth;
+    el.classList.add('is-glitching');
+    window.setTimeout(function() {
+      el.classList.remove('is-glitching');
+    }, 600);
+  }
+
+  function scheduleNext(el) {
+    const existing = timers.get(el);
+    if (existing) window.clearTimeout(existing);
+    const id = window.setTimeout(function() {
+      if (!el.isConnected) return;
+      const rect = el.getBoundingClientRect();
+      const inView = rect.bottom > 0 && rect.top < window.innerHeight;
+      if (inView) fireGlitch(el);
+      scheduleNext(el);
+    }, randomDelay());
+    timers.set(el, id);
+  }
+
+  function stopSchedule(el) {
+    const existing = timers.get(el);
+    if (existing) {
+      window.clearTimeout(existing);
+      timers.delete(el);
+    }
+    el.classList.remove('is-glitching');
+  }
+
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) scheduleNext(entry.target);
+        else stopSchedule(entry.target);
+      });
+    }, { threshold: 0.15 });
+    titles.forEach(function(el) { io.observe(el); });
+  } else {
+    titles.forEach(scheduleNext);
+  }
+})();
 </script>
-<script id="starter-templates-zip-preview-js" src="wp-content/cache/speedycache/www.xonmedia.ltd/assets/a6e64218d897c667-main.js"></script>
-<script id="elementor-webpack-runtime-js" src="wp-content/plugins/elementor/assets/js/webpack.runtime.min.js@ver=4.1.4"></script>
-<script id="elementor-frontend-modules-js" src="wp-content/plugins/elementor/assets/js/frontend-modules.min.js@ver=4.1.4"></script>
-<script id="jquery-ui-core-js" src="wp-includes/js/jquery/ui/core.min.js@ver=1.13.3"></script>
-<script id="elementor-frontend-js-before">
-var elementorFrontendConfig = {"environmentMode":{"edit":false,"wpPreview":false,"isScriptDebug":false},"i18n":{"shareOnFacebook":"Share on Facebook","shareOnTwitter":"Share on Twitter","pinIt":"Pin it","download":"Download","downloadImage":"Download image","fullscreen":"Fullscreen","zoom":"Zoom","share":"Share","playVideo":"Play Video","previous":"Previous","next":"Next","close":"Close","a11yCarouselPrevSlideMessage":"Previous slide","a11yCarouselNextSlideMessage":"Next slide","a11yCarouselFirstSlideMessage":"This is the first slide","a11yCarouselLastSlideMessage":"This is the last slide","a11yCarouselPaginationBulletMessage":"Go to slide"},"is_rtl":false,"breakpoints":{"xs":0,"sm":480,"md":768,"lg":1025,"xl":1440,"xxl":1600},"responsive":{"breakpoints":{"mobile":{"label":"Mobile Portrait","value":767,"default_value":767,"direction":"max","is_enabled":true},"mobile_extra":{"label":"Mobile Landscape","value":880,"default_value":880,"direction":"max","is_enabled":false},"tablet":{"label":"Tablet Portrait","value":1024,"default_value":1024,"direction":"max","is_enabled":true},"tablet_extra":{"label":"Tablet Landscape","value":1200,"default_value":1200,"direction":"max","is_enabled":false},"laptop":{"label":"Laptop","value":1366,"default_value":1366,"direction":"max","is_enabled":false},"widescreen":{"label":"Widescreen","value":2400,"default_value":2400,"direction":"min","is_enabled":false}},"hasCustomBreakpoints":false},"version":"4.1.4","is_static":false,"experimentalFeatures":{"e_font_icon_svg":true,"additional_custom_breakpoints":true,"container":true,"e_panel_promotions":true,"nested-elements":true,"global_classes_should_enforce_capabilities":true,"e_variables":true,"e_opt_in_v4_page":true,"e_components":true,"e_interactions":true,"e_widget_creation":true,"import-export-customization":true},"urls":{"assets":"https:\/\/www.xonmedia.ltd\/wp-content\/plugins\/elementor\/assets\/","ajaxurl":"https:\/\/www.xonmedia.ltd\/wp-admin\/admin-ajax.php","uploadUrl":"https:\/\/www.xonmedia.ltd\/wp-content\/uploads"},"nonces":{"floatingButtonsClickTracking":"ea4dec37c9","atomicFormsSendForm":"01542ac241"},"swiperClass":"swiper","settings":{"page":[],"editorPreferences":[]},"kit":{"active_breakpoints":["viewport_mobile","viewport_tablet"],"global_image_lightbox":"yes","lightbox_enable_counter":"yes","lightbox_enable_fullscreen":"yes","lightbox_enable_zoom":"yes","lightbox_enable_share":"yes","lightbox_title_src":"title","lightbox_description_src":"description"},"post":{"id":205,"title":"XON%20MEDIA%20LTD","excerpt":"","featuredImage":false}};
-//# sourceURL=elementor-frontend-js-before
+<script>
+(function() {
+  const canvas = document.getElementById('matrix-canvas');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  const serviceKeywords = [
+    "PAID ADVERTISING",
+    "SOCIAL MEDIA MANAGEMENT",
+    "WEB ANALYTICS",
+    "CONTENT CREATION",
+    "WEB DEVELOPMENT",
+    "DIGITAL CONSULTANCY",
+    "SERVER-SIDE TRACKING",
+    "GOOGLE TAG MANAGER",
+    "GOOGLE ANALYTICS 4",
+    "META CONVERSIONS API",
+    "BIGQUERY SETUP & ANALYTICS",
+    "LOOKER STUDIO DASHBOARD"
+  ];
+  const rawChars = '01XYZ0123456789ABCDEF01XON_MEDIA_CORE_NET_><[]#:=';
+  const fontSize = 14;
+  let columns = 0;
+  let drops = [];
+  let colServiceWord = [];
+  let colWordIndex = 0;
+  function resizeCanvas() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    columns = Math.floor(canvas.width / fontSize);
+    drops = [];
+    colServiceWord = [];
+    for (let i = 0; i < columns; i++) {
+      drops[i] = Math.random() * -120;
+      if (i % 5 === 2) {
+        const word = serviceKeywords[colWordIndex % serviceKeywords.length];
+        colWordIndex++;
+        colServiceWord[i] = {
+          text: word,
+          startRow: Math.floor(Math.random() * 18) + 4,
+          locked: true,
+          glowDuration: 120
+        };
+      } else {
+        colServiceWord[i] = null;
+      }
+    }
+  }
+  resizeCanvas();
+  window.addEventListener('resize', resizeCanvas);
+  function drawMatrix() {
+    ctx.fillStyle = 'rgba(7, 8, 11, 0.11)';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.font = 'bold ' + fontSize + 'px "Space Mono", monospace';
+    for (let i = 0; i < columns; i++) {
+      let charToDraw = '';
+      let isServiceChar = false;
+      const currentRow = Math.floor(drops[i]);
+      const spec = colServiceWord[i];
+      if (spec) {
+        const textLen = spec.text.length;
+        if (currentRow >= spec.startRow && currentRow < spec.startRow + textLen + 15) {
+          const charIndex = currentRow - spec.startRow;
+          if (charIndex >= 0 && charIndex < textLen) {
+            charToDraw = spec.text.charAt(charIndex);
+            isServiceChar = true;
+          }
+        }
+      }
+      if (!charToDraw) {
+        charToDraw = rawChars.charAt(Math.floor(Math.random() * rawChars.length));
+      }
+      const x = i * fontSize;
+      const y = drops[i] * fontSize;
+      if (isServiceChar) {
+        ctx.save();
+        ctx.shadowColor = '#00acff';
+        ctx.shadowBlur = 12;
+        ctx.fillStyle = '#ffffff';
+        ctx.fillText(charToDraw, x, y);
+        ctx.fillStyle = '#00acff';
+        ctx.fillText(charToDraw, x, y);
+        ctx.restore();
+      } else {
+        const rand = Math.random();
+        if (rand > 0.94) {
+          ctx.fillStyle = '#ffffff';
+          ctx.shadowColor = '#91cdff';
+          ctx.shadowBlur = 6;
+        } else if (rand > 0.50) {
+          ctx.fillStyle = '#00acff';
+          ctx.shadowColor = 'transparent';
+          ctx.shadowBlur = 0;
+        } else if (rand > 0.25) {
+          ctx.fillStyle = 'rgba(145, 205, 255, 0.7)';
+          ctx.shadowColor = 'transparent';
+          ctx.shadowBlur = 0;
+        } else {
+          ctx.fillStyle = 'rgba(0, 85, 130, 0.45)';
+          ctx.shadowColor = 'transparent';
+          ctx.shadowBlur = 0;
+        }
+        ctx.fillText(charToDraw, x, y);
+      }
+      if (drops[i] * fontSize > canvas.height && Math.random() > 0.972) {
+        drops[i] = 0;
+        if (Math.random() > 0.65) {
+          const nextWord = serviceKeywords[Math.floor(Math.random() * serviceKeywords.length)];
+          colServiceWord[i] = {
+            text: nextWord,
+            startRow: Math.floor(Math.random() * 16) + 4,
+            locked: true,
+            glowDuration: 120
+          };
+        }
+      }
+      drops[i]++;
+    }
+  }
+  let animationInterval = setInterval(drawMatrix, 45);
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    clearInterval(animationInterval);
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+  }
+})();
 </script>
-<script id="elementor-frontend-js" src="wp-content/plugins/elementor/assets/js/frontend.min.js@ver=4.1.4"></script>
-			<script>
-			/(trident|msie)/i.test(navigator.userAgent)&&document.getElementById&&window.addEventListener&&window.addEventListener("hashchange",function(){var t,e=location.hash.substring(1);/^[A-z0-9_-]+$/.test(e)&&(t=document.getElementById(e))&&(/^(?:a|select|input|button|textarea)$/i.test(t.tagName)||(t.tabIndex=-1),t.focus())},!1);
-			</script>
-			<script id="wp-emoji-settings" type="application/json">
-{"baseUrl":"https://s.w.org/images/core/emoji/17.0.2/72x72/","ext":".png","svgUrl":"https://s.w.org/images/core/emoji/17.0.2/svg/","svgExt":".svg","source":{"concatemoji":"wp-includes/js/wp-emoji-release.min.js?ver=7.0.1"}}
-</script>
-<script type="module">
-/*! This file is auto-generated */
-const a=JSON.parse(document.getElementById("wp-emoji-settings").textContent),o=(window._wpemojiSettings=a,"wpEmojiSettingsSupports"),s=["flag","emoji"];function i(e){try{var t={supportTests:e,timestamp:(new Date).valueOf()};sessionStorage.setItem(o,JSON.stringify(t))}catch(e){}}function c(e,t,n){e.clearRect(0,0,e.canvas.width,e.canvas.height),e.fillText(t,0,0);t=new Uint32Array(e.getImageData(0,0,e.canvas.width,e.canvas.height).data);e.clearRect(0,0,e.canvas.width,e.canvas.height),e.fillText(n,0,0);const a=new Uint32Array(e.getImageData(0,0,e.canvas.width,e.canvas.height).data);return t.every((e,t)=>e===a[t])}function p(e,t){e.clearRect(0,0,e.canvas.width,e.canvas.height),e.fillText(t,0,0);var n=e.getImageData(16,16,1,1);for(let e=0;e<n.data.length;e++)if(0!==n.data[e])return!1;return!0}function u(e,t,n,a){switch(t){case"flag":return n(e,"\ud83c\udff3\ufe0f\u200d\u26a7\ufe0f","\ud83c\udff3\ufe0f\u200b\u26a7\ufe0f")?!1:!n(e,"\ud83c\udde8\ud83c\uddf6","\ud83c\udde8\u200b\ud83c\uddf6")&&!n(e,"\ud83c\udff4\udb40\udc67\udb40\udc62\udb40\udc65\udb40\udc6e\udb40\udc67\udb40\udc7f","\ud83c\udff4\u200b\udb40\udc67\u200b\udb40\udc62\u200b\udb40\udc65\u200b\udb40\udc6e\u200b\udb40\udc67\u200b\udb40\udc7f");case"emoji":return!a(e,"\ud83e\u1fac8")}return!1}function f(e,t,n,a){let r;const o=(r="undefined"!=typeof WorkerGlobalScope&&self instanceof WorkerGlobalScope?new OffscreenCanvas(300,150):document.createElement("canvas")).getContext("2d",{willReadFrequently:!0}),s=(o.textBaseline="top",o.font="600 32px Arial",{});return e.forEach(e=>{s[e]=t(o,e,n,a)}),s}function r(e){var t=document.createElement("script");t.src=e,t.defer=!0,document.head.appendChild(t)}a.supports={everything:!0,everythingExceptFlag:!0},new Promise(t=>{let n=function(){try{var e=JSON.parse(sessionStorage.getItem(o));if("object"==typeof e&&"number"==typeof e.timestamp&&(new Date).valueOf()<e.timestamp+604800&&"object"==typeof e.supportTests)return e.supportTests}catch(e){}return null}();if(!n){if("undefined"!=typeof Worker&&"undefined"!=typeof OffscreenCanvas&&"undefined"!=typeof URL&&URL.createObjectURL&&"undefined"!=typeof Blob)try{var e="postMessage("+f.toString()+"("+[JSON.stringify(s),u.toString(),c.toString(),p.toString()].join(",")+"));",a=new Blob([e],{type:"text/javascript"});const r=new Worker(URL.createObjectURL(a),{name:"wpTestEmojiSupports"});return void(r.onmessage=e=>{i(n=e.data),r.terminate(),t(n)})}catch(e){}i(n=f(s,u,c,p))}t(n)}).then(e=>{for(const n in e)a.supports[n]=e[n],a.supports.everything=a.supports.everything&&a.supports[n],"flag"!==n&&(a.supports.everythingExceptFlag=a.supports.everythingExceptFlag&&a.supports[n]);var t;a.supports.everythingExceptFlag=a.supports.everythingExceptFlag&&!a.supports.flag,a.supports.everything||((t=a.source||{}).concatemoji?r(t.concatemoji):t.wpemoji&&t.twemoji&&(r(t.twemoji),r(t.wpemoji)))});
-//# sourceURL=wp-includes/js/wp-emoji-loader.min.js
-</script>
-	</body>
+</body>
 </html>
-
-
-<!-- Page cached by LiteSpeed Cache 7.8.1 on 2026-07-10 16:03:49 -->
-<!-- Cache by SpeedyCache https://speedycache.com at 1783699429 -->
