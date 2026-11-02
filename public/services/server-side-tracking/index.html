@@ -1,6 +1,35 @@
 <!DOCTYPE html>
 <html class="dark scroll-smooth" lang="en">
 <head>
+<script>
+window.dataLayer=window.dataLayer||[];
+function gtag(){dataLayer.push(arguments);}
+gtag('consent','default',{
+  ad_storage:'denied',
+  ad_user_data:'denied',
+  ad_personalization:'denied',
+  analytics_storage:'denied',
+  wait_for_update:500
+});
+document.addEventListener('zarazConsentChoicesUpdated',function(){
+  var choices=(window.zaraz&&zaraz.consent&&zaraz.consent.getAll&&zaraz.consent.getAll())||{};
+  var granted=Object.keys(choices).some(function(key){return choices[key]===true;});
+  gtag('consent','update',{
+    analytics_storage:granted?'granted':'denied',
+    ad_storage:'denied',
+    ad_user_data:'denied',
+    ad_personalization:'denied'
+  });
+});
+</script>
+<script src="/cdn-cgi/zaraz/i.js" referrerpolicy="origin"></script>
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.xonmedia.ltd/metrics/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-WFPV5522');</script>
+<!-- End Google Tag Manager -->
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>XON MEDIA // Server-Side Tracking Architecture</title>
@@ -238,6 +267,10 @@ tailwind.config = {
 
 </head>
 <body class="bg-[#07080b] text-[#f6f7f8] font-body antialiased selection:bg-[#00acff] selection:text-black matrix-grid relative selection:font-medium crt-scanlines-off">
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.xonmedia.ltd/metrics/ns.html?id=GTM-WFPV5522"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
 <canvas class="fixed inset-0 pointer-events-none z-0 opacity-40" id="matrix-canvas"></canvas>
 <div class="fixed inset-0 pointer-events-none z-0"><div class="absolute -top-48 left-1/2 -translate-x-1/2 w-[850px] h-[550px] bg-[#00acff]/[0.08] blur-[150px] rounded-full"></div><div class="absolute bottom-1/4 right-0 w-[500px] h-[500px] bg-[#010033]/60 blur-[130px] rounded-full"></div></div>
 <header class="fixed top-0 left-0 w-full z-50 bg-[#07080b]/90 backdrop-blur-xl border-b border-[#00acff]/20">

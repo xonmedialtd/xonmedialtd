@@ -1,0 +1,29 @@
+{
+	"version": 1,
+	"include": ["/*"],
+	"exclude": [
+		"/assets/*",
+		"/fonts/*",
+		"/wp-content/*",
+		"/wp-includes/*",
+		"/*.css",
+		"/*.js",
+		"/*.svg",
+		"/*.png",
+		"/*.jpg",
+		"/*.jpeg",
+		"/*.gif",
+		"/*.webp",
+		"/*.ico",
+		"/*.woff",
+		"/*.woff2",
+		"/*.ttf",
+		"/*.txt",
+		"/*.xml",
+		"/*.map",
+		"/*.md",
+		"/*.json",
+		"/metrics",
+		"/metrics/*"
+	]
+}
